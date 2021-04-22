@@ -1,0 +1,29 @@
+svg {
+    width: 100%;
+    height: 700px;
+    margin: 0;
+    padding: 0;
+}
+
+g {
+    width: 100%;
+    height: 100%;
+}
+
+#tooltip {
+    position: absolute;
+    background: white;
+    border: aliceblue 2px solid;
+}
+
+#tooltip {
+    position: absolute;
+    background: white;
+    border: aliceblue 2px solid;
+}
+
+text {
+    fill: black;
+    text-anchor: middle;
+
+}
