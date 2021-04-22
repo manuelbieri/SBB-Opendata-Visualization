@@ -2,11 +2,11 @@
 
 D3.js app with open data from the Swiss Federal Railways.
 
-See: [Demo](https://manuelbieri.github.io/SBB-Opendata/)
+See: [Demo](https://manuelbieri.github.io/SBB-Opendata-Visualization/)
 
 The following data sources were used:
 - Rolling Stock: [data.sbb.ch - Rolling Stock](https://data.sbb.ch/explore/dataset/jahresformation/information/)
 - Traffic: [opentransportdata.swiss - Actual Data](https://opentransportdata.swiss/en/dataset/istdaten)
 - Weather: [data.geo.admin.ch/](https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/)
 
-The merged production and preview data is located in this gist.
+The merged [production](https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/7c31a08bee5c661f9e71a003ea4b56deb33432aa/sbb_data_v2.json) and [preview](https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/7c31a08bee5c661f9e71a003ea4b56deb33432aa/sbb_data_preview.json) data is located in this [gist](https://gist.github.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5).
