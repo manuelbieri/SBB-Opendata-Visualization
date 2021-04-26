@@ -1,8 +1,9 @@
-const requestData = new Request('https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/ecd1e2bf9e3df8f72caf558fe24144675e39813e/sbb_data_preview.txt');
+// const requestDataOnline = new Request('https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/ecd1e2bf9e3df8f72caf558fe24144675e39813e/sbb_data_preview.txt');
+const requestData = new Request('data/sbb_data_preview.json')
 
 let data = d3.json(requestData).then(d => {return d;});
 
-let svg = d3.select('body').append('svg');
+let svg = d3.select('div#canvas').append('svg');
 d3.select('body')
     .append('div')
     .attr('id', 'tooltip');
@@ -19,7 +20,7 @@ let yCenter = [100, 300]
 
 function draw(criteria1, cutoff1, criteria2, cutoff2){
     data.then(d => {
-        console.log(d);
+        // console.log(d);
         var nodes = d3.range(d.length).map(function(i) {
             return {
                 radius: 10,
