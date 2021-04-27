@@ -5,7 +5,6 @@ function changedInput(){
     let cutoff2 = parseInt(document.getElementById("cutoff2").value);
     let valid = checkInput(cutoff1, cutoff2)
     if (valid) draw(category1, cutoff1, category2, cutoff2);
-    else console.log("invalid")
 }
 
 function checkInput(value1, value2){
@@ -37,4 +36,17 @@ function drawValidity(removeClass, addClass){
     document.getElementById("cutoff2").classList.remove(removeClass);
     document.getElementById("cutoff1").classList.add(addClass);
     document.getElementById("cutoff2").classList.add(addClass);
+}
+
+function setUpDateSlider(){
+    let slider = $('.js-range-slider').ionRangeSlider({
+        type: "double",
+        from: [new Date().getMonth(), new Date().getFullYear()],
+        to: [new Date().getMonth(), new Date().getFullYear()],
+        values: [
+            "Jan 21", "Feb 21", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ],
+        onChange: d => {console.dir(d)}
+    });
 }

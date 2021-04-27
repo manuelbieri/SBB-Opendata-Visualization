@@ -3,7 +3,9 @@ const requestData = new Request('data/sbb_data_preview.json')
 
 let data = d3.json(requestData).then(d => {return d;});
 
-let svg = d3.select('div#canvas').append('svg');
+const dates = new Set();
+
+let svg = d3.select('svg');
 d3.select('body')
     .append('div')
     .attr('id', 'tooltip');
@@ -20,8 +22,9 @@ let yCenter = [100, 300]
 
 function draw(criteria1, cutoff1, criteria2, cutoff2){
     data.then(d => {
-        // console.log(d);
+        console.log(d);
         var nodes = d3.range(d.length).map(function(i) {
+            dates.add(d[i].BETRIEBSTAG.toString());
             return {
                 radius: 10,
                 category: calcCategory(criteria1, cutoff1, d[i]),
@@ -32,6 +35,7 @@ function draw(criteria1, cutoff1, criteria2, cutoff2){
             }
         });
 
+        setUpDateSlider(dates);
         writeTitles(group, criteria1, cutoff1, criteria2, cutoff2);
 
         var simulation = d3.forceSimulation(nodes)
@@ -88,12 +92,15 @@ function draw(criteria1, cutoff1, criteria2, cutoff2){
     })
 }
 
-
 function calcCategory(criteria, cutoff, d){
     if (criteria === "Sonnenschein") return compare(d.sonnenschein, cutoff);
-    if (criteria === "Schnee") return compare(d.schnee, cutoff);
-    if (criteria === "Luftfeuchtigkeit") return compare(d.luftfeuchtigkeit, cutoff);
-    if (criteria === "Luftdruck") return compare(d.luftdruck, cutoff);
+    else if (criteria === "Schnee") return compare(d.schnee, cutoff);
+    else if (criteria === "Luftfeuchtigkeit") return compare(d.luftfeuchtigkeit, cutoff);
+    else if (criteria === "Luftdruck") return compare(d.luftdruck, cutoff);
+    else if (criteria === "Lufttemperatur") return compare(d.lufttemperatur, cutoff);
+    else if (criteria === "Niederschlag") return compare(d.niederschlag, cutoff);
+    else if (criteria === "Globalstrahlung") return compare(d.schnee, cutoff);
+    else if (criteria === "Luftdruck") return compare(d.sonnenschein, cutoff);
 }
 
 function compare(value, cutoff){
@@ -134,8 +141,12 @@ function sum(array){
 }
 
 function writeTitles(group, criteria1, cutoff1, criteria2, cutoff2){
+    // reset all labels
+    group.selectAll("text").text("")
+
     // title criteria 1
     group.append("text")
+        .attr("id", "title1")
         .style("font-size", "24px")
         .attr("transform", "translate(" + (sum(xCenter)/xCenter.length) + ",-70) rotate(0)")
         .text(criteria1);
