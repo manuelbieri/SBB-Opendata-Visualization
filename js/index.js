@@ -1,9 +1,34 @@
-// const requestDataOnline = new Request('https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/ecd1e2bf9e3df8f72caf558fe24144675e39813e/sbb_data_preview.txt');
+//const requestData = new Request('https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/ecd1e2bf9e3df8f72caf558fe24144675e39813e/sbb_data_preview.txt');
 const requestData = new Request('data/sbb_data_preview.json')
-
-let data = d3.json(requestData).then(d => {return d;});
+//const requestData = new Request('data/sbb_data_v2.json')
 
 const dates = new Set();
+let data = d3.json(requestData).then(d => {
+    let tmp = [];
+    for (let i = 0 ; i < d.length ; i++){
+        let betriebstag = new Date(d[i].BETRIEBSTAG);
+        dates.add(betriebstag.getDate() + "-" + (betriebstag.getMonth() + 1) + "-" + betriebstag.getFullYear());
+        tmp.push({
+            ANKUNFTSZEIT: new Date(d[i].ANKUNFTSZEIT),
+            AN_PROGNOSE: new Date(d[i].AN_PROGNOSE),
+            BETRIEBSTAG: betriebstag,
+            LINIEN_ID: d[i].LINIEN_ID,
+            LINIEN_TEXT: d[i].LINIEN_TEXT,
+            block: d[i].block,
+            globalstrahlung: d[i].globalstrahlung,
+            luftdruck: d[i].luftdruck,
+            luftfeuchtigkeit: d[i].luftfeuchtigkeit,
+            lufttemperatur: d[i].lufttemperatur,
+            niederschlag: d[i].niederschlag,
+            schnee: d[i].schnee,
+            sonnenschein: d[i].sonnenschein,
+        })
+    }
+    setUpDateSlider(Array.from(dates));
+    return tmp;
+});
+
+
 
 let svg = d3.select('svg');
 d3.select('body')
@@ -20,35 +45,45 @@ let colorLinie = {'IC6':'red', 'IC61':'orange', 'IC1': 'blue', 'IC8': 'green'}
 let xCenter = [200, 400]
 let yCenter = [100, 300]
 
-function draw(criteria1, cutoff1, criteria2, cutoff2){
-    data.then(d => {
-        console.log(d);
-        var nodes = d3.range(d.length).map(function(i) {
-            dates.add(d[i].BETRIEBSTAG.toString());
+function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
+    data.then(values => {
+        //console.log(values.length);
+        let d = values.filter(e => {return e.BETRIEBSTAG.getTime() >= dateRange[0].getTime() && e.BETRIEBSTAG.getTime() <= dateRange[1].getTime()});
+        let nodes = d3.range(d.length).map(function(i) {
             return {
                 radius: 10,
-                category: calcCategory(criteria1, cutoff1, d[i]),
+                categoryX: calcCategory(criteria1, cutoff1, d[i]),
                 categoryY: calcCategory(criteria2, cutoff2, d[i]),
-                linie: d[i].LINIEN_TEXT,
-                an_plan: new Date(d[i].ANKUNFTSZEIT),
-                an_prognose: new Date(d[i].AN_PROGNOSE)
+                ANKUNFTSZEIT: d[i].ANKUNFTSZEIT,
+                AN_PROGNOSE: d[i].AN_PROGNOSE,
+                diff: calcDelay(d[i]),
+                BETRIEBSTAG: d[i].BETRIEBSTAG,
+                LINIEN_ID: d[i].LINIEN_ID,
+                LINIEN_TEXT: d[i].LINIEN_TEXT,
+                block: d[i].block,
+                globalstrahlung: d[i].globalstrahlung,
+                luftdruck: d[i].luftdruck,
+                luftfeuchtigkeit: d[i].luftfeuchtigkeit,
+                lufttemperatur: d[i].lufttemperatur,
+                niederschlag: d[i].niederschlag,
+                schnee: d[i].schnee,
+                sonnenschein: d[i].sonnenschein,
             }
         });
 
-        setUpDateSlider(dates);
         writeTitles(group, criteria1, cutoff1, criteria2, cutoff2);
 
         var simulation = d3.forceSimulation(nodes)
             .force('charge', d3.forceManyBody())
             .force('x', d3.forceX().strength(1.5).x(function(d) {
-                return xCenter[d.category];
+                return xCenter[d.categoryX];
             }))
             .force('y', d3.forceY().strength(1.5).y(function(d) {
                 return yCenter[d.categoryY];
-            }))
+            }))/*
             .force('collision', d3.forceCollide().radius(function(d) {
                 return d.radius/2;
-            }))
+            }))*/
             .on('tick', ticked);
 
         function ticked() {
@@ -62,7 +97,7 @@ function draw(criteria1, cutoff1, criteria2, cutoff2){
                     return calcRadius(d);
                 })
                 .style('fill', function(d) {
-                    return colorLinie[d.linie];
+                    return colorLinie[d.LINIEN_TEXT];
                 })
                 .merge(u)
                 .attr('cx', function(d) {
@@ -113,20 +148,23 @@ function tooltipText(d) {
     var late = d.diff > -30000;
     var min = Math.floor(diff / 60000);
     var sec = Math.floor((diff - min * 60000) / 1000);
-    var date = d.an_prognose.getDate() + '/' + (d.an_prognose.getMonth() + 1) + '/' + d.an_prognose.getFullYear();
-    var time = d.an_plan.getHours().toString().padStart(2, '0') + ':' + d.an_plan.getMinutes().toString().padStart(2, '0');
-    return d.linie + ' on ' + date + ' at ' + time + ' was ' + (late ? 'not':(min + ' Min ' + sec + ' Secs')) + ' late.';
+    var date = d.AN_PROGNOSE.getDate() + '/' + (d.AN_PROGNOSE.getMonth() + 1) + '/' + d.AN_PROGNOSE.getFullYear();
+    var time = d.ANKUNFTSZEIT.getHours().toString().padStart(2, '0') + ':' + d.ANKUNFTSZEIT.getMinutes().toString().padStart(2, '0');
+    return d.LINIEN_TEXT + ' on ' + date + ' at ' + time + ' was ' + (late ? 'not':(min + ' Min ' + sec + ' Secs')) + ' late.';
+}
+
+function calcDelay(e){
+    return e.ANKUNFTSZEIT - e.AN_PROGNOSE;
 }
 
 // improve returned values.
 function calcRadius(e){
-    e.diff = e.an_plan - e.an_prognose;
     if (e.diff > -30000) return 2
     else return Math.log10(Math.abs(e.diff));
 }
 
 function calcX(e){
-    e.x = (e.linie < 1000) * 150 + 200;
+    e.x = (e.LINIEN_TEXT < 1000) * 150 + 200;
 }
 function calcY(e){
     e.y = Math.round(Math.random()*2) *150 + 100;
@@ -182,5 +220,9 @@ function writeTitles(group, criteria1, cutoff1, criteria2, cutoff2){
         .text(">" + cutoff2);
 }
 
-draw('Schnee', 5, 'Luftfeuchtigkeit', 90)
+function saveImage(){
+    SaveSVG.save('canvas', 'css/index.css', 'tests.svg')
+}
+
+draw('Schnee', 5, 'Luftfeuchtigkeit', 90, [new Date(2021, 0, 1), new Date(2021, 0, 3)])
 //d3.interval(() => draw('Schnee', 4, 'Luftfeuchtigkeit', 90), 3000);

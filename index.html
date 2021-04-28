@@ -11,54 +11,57 @@
     <script src="js/bootstrap/jquery.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
-    <script src="js/bootstrap/addBootstrap.js"></script>
+    <script src="js/bootstrap/bootstrappp.js"></script>
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-6">
-                <div class="dropdown">
-                    <select class="custom-select" id="select1" onchange="changedInput()">
-                        <option>Luftdruck</option>
-                        <option>Luftfeuchtigkeit</option>
-                        <option>lufttemperatur</option>
-                        <option>Niederschlag</option>
-                        <option>Schnee</option>
-                        <option>Sonnenschein</option>
-                        <option>Globalstrahlung</option>
-                    </select>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="cutoff1" onchange="changedInput()">
-                    </div>
-                </div>
-            </div>
-            <div class="col-6">
-                <select class="custom-select" name="Schnee" id="select2" onchange="changedInput()">
+        <div class="row w-100">
+            <div class="col-3">
+                <select class="custom-select" id="select1" onchange="changedInput()">
                     <option>Luftdruck</option>
                     <option>Luftfeuchtigkeit</option>
-                    <option>lufttemperatur</option>
+                    <option>Lufttemperatur</option>
+                    <option>Niederschlag</option>
+                    <option selected>Schnee</option>
+                    <option>Sonnenschein</option>
+                    <option>Globalstrahlung</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="cutoff1" value="5" onchange="changedInput()">
+                </div>
+            </div>
+            <div class="col-3">
+                <select class="custom-select" id="select2" onchange="changedInput()">
+                    <option>Luftdruck</option>
+                    <option>Luftfeuchtigkeit</option>
+                    <option>Lufttemperatur</option>
                     <option>Niederschlag</option>
                     <option>Schnee</option>
                     <option>Sonnenschein</option>
                     <option>Globalstrahlung</option>
                 </select>
+            </div>
+            <div class="col-2">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="cutoff2" onchange="changedInput()">
+                    <input type="text" class="form-control" id="cutoff2" value="90" onchange="changedInput()">
                 </div>
+            </div>
+            <div class="col-2">
+                <input type="text" id="switch" class="js-range-slider" name="switch"/>
+                <script>setUpDateSwitch()</script>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
-                <input type="text" id="slider" class="js-range-slider" name="my_range" value="" style="width: 100%;"/>
-                <script>
-                    //setUpDateSlider();
-                </script>
+                <input type="text" id="slider" class="js-range-slider" name="slider"/>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <div id="canvas">
-                    <svg></svg>
+                <div>
+                    <svg id="canvas"></svg>
                     <script src="js/index.js"></script>
                 </div>
             </div>
