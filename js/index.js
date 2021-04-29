@@ -2,6 +2,8 @@
 const requestData = new Request('data/sbb_data_preview.json')
 //const requestData = new Request('data/sbb_data_v2.json')
 
+const delayCutoff = 180000;
+
 const dates = new Set();
 const trains = new Set();
 
@@ -28,7 +30,6 @@ let data = d3.json(requestData).then(d => {
         })
     }
     setUpDateSlider(Array.from(dates));
-    console.log(trains);
     return tmp;
 });
 
@@ -71,6 +72,7 @@ function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
             }
         });
 
+        console.log(nodes);
         writeTitles(group, criteria1, cutoff1, criteria2, cutoff2);
 
         let simulation = d3.forceSimulation(nodes)
@@ -80,10 +82,11 @@ function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
             }))
             .force('y', d3.forceY().strength(1.5).y(function(d) {
                 return yCenter[d.categoryY];
-            }))/*
-            .force('collision', d3.forceCollide().radius(function(d) {
+            }))
+            .force('charge', d3.forceCollide().radius(function(d) {
                 return d.radius/2;
-            }))*/
+            }))
+            .velocityDecay(0.95)
             .on('tick', ticked);
 
         function ticked() {
@@ -93,13 +96,13 @@ function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
 
             u.enter()
                 .append('circle')
-                .attr('r', function(d) {
-                    return calcRadius(d);
-                })
                 .style('fill', function(d) {
                     return colorLinie[d.LINIEN_TEXT];
                 })
                 .merge(u)
+                .attr('r', function(d) {
+                    return calcRadius(d);
+                })
                 .attr('cx', function(d) {
                     return d.x;
                 })
@@ -122,13 +125,12 @@ function updateInfo(d) {
     document.getElementById("rollingStock").innerHTML = d.block;
     document.getElementById("arrival").innerHTML = d.ANKUNFTSZEIT.getHours().toString().padStart(2, '0') + ':' + d.ANKUNFTSZEIT.getMinutes().toString().padStart(2, '0');
     document.getElementById("dayOfService").innerHTML = d.BETRIEBSTAG.getDate() + "-" + (d.BETRIEBSTAG.getMonth() + 1) + "-" + d.BETRIEBSTAG.getFullYear();
-    document.getElementById("delay").innerHTML = (d.diff >= -3000 ? "Keine Verspätung" : dateDiffToString(Math.abs(d.diff)));
+    document.getElementById("delay").innerHTML = (d.diff >= -delayCutoff ? "Keine Verspätung" : dateDiffToString(Math.abs(d.diff)));
     document.getElementById("sunshine").innerHTML = d.sonnenschein;
     document.getElementById("rainfall").innerHTML = d.niederschlag;
     document.getElementById("snow").innerHTML = d.schnee;
     document.getElementById("temperature").innerHTML = d.lufttemperatur;
     document.getElementById("humidity").innerHTML = d.luftfeuchtigkeit;
-
 }
 
 function dateDiffToString(diff){
@@ -159,7 +161,7 @@ function calcDelay(e){
 
 // improve returned values.
 function calcRadius(e){
-    if (e.diff > -30000) return 2
+    if (e.diff > -delayCutoff) return 2
     else return Math.log10(Math.abs(e.diff));
 }
 
