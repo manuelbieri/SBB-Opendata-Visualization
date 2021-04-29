@@ -1,6 +1,6 @@
 //const requestData = new Request('https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/ecd1e2bf9e3df8f72caf558fe24144675e39813e/sbb_data_preview.txt');
-const requestData = new Request('data/sbb_data_preview.json')
-//const requestData = new Request('data/sbb_data_v2.json')
+//const requestData = new Request('data/sbb_data_preview.json')
+const requestData = new Request('data/sbb_data_v2.json')
 
 const delayCutoff = 180000;
 
@@ -29,6 +29,7 @@ let data = d3.json(requestData).then(d => {
             sonnenschein: d[i].sonnenschein,
         })
     }
+    //console.log(trains);
     setUpDateSlider(Array.from(dates));
     return tmp;
 });
@@ -48,7 +49,7 @@ let yCenter = [100, 300]
 
 function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
     data.then(values => {
-        //console.log(values.length);
+        //console.log(values.length); https://bl.ocks.org/alokkshukla/3d6be4be0ef9f6977ec6718b2916d168
         let d = values.filter(e => {return e.BETRIEBSTAG.getTime() >= dateRange[0].getTime() && e.BETRIEBSTAG.getTime() <= dateRange[1].getTime()});
         let nodes = d3.range(d.length).map(function(i) {
             return {
@@ -72,21 +73,17 @@ function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
             }
         });
 
-        console.log(nodes);
         writeTitles(group, criteria1, cutoff1, criteria2, cutoff2);
 
         let simulation = d3.forceSimulation(nodes)
             .force('charge', d3.forceManyBody())
-            .force('x', d3.forceX().strength(1.5).x(function(d) {
+            .force('x', d3.forceX().strength(1).x(function(d) {
                 return xCenter[d.categoryX];
             }))
-            .force('y', d3.forceY().strength(1.5).y(function(d) {
+            .force('y', d3.forceY().strength(1).y(function(d) {
                 return yCenter[d.categoryY];
             }))
-            .force('charge', d3.forceCollide().radius(function(d) {
-                return d.radius/2;
-            }))
-            .velocityDecay(0.95)
+            .velocityDecay(0.9)
             .on('tick', ticked);
 
         function ticked() {
