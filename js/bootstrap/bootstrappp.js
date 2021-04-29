@@ -52,6 +52,7 @@ function setUpDateSlider(dates){
         type: "double",
         from: true,
         to: true,
+        force_edges:true,
         values: dates,
         onFinish: d => {
             parseDates(d.from_value, d.to_value);
@@ -64,6 +65,7 @@ function setUpDateSwitch(){
     let switchSlider = $('#switch').ionRangeSlider({
         from: true,
         to: true,
+        force_edges:true,
         values: ['Rolling Stock', 'Line ID'],
     });
 }

@@ -3,11 +3,14 @@ const requestData = new Request('data/sbb_data_preview.json')
 //const requestData = new Request('data/sbb_data_v2.json')
 
 const dates = new Set();
+const trains = new Set();
+
 let data = d3.json(requestData).then(d => {
     let tmp = [];
     for (let i = 0 ; i < d.length ; i++){
         let betriebstag = new Date(d[i].BETRIEBSTAG);
         dates.add(betriebstag.getDate() + "-" + (betriebstag.getMonth() + 1) + "-" + betriebstag.getFullYear());
+        trains.add(d[i].block);
         tmp.push({
             ANKUNFTSZEIT: new Date(d[i].ANKUNFTSZEIT),
             AN_PROGNOSE: new Date(d[i].AN_PROGNOSE),
@@ -25,15 +28,11 @@ let data = d3.json(requestData).then(d => {
         })
     }
     setUpDateSlider(Array.from(dates));
+    console.log(trains);
     return tmp;
 });
 
-
-
 let svg = d3.select('svg');
-d3.select('body')
-    .append('div')
-    .attr('id', 'tooltip');
 
 let bbox = svg.node().getBoundingClientRect();
 let width = bbox.width;
@@ -44,6 +43,7 @@ let group = svg.append('g').attr('transform', 'translate(0,150)');
 let colorLinie = {'IC6':'red', 'IC61':'orange', 'IC1': 'blue', 'IC8': 'green'}
 let xCenter = [200, 400]
 let yCenter = [100, 300]
+
 
 function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
     data.then(values => {
@@ -73,7 +73,7 @@ function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
 
         writeTitles(group, criteria1, cutoff1, criteria2, cutoff2);
 
-        var simulation = d3.forceSimulation(nodes)
+        let simulation = d3.forceSimulation(nodes)
             .force('charge', d3.forceManyBody())
             .force('x', d3.forceX().strength(1.5).x(function(d) {
                 return xCenter[d.categoryX];
@@ -87,7 +87,7 @@ function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
             .on('tick', ticked);
 
         function ticked() {
-            var u = d3.select('svg g')
+            let u = d3.select('svg g')
                 .selectAll('circle')
                 .data(nodes);
 
@@ -107,24 +107,34 @@ function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
                     return d.y;
                 })
                 .on('mouseenter',(e, d) => {
-                    d3.select('#tooltip')
-                        .style('visibility', 'visible')
-                        .style('left', e.clientX + 'px')
-                        .style('top', e.clientY + 'px')
-                        .text(() => {return tooltipText(d);});
+                    updateInfo(d);
                 })
-                .on('mousemove', function(e) {
-                    d3.select('#tooltip')
-                        .style('left', e.clientX + 'px')
-                        .style('top', e.clientY + 'py')
+                .on('mousemove', function(e, d) {
+                    updateInfo(d);
                 })
-                .on('mouseleave',() => {
-                    d3.select('#tooltip')
-                        .style('visibility','hidden')
-                });
             u.exit().remove();
         }
     })
+}
+
+function updateInfo(d) {
+    document.getElementById("line").innerHTML = d.LINIEN_TEXT;
+    document.getElementById("rollingStock").innerHTML = d.block;
+    document.getElementById("arrival").innerHTML = d.ANKUNFTSZEIT.getHours().toString().padStart(2, '0') + ':' + d.ANKUNFTSZEIT.getMinutes().toString().padStart(2, '0');
+    document.getElementById("dayOfService").innerHTML = d.BETRIEBSTAG.getDate() + "-" + (d.BETRIEBSTAG.getMonth() + 1) + "-" + d.BETRIEBSTAG.getFullYear();
+    document.getElementById("delay").innerHTML = (d.diff >= -3000 ? "Keine Verspätung" : dateDiffToString(Math.abs(d.diff)));
+    document.getElementById("sunshine").innerHTML = d.sonnenschein;
+    document.getElementById("rainfall").innerHTML = d.niederschlag;
+    document.getElementById("snow").innerHTML = d.schnee;
+    document.getElementById("temperature").innerHTML = d.lufttemperatur;
+    document.getElementById("humidity").innerHTML = d.luftfeuchtigkeit;
+
+}
+
+function dateDiffToString(diff){
+    let min = Math.floor(diff / 60000);
+    let sec = Math.floor((diff - min * 60000) / 1000);
+    return min + ' Min ' + sec + ' Secs';
 }
 
 function calcCategory(criteria, cutoff, d){
@@ -143,16 +153,6 @@ function compare(value, cutoff){
     else return 0;
 }
 
-function tooltipText(d) {
-    var diff = Math.abs(d.diff);
-    var late = d.diff > -30000;
-    var min = Math.floor(diff / 60000);
-    var sec = Math.floor((diff - min * 60000) / 1000);
-    var date = d.AN_PROGNOSE.getDate() + '/' + (d.AN_PROGNOSE.getMonth() + 1) + '/' + d.AN_PROGNOSE.getFullYear();
-    var time = d.ANKUNFTSZEIT.getHours().toString().padStart(2, '0') + ':' + d.ANKUNFTSZEIT.getMinutes().toString().padStart(2, '0');
-    return d.LINIEN_TEXT + ' on ' + date + ' at ' + time + ' was ' + (late ? 'not':(min + ' Min ' + sec + ' Secs')) + ' late.';
-}
-
 function calcDelay(e){
     return e.ANKUNFTSZEIT - e.AN_PROGNOSE;
 }
@@ -163,16 +163,9 @@ function calcRadius(e){
     else return Math.log10(Math.abs(e.diff));
 }
 
-function calcX(e){
-    e.x = (e.LINIEN_TEXT < 1000) * 150 + 200;
-}
-function calcY(e){
-    e.y = Math.round(Math.random()*2) *150 + 100;
-}
-
 function sum(array){
-    var sum = 0;
-    for (var i = 0 ; i < array.length ; i++){
+    let sum = 0;
+    for (let i = 0 ; i < array.length ; i++){
         sum = sum + array[i];
     }
     return sum;
@@ -218,10 +211,6 @@ function writeTitles(group, criteria1, cutoff1, criteria2, cutoff2){
         .style("font-size", "20px")
         .attr("transform", "translate(30," + yCenter[1] + ") rotate(-90)")
         .text(">" + cutoff2);
-}
-
-function saveImage(){
-    SaveSVG.save('canvas', 'css/index.css', 'tests.svg')
 }
 
 draw('Schnee', 5, 'Luftfeuchtigkeit', 90, [new Date(2021, 0, 1), new Date(2021, 0, 3)])

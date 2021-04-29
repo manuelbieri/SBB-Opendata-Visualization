@@ -15,8 +15,9 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row w-100">
+        <div class="row">
             <div class="col-3">
+                <label for="select1">Select 1</label>
                 <select class="custom-select" id="select1" onchange="changedInput()">
                     <option>Luftdruck</option>
                     <option>Luftfeuchtigkeit</option>
@@ -29,10 +30,12 @@
             </div>
             <div class="col-2">
                 <div class="form-group">
+                    <label for="cutoff1">Cutoff 1</label>
                     <input type="text" class="form-control" id="cutoff1" value="5" onchange="changedInput()">
                 </div>
             </div>
             <div class="col-3">
+                <label for="select2">Select 2</label>
                 <select class="custom-select" id="select2" onchange="changedInput()">
                     <option>Luftdruck</option>
                     <option>Luftfeuchtigkeit</option>
@@ -45,25 +48,84 @@
             </div>
             <div class="col-2">
                 <div class="form-group">
+                    <label for="cutoff2">Cutoff 2</label>
                     <input type="text" class="form-control" id="cutoff2" value="90" onchange="changedInput()">
                 </div>
             </div>
             <div class="col-2">
+                <label for="switch">Color</label>
                 <input type="text" id="switch" class="js-range-slider" name="switch"/>
                 <script>setUpDateSwitch()</script>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
+                <label for="slider">Select date range</label>
                 <input type="text" id="slider" class="js-range-slider" name="slider"/>
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <div>
                     <svg id="canvas"></svg>
                     <script src="js/index.js"></script>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5">
+                <!--<img class="card-img-top" src="Images/IC2000.jpg" alt="train">-->
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Linie</th>
+                            <td id="line"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Block</th>
+                            <td id="rollingStock"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Ankunftszeit</th>
+                            <td id="arrival"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Betriebstag</th>
+                            <td id="dayOfService"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Verspätung</th>
+                            <td id="delay"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-3">
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Sonnenschein</th>
+                        <td id="sunshine"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Niederschlag</th>
+                        <td id="rainfall"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Schnee</th>
+                        <td id="snow"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Lufttemperatur</th>
+                        <td id="temperature"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Luftfeuchtigkeit</th>
+                        <td id="humidity"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
