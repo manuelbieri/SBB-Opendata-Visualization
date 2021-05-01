@@ -14,6 +14,7 @@ The merged [production](https://gist.githubusercontent.com/manuelbieri/5a20c8840
 
 ## Dependencies
 - [D3.js](https://github.com/d3/d3) (BSD 3-Clause "New" or "Revised" License)
+- [d3-force-reuse](https://github.com/twosixlabs/d3-force-reuse) (BSD 3-Clause "New" or "Revised" License)
 - [ion.rangeSlider](https://github.com/IonDen/ion.rangeSlider) (MIT License)
 
 ## Images

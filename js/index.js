@@ -2,7 +2,7 @@
 const requestData = new Request('data/sbb_data_preview.json')
 //const requestData = new Request('data/sbb_data_v2.json')
 
-const delayCutoff = 180000;
+let delayCutoff = 180000;
 
 const dates = new Set();
 const trains = new Set();
@@ -30,34 +30,36 @@ let data = d3.json(requestData).then(d => {
         })
     }
     //console.log(trains);
-    setUpDateSlider(Array.from(dates), '#slider');
-    setUpDateSlider(Array.from(dates), '#slider1' +
+    setUpDateSlider(Array.from(dates), '#slider1');
+    setUpDateSlider(Array.from(dates), '#slider2' +
         '')
     return tmp;
 });
 
 let svg = d3.select('svg');
 
+let group = svg.append('g').attr('transform', 'translate(0,150)');
+
+let colorLine = {'IC6':'red', 'IC61':'orange', 'IC1': 'blue', 'IC8': 'green'}
+let colorRollingStock = {'IC2000':'red', 'FVDosto':'orange', 'ICN': 'blue', 'Eurocity': 'green'}
+
 let bbox = svg.node().getBoundingClientRect();
 let width = bbox.width;
 let height = bbox.height;
 
-let group = svg.append('g').attr('transform', 'translate(0,150)');
-
-let colorLinie = {'IC6':'red', 'IC61':'orange', 'IC1': 'blue', 'IC8': 'green'}
-let xCenter = [200, 400]
-let yCenter = [100, 300]
+let yCenter = [height/7, height/7*4]
+let xCenter = [width/7*2, width/7*5]
 
 
-function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
+function draw(args){
     data.then(values => {
-        //console.log(values.length); https://bl.ocks.org/alokkshukla/3d6be4be0ef9f6977ec6718b2916d168
-        let d = values.filter(e => {return e.BETRIEBSTAG.getTime() >= dateRange[0].getTime() && e.BETRIEBSTAG.getTime() <= dateRange[1].getTime()});
+        delayCutoff = args.delayCutoff * 60 * 1000;
+        let d = values.filter(e => {return e.BETRIEBSTAG.getTime() >= args.dates[0].getTime() && e.BETRIEBSTAG.getTime() <= args.dates[1].getTime()});
         let nodes = d3.range(d.length).map(function(i) {
             return {
                 radius: 10,
-                categoryX: calcCategory(criteria1, cutoff1, d[i]),
-                categoryY: calcCategory(criteria2, cutoff2, d[i]),
+                categoryX: calcCategory(args.category1, args.cutoff1, d[i]),
+                categoryY: calcCategory(args.category2, args.cutoff2, d[i]),
                 ANKUNFTSZEIT: d[i].ANKUNFTSZEIT,
                 AN_PROGNOSE: d[i].AN_PROGNOSE,
                 diff: calcDelay(d[i]),
@@ -75,7 +77,7 @@ function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
             }
         });
 
-        writeTitles(group, criteria1, cutoff1, criteria2, cutoff2);
+        writeTitles(group, args.category1, args.cutoff1, args.category2, args.cutoff2);
 
         let simulation = d3.forceSimulation(nodes)
             .force('charge', d3.forceManyBodyReuse())
@@ -85,7 +87,7 @@ function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
             .force('y', d3.forceY().strength(1).y(function(d) {
                 return yCenter[d.categoryY];
             }))
-            .velocityDecay(0.9)
+            .velocityDecay(0.93)
             .on('tick', ticked);
 
         function ticked() {
@@ -95,37 +97,36 @@ function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
 
             u.enter()
                 .append('circle')
-                .style('fill', function(d) {
-                    return colorLinie[d.LINIEN_TEXT];
-                })
                 .merge(u)
-                .attr('r', function(d) {
-                    return calcRadius(d);
-                })
-                .attr('cx', function(d) {
-                    return d.x;
-                })
-                .attr('cy', function(d) {
-                    return d.y;
-                })
-                .on('mouseenter',(e, d) => {
-                    updateInfo(d);
-                })
-                .on('mousemove', function(e, d) {
-                    updateInfo(d);
-                })
+                .style('fill', d => { return getColor(d)})
+                .attr('r', d => {return calcRadius(d);})
+                .attr('cx', d => {return d.x})
+                .attr('cy', d => {return d.y})
+                .on('mouseenter',(e, d) => {updateInfo(d);})
+                .on('mousemove', (e, d) => {updateInfo(d);})
             u.exit().remove();
         }
     })
 }
 
-function updateCarousel(block) {
+function getColor(d){
+    let color = null;
+    if (getColorType()) color = colorLine[d.LINIEN_TEXT];
+    else color = colorRollingStock[getTrainType(d.block)];
+    console.assert(color != null);
+    return color;
+}
+
+function getTrainType(block) {
     block = block.toLowerCase();
-    let trainType = "";
-    if (block.includes("2e")) trainType = "IC2000";
-    else if (block.includes("rabde502")) trainType = "FVDosto";
-    else if (block.includes("icn")) trainType = "ICN";
-    else trainType = "Eurocity";
+    if (block.includes("2e")) return "IC2000";
+    else if (block.includes("rabde502")) return "FVDosto";
+    else if (block.includes("icn")) return "ICN";
+    else return "Eurocity";
+}
+
+function updateCarousel(block) {
+    let trainType = getTrainType(block);
     document.getElementById("imageCarousel1").src = "Graphics/Images/" + trainType + "/1.webp"
     document.getElementById("imageCarousel2").src = "Graphics/Images/" + trainType + "/2.webp"
     document.getElementById("imageCarousel3").src = "Graphics/Images/" + trainType + "/3.webp"
@@ -152,6 +153,19 @@ function dateDiffToString(diff){
     return min + ' Min ' + sec + ' Secs';
 }
 
+function getUnit(criteria, cutoff, d){
+    let unit = null;
+    if (criteria === "Sonnenschein") unit = "min";
+    else if (criteria === "Schnee") unit = "cm";
+    else if (criteria === "Luftfeuchtigkeit") unit = "%";
+    else if (criteria === "Luftdruck") unit = "hPa";
+    else if (criteria === "Lufttemperatur") unit = "&deg;C";
+    else if (criteria === "Niederschlag") unit = "mm";
+    else if (criteria === "Globalstrahlung") unit = "W/m<sup>2</sup>";
+    console.assert(unit != null);
+    return unit;
+}
+
 function calcCategory(criteria, cutoff, d){
     if (criteria === "Sonnenschein") return compare(d.sonnenschein, cutoff);
     else if (criteria === "Schnee") return compare(d.schnee, cutoff);
@@ -160,7 +174,6 @@ function calcCategory(criteria, cutoff, d){
     else if (criteria === "Lufttemperatur") return compare(d.lufttemperatur, cutoff);
     else if (criteria === "Niederschlag") return compare(d.niederschlag, cutoff);
     else if (criteria === "Globalstrahlung") return compare(d.schnee, cutoff);
-    else if (criteria === "Luftdruck") return compare(d.sonnenschein, cutoff);
 }
 
 function compare(value, cutoff){
@@ -190,43 +203,32 @@ function writeTitles(group, criteria1, cutoff1, criteria2, cutoff2){
     // reset all labels
     group.selectAll("text").text("")
 
-    // title criteria 1
-    group.append("text")
-        .attr("id", "title1")
-        .style("font-size", "24px")
-        .attr("transform", "translate(" + (sum(xCenter)/xCenter.length) + ",-70) rotate(0)")
-        .text(criteria1);
-
     // subtitle criteria 1 (value smaller than cutoff)
     group.append("text")
-        .style("font-size", "20px")
-        .attr("transform", "translate(" + (xCenter[0]) + ",-50) rotate(0)")
-        .text("<=" + cutoff1);
+        .attr("transform", "translate(" + (xCenter[0]) + ",-110)")
+        .text(criteria1 + " unter oder gleich " + cutoff1 + getUnit(criteria1));
 
     // subtitle criteria 1 (value bigger than cutoff)
     group.append("text")
-        .style("font-size", "20px")
-        .attr("transform", "translate(" + (xCenter[1]) + ",-50) rotate(0)")
-        .text(">" + cutoff1);
-
-    // title criteria 2
-    group.append("text")
-        .style("font-size", "24px")
-        .attr("transform", "translate(10," + (sum(yCenter)/yCenter.length) + ") rotate(-90)")
-        .text(criteria2);
+        .attr("transform", "translate(" + (xCenter[1]) + ",-110)")
+        .text(criteria1 + " über " + cutoff1 + getUnit(criteria1));
 
     // subtitle criteria 2 (value smaller than cutoff)
-    group.append("text")
-        .style("font-size", "20px")
+    let text = group.append("text")
         .attr("transform", "translate(30," + yCenter[0] + ") rotate(-90)")
-        .text("<=" + cutoff2);
+        .html(criteria2 + " <br> unter oder gleich " + cutoff2 + getUnit(criteria2));
+
 
     // subtitle criteria 2 (value bigger than cutoff)
+
     group.append("text")
-        .style("font-size", "20px")
         .attr("transform", "translate(30," + yCenter[1] + ") rotate(-90)")
-        .text(">" + cutoff2);
+        .html(criteria2 + "<br>über " + cutoff2 + getUnit(criteria2));
+
 }
 
-draw('Schnee', 5, 'Luftfeuchtigkeit', 90, [new Date(2021, 0, 1), new Date(2021, 0, 3)])
+
+
+changedInput();
+//draw({category1:'Schnee', cutoff1:5, category2:'Luftfeuchtigkeit', cutoff2:90, delayCutoff:3, dates:[new Date(2021, 0, 1), new Date(2021, 0, 3)]});
 //d3.interval(() => draw('Schnee', 4, 'Luftfeuchtigkeit', 90), 3000);

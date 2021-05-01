@@ -16,51 +16,67 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-2">
-                <label for="select1">Select 1</label>
-                <select class="custom-select" id="select1" onchange="changedInput()">
-                    <option>Luftdruck</option>
-                    <option>Luftfeuchtigkeit</option>
-                    <option>Lufttemperatur</option>
-                    <option>Niederschlag</option>
-                    <option selected>Schnee</option>
-                    <option>Sonnenschein</option>
-                    <option>Globalstrahlung</option>
-                </select>
-            </div>
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="cutoff1">Cutoff 1</label>
-                    <input type="text" class="form-control" id="cutoff1" value="5" onchange="changedInput()">
+                <div class="input-group">
+                    <label for="select1"></label>
+                    <select class="custom-select" id="select1" onchange="changedInput()">
+                        <option>Luftdruck</option>
+                        <option>Luftfeuchtigkeit</option>
+                        <option>Lufttemperatur</option>
+                        <option>Niederschlag</option>
+                        <option selected>Schnee</option>
+                        <option>Sonnenschein</option>
+                        <option>Globalstrahlung</option>
+                    </select>
                 </div>
             </div>
             <div class="col-2">
-                <label for="select2">Select 2</label>
-                <select class="custom-select" id="select2" onchange="changedInput()">
-                    <option>Luftdruck</option>
-                    <option>Luftfeuchtigkeit</option>
-                    <option>Lufttemperatur</option>
-                    <option>Niederschlag</option>
-                    <option>Schnee</option>
-                    <option>Sonnenschein</option>
-                    <option>Globalstrahlung</option>
-                </select>
-            </div>
-            <div class="col-2">
                 <div class="form-group">
-                    <label for="cutoff2">Cutoff 2</label>
-                    <input type="text" class="form-control" id="cutoff2" value="90" onchange="changedInput()">
+                    <div class="input-group">
+                        <label for="cutoff1"></label>
+                        <input type="text" class="form-control" id="cutoff1" value="6" aria-describedby="cutoff1-addon" onchange="changedInput()">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="cutoff1-addon"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-2">
-                <label for="select3">Delay Cutoff</label>
-                <select class="custom-select" id="select3" onchange="changedInput()">
-                    <option>3 Min</option>
-                    <option>5 Min</option>
-                    <option>10 Min</option>
-                    <option>15 Min</option>
-                </select>
+                <div class="input-group">
+                    <label for="select2"></label>
+                    <select class="custom-select" id="select2" onchange="changedInput()">
+                        <option>Luftdruck</option>
+                        <option selected>Luftfeuchtigkeit</option>
+                        <option>Lufttemperatur</option>
+                        <option>Niederschlag</option>
+                        <option>Schnee</option>
+                        <option>Sonnenschein</option>
+                        <option>Globalstrahlung</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for="cutoff2"></label>
+                        <input type="text" class="form-control" id="cutoff2" value="90" aria-describedby="cutoff2-addon" onchange="changedInput()">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="cutoff2-addon"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <label for="cutoff3"></label>
+                    <select class="custom-select" id="cutoff3" onchange="changedInput()">
+                        <option>3 Min</option>
+                        <option>5 Min</option>
+                        <option>10 Min</option>
+                        <option>15 Min</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -75,17 +91,17 @@
                 <script>setUpPerformanceSwitch()</script>
             </div>
             <div class="col-4">
-                <label for="slider">Select date range 1</label>
-                <input type="text" id="slider" class="js-range-slider" name="slider"/>
+                <label for="slider1">Select date range 1</label>
+                <input type="text" id="slider1" class="js-range-slider"/>
             </div>
             <div class="col-4">
-                <label for="slider1">Select date range 2</label>
-                <input type="text" id="slider1" class="js-range-slider" name="slider"/>
+                <label for="slider2">Select date range 2</label>
+                <input type="text" id="slider2" class="js-range-slider"/>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 align-content-center">
-                <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">id="canvas"></svg>
+            <div class="col-12">
+                <svg viewBox="0 0 1000 700" preserveAspectRatio="xMinYMin meet" id="canvas"></svg>
                 <script src="js/index.js"></script>
             </div>
         </div>
