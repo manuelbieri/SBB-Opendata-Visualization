@@ -46,9 +46,9 @@ function parseDates(startDateString, endDateString) {
     endDate = new Date(arrayEndDate[2], parseInt(arrayEndDate[1])-1, arrayEndDate[0]);
 }
 
-function setUpDateSlider(dates){
+function setUpDateSlider(dates, sliderId){
     parseDates(dates[0], dates[dates.length-1]);
-    let slider = $('#slider').ionRangeSlider({
+    let slider = $(sliderId).ionRangeSlider({
         type: "double",
         from: true,
         to: true,
@@ -61,11 +61,20 @@ function setUpDateSlider(dates){
     });
 }
 
-function setUpDateSwitch(){
+function setUpColorSwitch(){
     let switchSlider = $('#switch').ionRangeSlider({
         from: true,
         to: true,
         force_edges:true,
         values: ['Rolling Stock', 'Line ID'],
+    });
+}
+
+function setUpPerformanceSwitch(){
+    let switchSlider = $('#switchPerformance').ionRangeSlider({
+        from: true,
+        to: true,
+        force_edges:true,
+        values: ['Fast', 'Slow'],
     });
 }

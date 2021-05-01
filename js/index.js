@@ -1,6 +1,6 @@
 //const requestData = new Request('https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/ecd1e2bf9e3df8f72caf558fe24144675e39813e/sbb_data_preview.txt');
-//const requestData = new Request('data/sbb_data_preview.json')
-const requestData = new Request('data/sbb_data_v2.json')
+const requestData = new Request('data/sbb_data_preview.json')
+//const requestData = new Request('data/sbb_data_v2.json')
 
 const delayCutoff = 180000;
 
@@ -30,7 +30,9 @@ let data = d3.json(requestData).then(d => {
         })
     }
     //console.log(trains);
-    setUpDateSlider(Array.from(dates));
+    setUpDateSlider(Array.from(dates), '#slider');
+    setUpDateSlider(Array.from(dates), '#slider1' +
+        '')
     return tmp;
 });
 
@@ -76,7 +78,7 @@ function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
         writeTitles(group, criteria1, cutoff1, criteria2, cutoff2);
 
         let simulation = d3.forceSimulation(nodes)
-            .force('charge', d3.forceManyBody())
+            .force('charge', d3.forceManyBodyReuse())
             .force('x', d3.forceX().strength(1).x(function(d) {
                 return xCenter[d.categoryX];
             }))
@@ -117,9 +119,22 @@ function draw(criteria1, cutoff1, criteria2, cutoff2, dateRange){
     })
 }
 
+function updateCarousel(block) {
+    block = block.toLowerCase();
+    let trainType = "";
+    if (block.includes("2e")) trainType = "IC2000";
+    else if (block.includes("rabde502")) trainType = "FVDosto";
+    else if (block.includes("icn")) trainType = "ICN";
+    else trainType = "Eurocity";
+    document.getElementById("imageCarousel1").src = "Graphics/Images/" + trainType + "/1.webp"
+    document.getElementById("imageCarousel2").src = "Graphics/Images/" + trainType + "/2.webp"
+    document.getElementById("imageCarousel3").src = "Graphics/Images/" + trainType + "/3.webp"
+    document.getElementById("imageCarousel4").src = "Graphics/Images/" + trainType + "/4.webp"
+}
+
 function updateInfo(d) {
     document.getElementById("line").innerHTML = d.LINIEN_TEXT;
-    document.getElementById("rollingStock").innerHTML = d.block;
+    document.getElementById("lineNumber").innerHTML = d.LINIEN_ID;
     document.getElementById("arrival").innerHTML = d.ANKUNFTSZEIT.getHours().toString().padStart(2, '0') + ':' + d.ANKUNFTSZEIT.getMinutes().toString().padStart(2, '0');
     document.getElementById("dayOfService").innerHTML = d.BETRIEBSTAG.getDate() + "-" + (d.BETRIEBSTAG.getMonth() + 1) + "-" + d.BETRIEBSTAG.getFullYear();
     document.getElementById("delay").innerHTML = (d.diff >= -delayCutoff ? "Keine Verspätung" : dateDiffToString(Math.abs(d.diff)));
@@ -128,6 +143,7 @@ function updateInfo(d) {
     document.getElementById("snow").innerHTML = d.schnee;
     document.getElementById("temperature").innerHTML = d.lufttemperatur;
     document.getElementById("humidity").innerHTML = d.luftfeuchtigkeit;
+    updateCarousel(d.block);
 }
 
 function dateDiffToString(diff){
