@@ -3,7 +3,7 @@ function adjustUnits(category1, category2) {
     document.getElementById('cutoff2-addon').innerHTML = getUnit(category2);
 }
 
-function changedInput(){
+function changedInput(doSplit){
     let category1 = $('#select1').val();
     let category2 = $('#select2').val();
     adjustUnits(category1, category2);
@@ -12,7 +12,11 @@ function changedInput(){
     let delayCutoff = parseInt(document.getElementById("cutoff3").value);
     let valid = checkInput(cutoff1, cutoff2)
     let args = {category1:category1, cutoff1:cutoff1, category2:category2, cutoff2:cutoff2, delayCutoff:delayCutoff, dates:getDates()}
-    if (valid) draw(args);
+    if (valid) changeChart(doSplit, args);
+}
+
+function changedInputDates(){
+    if (checkNewDateRange()) changedInput(false);
 }
 
 function checkInput(value1, value2){
@@ -40,11 +44,25 @@ function drawValidity(removeClass, addClass){
     document.getElementById("cutoff2").classList.add(addClass);
 }
 
+let firstDateRangeLastUsed = [];
 let firstDateRange = [new Date(2021, 0, 1), new Date(2021, 0, 3)];
+let secondDateRangeLastUsed = [];
 let secondDateRange = [];
 
+function checkNewDateRange(){
+    if (firstDateRangeLastUsed.length === firstDateRange.length && firstDateRangeLastUsed.length === 2){
+        if (firstDateRangeLastUsed[0].getTime() === firstDateRange[0].getTime() && firstDateRangeLastUsed[0].getTime() === firstDateRange[0].getTime()){
+            if (secondDateRangeLastUsed.length === secondDateRange.length && secondDateRangeLastUsed.length === 2){
+                if (secondDateRangeLastUsed[0].getTime() === secondDateRange[0].getTime() && secondDateRangeLastUsed[0].getTime() === secondDateRange[0].getTime()){
+                    return false;
+                } else return true;
+            } else return true;
+        } else return true;
+    } else return true;
+}
+
 function getDates(){
-    return firstDateRange;
+    return firstDateRange.concat(secondDateRange);
 }
 
 function parseDates(startDateString, endDateString, sliderId) {
@@ -71,10 +89,7 @@ function setUpDateSlider(dates, sliderId){
         values: dates,
         onFinish: d => {
             parseDates(d.from_value, d.to_value, sliderId);
-            changedInput();
-        },
-        onUpdate: d => {
-            checkAndAdjustDateRange(sliderId);
+            changedInputDates();
         }
     });
 }
@@ -90,10 +105,10 @@ function setUpColorSwitch(){
         from: true,
         to: true,
         force_edges:true,
-        values: ['Rolling Stock', 'Line ID'],
+        values: ['Line ID', 'Rolling Stock'],
         onFinish: d => {
-            isColorLine = (d.from_value === "Line ID");
-            changedInput();
+            let isColorRollingStock = (d.from_value === "Rolling Stock");
+            changeColors(isColorRollingStock);
         }
     });
 }
@@ -105,4 +120,9 @@ function setUpPerformanceSwitch(){
         force_edges:true,
         values: ['Fast', 'Slow'],
     });
+}
+
+function changedDelayCutoff(){
+    let delayCutoff = parseInt(document.getElementById("cutoff3").value);
+    changeDelayCutoff(delayCutoff);
 }
