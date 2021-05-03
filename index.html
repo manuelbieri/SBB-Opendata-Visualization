@@ -15,6 +15,53 @@
     <script src="js/bootstrap/bootstrappp.js"></script>
 </head>
 <body>
+<div class="jumbotron text-center" style="margin-bottom:0">
+    <div class="container">
+    <h1>Open Data Visualisierung</h1>
+    <p>Pünktlichkeit der IC-Verbindungen am Bahnhof Bern</p>
+</div>
+</div>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+    <a class="navbar-brand" href="#hello">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Visualisierung</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#data">Daten</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#thx">Danksagung</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#about">Über uns</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<div id="hello">
+<div class="container-fluid p-3 my-3" style="margin-top:80px">
+    <div class="card">
+        <div class="card-header">
+            <h1> Herzlich Willkommen auf unserer Website zur Open Data Visualisierung  </h1>
+        </div>
+        <div class="card-body">
+            <p>Diese Visualisierung entstand im Rahmen der Open Data Vorlesung am Institut für Wirtschaftsinformatik der Universität Bern.</p>
+            <p>Mithilfe von Open Data der Schweizerischen Bundesbahnen SBB, haben wir die Pünktlichkeit in Abhängigkeit mit dem Wetter als Visualisierung realisiert.</p>
+            <h3>Zur Anwendung</h3>
+            <p>Jeder Punkt stellt eine Verbindung dar, dabei kann festgelegt werden, ob die Farbe das Rollmaterial oder die IC-Verbindung zeigen soll.  </p>
+    </div>
+</div>
+</div>
+</div>
+
 <div class="container-fluid">
     <div id="toolbar">
         <a href="#" id="all" class="button active">All Grants</a>
@@ -214,5 +261,47 @@
         </div>
     </div>
 </div>
+
+    <div id="data">
+        <div class="container-fluid p-3 my-3">
+            <div class="card">
+                <div class="card-header">
+                    <h1> Datensatz  </h1></div>
+                    <div class="card-body">
+                        <p>Die Daten wurden aus drei Datensätzen zusammengesetzt, welche unter den nachfolgenden Links zu finden sind.</p>
+                        <li><a href="https://opentransportdata.swiss/en/dataset/istdaten">Datensatz zu der Pünktlichkeit</a></li>
+                        <li><a href="https://data.sbb.ch/explore/dataset/jahresformation/information/">Datensatz zum Rollmaterial</a></li>
+                        <li><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/">Wetterdaten</a></li>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="thx">
+        <div class="container-fluid p-3 my-3">
+            <div class="card">
+                <div class="card-header">
+                    <h1> Danksagung </h1></div>
+                        <div class="card-body"></div>
+            </div>
+        </div>
+    </div>
+
+<div id="about">
+    <div class="container-fluid p-3 my-3">
+        <div class="card">
+            <div class="card-header">
+                <h1> Über uns  </h1></div>
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="jumbotron text-center bg-dark text-white" style="margin-bottom:0">
+    <p>Lizenziert unter der GNU General Public License v3</p>
+</div>
+
 </body>
 </html>
