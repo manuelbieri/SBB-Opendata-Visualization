@@ -115,7 +115,6 @@ function bubbleChart() {
     function createNodes(rawData, dateRange) {
         // Use the max total_amount in the data as the max in the scale's domain
         // note we have to ensure the total_amount is a number.
-        console.log(rawData.length)
         for (let i = 0; i < rawData.length; i++) {
             rawData[i].ANKUNFTSZEIT = new Date(rawData[i].ANKUNFTSZEIT);
             rawData[i].AN_PROGNOSE = new Date(rawData[i].AN_PROGNOSE);
@@ -132,8 +131,6 @@ function bubbleChart() {
                 return inFirstRange;
             }
         })
-
-        console.log(rawData.length)
 
         setUpDateSlider(Array.from(dates), '#slider1');
         setUpDateSlider(Array.from(dates), '#slider2');
@@ -183,9 +180,9 @@ function bubbleChart() {
      * rawData is expected to be an array of data objects as provided by
      * a d3 loading function like d3.csv.
      */
-    let chart = function chart(selector, rawData, dateRange) {
+    let chart = function chart(selector, rawData, args) {
         // convert raw data into nodes data
-        nodes = createNodes(rawData, dateRange);
+        nodes = createNodes(rawData, args.dates);
         // Create a SVG element inside the provided selector
         // with desired size.
         svg = d3.select(selector)
@@ -205,15 +202,15 @@ function bubbleChart() {
         let bubblesE = bubbles.enter().append('circle')
             .classed('bubble', true)
             .attr('r', 0)
-            .attr('fill', function (d) { return fillColorLine(d.LINIEN_TEXT); })
-            .attr('stroke', function (d) { return d3.rgb(fillColorLine(d.LINIEN_TEXT)).darker(); })
+            .attr('fill', d => {return getColor(d, isRollingStockColor())})
+            .attr('stroke', d => { return d3.rgb(getColor(d, isRollingStockColor())).darker(); })
             .attr('stroke-width', 2)
-            .on('mouseover', showDetail)
+            .on('mouseover', showDetail);
 
         // @v4 Merge the original empty selection and the enter selection
         bubbles = bubbles.merge(bubblesE);
 
-        // Fancy transition to make bubbles appear, ending with the
+         // Fancy transition to make bubbles appear, ending with the
         // correct radius
         bubbles.transition()
             .duration(2000)
@@ -345,6 +342,11 @@ function bubbleChart() {
         updateCarousel(d.block);
     }
 
+    function getColor(d, colorRollingStock){
+        if (colorRollingStock) return fillColorRollingStock(getTrainType(d.block));
+        else return fillColorLine(d.LINIEN_TEXT);
+    }
+
     /*
      * Externally accessible function (this is attached to the
      * returned chart function). Allows the visualization to toggle
@@ -361,12 +363,9 @@ function bubbleChart() {
     };
 
     chart.changeColor = function (colorRollingStock) {
-        if (colorRollingStock) bubbles
-            .attr('fill', d => {return fillColorRollingStock(getTrainType(d.block))})
-            .attr('stroke', d => {return d3.rgb(fillColorRollingStock(getTrainType(d.block))).darker()});
-        else bubbles
-            .attr('fill', d => {return fillColorLine(d.LINIEN_TEXT)})
-            .attr('stroke', d => {return d3.rgb(fillColorLine(d.LINIEN_TEXT)).darker()});
+        bubbles
+        .attr('fill', d => {return getColor(d, colorRollingStock)})
+        .attr('stroke', d => {return d3.rgb(getColor(d, colorRollingStock)).darker()});
     }
 
     chart.changeDelayCutoff = function (newDelayCutoff) {
@@ -393,7 +392,7 @@ function display(error, data, args) {
     if (error) {
         console.log(error);
     }
-    myBubbleChart('#canvas', data, args.dates);
+    myBubbleChart('#canvas', data, args);
     if (args.category1 !== undefined){
         myBubbleChart.toggleDisplay(true, args);
     }
@@ -417,7 +416,7 @@ function changeDelayCutoff(newDelayCutoff){
 // Load the data.
 function loadChart(args) {
     $("#canvas").empty();
-    d3.json('data/sbb_data_preview.json', (e, d) => {
+    d3.json('data/sbb_data_v2.json', (e, d) => {
         display(e, d, args);
     });
 }

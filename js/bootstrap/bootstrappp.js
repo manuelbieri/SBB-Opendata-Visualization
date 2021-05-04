@@ -15,12 +15,8 @@ function changedInput(doSplit){
     if (valid) changeChart(doSplit, args);
 }
 
-function checkUpdateNeeded() {
-    return true;
-}
-
 function changedInputDates(){
-    if (checkUpdateNeeded()) changedInput(false);
+    changedInput(false);
 }
 
 function checkInput(value1, value2){
@@ -48,46 +44,58 @@ function drawValidity(removeClass, addClass){
     document.getElementById("cutoff2").classList.add(addClass);
 }
 
-let firstDateRange = [new Date(2021, 0, 1), new Date(2021, 0, 3)];
+let firstDateRange = [];
 let secondDateRange = [];
 
 function getDates(){
     return {date1:firstDateRange[0], date2:firstDateRange[1], date3:secondDateRange[0], date4:secondDateRange[1]};
 }
 
-function parseDates(startDateString, endDateString, sliderId) {
-    let tmpDateRange = [];
-    let arrayStartDate = startDateString.split("-");
-    tmpDateRange[0] = new Date(arrayStartDate[2], parseInt(arrayStartDate[1])-1, arrayStartDate[0]);
-    let arrayEndDate = endDateString.split("-");
-    tmpDateRange[1] = new Date(arrayEndDate[2], parseInt(arrayEndDate[1])-1, arrayEndDate[0]);
-    if (sliderId === "#slider1") firstDateRange = tmpDateRange;
-    else secondDateRange = tmpDateRange;
+function parseSliderDates() {
+    let sliderFirstRange = $('#slider1').data("ionRangeSlider");
+    let sliderSecondRange = $('#slider2').data("ionRangeSlider");
+    firstDateRange = [parseSliderDate(sliderFirstRange.result.from_value), parseSliderDate(sliderFirstRange.result.to_value)]
+    secondDateRange = [parseSliderDate(sliderSecondRange.result.from_value), parseSliderDate(sliderSecondRange.result.to_value)]
 }
 
-function checkAndAdjustDateRange(sliderId) {
-
+function parseSliderDate(dateString){
+    let dateArray = dateString.split("-");
+    return new Date(dateArray[2], parseInt(dateArray[1])-1, dateArray[0]);
 }
+
+function adjustDateRange(sliderId) {
+    let tmpDateRange;
+    if (sliderId === "#slider1") tmpDateRange = firstDateRange;
+    else tmpDateRange = secondDateRange;
+
+    if (tmpDateRange[0].getTime() === tmpDateRange[1].getTime()){
+        let slider = $(sliderId).data("ionRangeSlider");
+        let currentValue = slider.result.to;
+        if (currentValue + 1 <= slider.result.max){
+            slider.update({to: currentValue+1})
+        } else{
+            slider.update({from: currentValue-1})
+        }
+        parseSliderDates();
+    }
+}
+
 
 function setUpDateSlider(dates, sliderId){
-    parseDates(dates[0], dates[dates.length-1]);
     let slider = $(sliderId).ionRangeSlider({
         type: "double",
-        from: true,
-        to: true,
+        from: dates.length-2,
+        to: dates.length-1,
         force_edges:true,
         values: dates,
+        onUpdate: d => {
+        },
         onFinish: d => {
-            parseDates(d.from_value, d.to_value, sliderId);
+            parseSliderDates();
+            adjustDateRange(sliderId);
             changedInputDates();
         }
     });
-}
-
-let isColorLine = false;
-
-function getColorType(){
-    return isColorLine;
 }
 
 function setUpColorSwitch(){
@@ -103,6 +111,12 @@ function setUpColorSwitch(){
     });
 }
 
+function isRollingStockColor(){
+    let slider = $("#switch").data("ionRangeSlider");
+    return "Rolling Stock" === slider.result.from_value;
+}
+
+
 function setUpPerformanceSwitch(){
     let switchSlider = $('#switchPerformance').ionRangeSlider({
         from: true,
@@ -110,6 +124,10 @@ function setUpPerformanceSwitch(){
         force_edges:true,
         values: ['Fast', 'Slow'],
     });
+}
+
+function getPerformanceSetting(){
+    let slider = $("#switch").data("ionRangeSlider");
 }
 
 function changedDelayCutoff(){
