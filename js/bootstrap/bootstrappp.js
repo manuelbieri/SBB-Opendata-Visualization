@@ -15,8 +15,12 @@ function changedInput(doSplit){
     if (valid) changeChart(doSplit, args);
 }
 
+function checkUpdateNeeded() {
+    return true;
+}
+
 function changedInputDates(){
-    if (checkNewDateRange()) changedInput(false);
+    if (checkUpdateNeeded()) changedInput(false);
 }
 
 function checkInput(value1, value2){
@@ -44,25 +48,11 @@ function drawValidity(removeClass, addClass){
     document.getElementById("cutoff2").classList.add(addClass);
 }
 
-let firstDateRangeLastUsed = [];
 let firstDateRange = [new Date(2021, 0, 1), new Date(2021, 0, 3)];
-let secondDateRangeLastUsed = [];
 let secondDateRange = [];
 
-function checkNewDateRange(){
-    if (firstDateRangeLastUsed.length === firstDateRange.length && firstDateRangeLastUsed.length === 2){
-        if (firstDateRangeLastUsed[0].getTime() === firstDateRange[0].getTime() && firstDateRangeLastUsed[0].getTime() === firstDateRange[0].getTime()){
-            if (secondDateRangeLastUsed.length === secondDateRange.length && secondDateRangeLastUsed.length === 2){
-                if (secondDateRangeLastUsed[0].getTime() === secondDateRange[0].getTime() && secondDateRangeLastUsed[0].getTime() === secondDateRange[0].getTime()){
-                    return false;
-                } else return true;
-            } else return true;
-        } else return true;
-    } else return true;
-}
-
 function getDates(){
-    return firstDateRange.concat(secondDateRange);
+    return {date1:firstDateRange[0], date2:firstDateRange[1], date3:secondDateRange[0], date4:secondDateRange[1]};
 }
 
 function parseDates(startDateString, endDateString, sliderId) {

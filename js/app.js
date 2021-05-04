@@ -6,6 +6,8 @@
  * https://bost.ocks.block/mike/chart/
  *
  */
+let delayCutoff = 3;
+
 function bubbleChart() {
     // Constants for sizing
     let width = 940;
@@ -31,11 +33,6 @@ function bubbleChart() {
      * @type {Set<any>}
      */
     const dates = new Set();
-    /**
-     * Stores current delay cutoff.
-     * @type {number}
-     */
-    let delayCutoff = 3;
 
     // X locations of the year titles.
     let yearsTitleX = {
@@ -110,38 +107,48 @@ function bubbleChart() {
         return e.ANKUNFTSZEIT - e.AN_PROGNOSE;
     }
 
-    function calcRadius(e){
-        if (e.diff > - delayCutoff*60*1000) return 2
-        else return Math.log10(Math.abs(e.diff));
+    function calcRadius(diff){
+        if (diff > - delayCutoff*60*1000) return 2
+        else return Math.log10(Math.abs(diff));
     }
 
-    function createNodes(rawData) {
+    function createNodes(rawData, dateRange) {
         // Use the max total_amount in the data as the max in the scale's domain
         // note we have to ensure the total_amount is a number.
-        //TODO: add filter for dates!
-        for (let i = 0 ; i < rawData.length ; i++){
+        console.log(rawData.length)
+        for (let i = 0; i < rawData.length; i++) {
             rawData[i].ANKUNFTSZEIT = new Date(rawData[i].ANKUNFTSZEIT);
             rawData[i].AN_PROGNOSE = new Date(rawData[i].AN_PROGNOSE);
             rawData[i].BETRIEBSTAG = new Date(rawData[i].BETRIEBSTAG);
-            rawData[i].diff = calcDelay(rawData[i]);
             dates.add(rawData[i].BETRIEBSTAG.getDate() + "-" + (rawData[i].BETRIEBSTAG.getMonth() + 1) + "-" + rawData[i].BETRIEBSTAG.getFullYear());
         }
 
+        rawData = rawData.filter(d => {
+            console.assert(dateRange.date1 != null && dateRange.date2 != null)
+            let inFirstRange = dateRange.date1.getTime() <= d.BETRIEBSTAG.getTime() && d.BETRIEBSTAG.getTime() <= dateRange.date2.getTime();
+            if (dateRange.date3 != null && dateRange.date4 != null) {
+                return inFirstRange || dateRange.date3.getTime() <= d.BETRIEBSTAG.getTime() && d.BETRIEBSTAG.getTime() <= dateRange.date4.getTime();
+            } else{
+                return inFirstRange;
+            }
+        })
+
+        console.log(rawData.length)
+
         setUpDateSlider(Array.from(dates), '#slider1');
         setUpDateSlider(Array.from(dates), '#slider2');
-
-        let maxAmount = d3.max(rawData, function (d) { return +d.diff; });
 
         // Use map() to convert raw data into node data.
         // Checkout http://learnjsdata.com/ for more on
         // working with data.
         let myNodes = rawData.map(function (d) {
+            let diff = calcDelay(d);
             return {
                 ANKUNFTSZEIT: d.ANKUNFTSZEIT,
                 AN_PROGNOSE: d.AN_PROGNOSE,
                 LINIEN_ID: d.LINIEN_ID,
-                radius: calcRadius(d),
-                diff: d.diff,
+                diff: diff,
+                radius: calcRadius(diff),
                 LINIEN_TEXT: d.LINIEN_TEXT,
                 block: d.block,
                 BETRIEBSTAG: d.BETRIEBSTAG,
@@ -176,10 +183,9 @@ function bubbleChart() {
      * rawData is expected to be an array of data objects as provided by
      * a d3 loading function like d3.csv.
      */
-    let chart = function chart(selector, rawData) {
+    let chart = function chart(selector, rawData, dateRange) {
         // convert raw data into nodes data
-        nodes = createNodes(rawData);
-
+        nodes = createNodes(rawData, dateRange);
         // Create a SVG element inside the provided selector
         // with desired size.
         svg = d3.select(selector)
@@ -383,16 +389,19 @@ let myBubbleChart = bubbleChart();
  * Function called once data is loaded from CSV.
  * Calls bubble chart function to display inside #vis div.
  */
-function display(error, data) {
+function display(error, data, args) {
     if (error) {
         console.log(error);
     }
-
-    myBubbleChart('#canvas', data);
+    myBubbleChart('#canvas', data, args.dates);
+    if (args.category1 !== undefined){
+        myBubbleChart.toggleDisplay(true, args);
+    }
 }
 
 function changeChart(doSplit, args){
-    myBubbleChart.toggleDisplay(doSplit, args);
+    if (doSplit) myBubbleChart.toggleDisplay(doSplit, args);
+    else loadChart(args);
 }
 
 function changeColors(colorRollingStock){
@@ -400,39 +409,19 @@ function changeColors(colorRollingStock){
 }
 
 function changeDelayCutoff(newDelayCutoff){
+    // TODO: Adjust to new requirements
+    delayCutoff = newDelayCutoff;
     myBubbleChart.changeDelayCutoff(newDelayCutoff);
 }
 
-/*
- * Sets up the layout buttons to allow for toggling between view modes.
- */
-function setupButtons() {
-    d3.select('#toolbar')
-        .selectAll('.button')
-        .on('click', function () {
-            // Remove active class from all buttons
-            d3.selectAll('.button').classed('active', false);
-            // Find the button just clicked
-            let button = d3.select(this);
-
-            // Set it as the active button
-            button.classed('active', true);
-
-            // Get the id of the button
-            let buttonId = button.attr('id');
-
-            // Toggle the bubble chart based on
-            // the currently clicked button.
-            changeChart(buttonId === 'year', {category1:'Schnee', cutoff1:5, category2:'Luftfeuchtigkeit', cutoff2:89})
-        });
-}
-
 // Load the data.
-
-d3.json('data/sbb_data_preview.json', display);
-
-// setup the buttons.
-setupButtons();
+function loadChart(args) {
+    $("#canvas").empty();
+    d3.json('data/sbb_data_preview.json', (e, d) => {
+        display(e, d, args);
+    });
+}
+loadChart({dates: {date1:new Date(2021,0,1), date2:new Date(2021,0,3), date3:null, date4:null}});
 
 // data related functions
 function getUnit(criteria, cutoff, d){
