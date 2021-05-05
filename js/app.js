@@ -34,11 +34,19 @@ function bubbleChart() {
      */
     const dates = new Set();
 
-    // X locations of the year titles.
-    let yearsTitleX = {
-        0: 160,
-        1: width - 160
+    // X locations of the titles.
+    let titleX = {
+        0: width/9,
+        1: xCenters["0"].x,
+        2: xCenters["1"].x
     };
+
+    // X locations of the titles.
+    let titleY = {
+        0: 20,
+        1: yCenters["0"].y,
+        2: yCenters["1"].y
+    }
 
     // @v4 strength to apply to the position forces
     let forceStrength = 0.03;
@@ -134,6 +142,7 @@ function bubbleChart() {
 
         setUpDateSlider(Array.from(dates), '#slider1');
         setUpDateSlider(Array.from(dates), '#slider2');
+        parseSliderDates();
 
         // Use map() to convert raw data into node data.
         // Checkout http://learnjsdata.com/ for more on
@@ -289,7 +298,7 @@ function bubbleChart() {
      * yearCenter of their data's year.
      */
     function splitBubbles(args) {
-        showTitles();
+        showTitles(args);
 
         // @v4 Reset the 'x' force to draw the bubbles to their year xCenters
         simulation.force('x', d3.forceX().strength(forceStrength).x(d => {return nodeXPos(d, args)}));
@@ -303,25 +312,37 @@ function bubbleChart() {
      * Hides Year title displays.
      */
     function hideYearTitles() {
-        svg.selectAll('.year').remove();
+        svg.selectAll('.title').remove();
     }
 
     /*
      * Shows Year title displays.
      */
-    function showTitles() {
+    function showTitles(args) {
         // Another way to do this would be to create
         // the year texts once and then just hide them.
-        let yearsData = d3.keys(yearsTitleX);
-        let years = svg.selectAll('.year')
-            .data(yearsData);
+        svg.selectAll('.title').remove();
+        let years = svg.selectAll('text.title')
+            .data([
+                {x:0, y:1, title:args.category2, cutoff:args.cutoff2, filler:' kleiner als '},
+                {x:0, y:2, title:args.category2, cutoff:args.cutoff2, filler:' grösser als '},
+                {x:1, y:0, title:args.category1, cutoff:args.cutoff1, filler:' kleiner als '},
+                {x:2, y:0, title:args.category1, cutoff:args.cutoff1, filler:' grösser als '}
+            ]);
 
         years.enter().append('text')
-            .attr('class', 'year')
-            .attr('x', function (d) { return yearsTitleX[d]; })
-            .attr('y', 40)
-            .attr('text-anchor', 'middle')
-            .text(function (d) { return d; });
+            .attr('class', 'title')
+            .attr('x', d => {
+                return titleX[d.x];
+            })
+            .attr('y', d => {
+                return titleY[d.y];
+            })
+            .attr('text-anchor', d => {return (d.x === 0 ? 'left':'middle')})
+            .attr('transform', d =>{
+                return 'translate(0,0), rotate(' + (d.x === 0 ? '0':'0') + ')';
+            })
+            .text(function (d) { return d.title + d.filler + d.cutoff; });
     }
 
     /*

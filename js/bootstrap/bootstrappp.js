@@ -80,6 +80,51 @@ function adjustDateRange(sliderId) {
     }
 }
 
+function convertMilliSecsToDays(milliseconds){
+    return milliseconds / (1000*60*60*24)
+}
+
+function calculateTimeDiffs() {
+    let slider1 = $('#slider1').data("ionRangeSlider");
+    let slider2 = $('#slider2').data("ionRangeSlider");
+    let diff1110 = slider1.result.to - slider1.result.from + 1;
+    let diff2120 = slider2.result.to - slider2.result.from + 1;
+    let diff2110 = Math.abs(slider2.result.to - slider1.result.from) + 1;
+    let diff2010 = Math.abs(slider2.result.from - slider1.result.from) + 1;
+
+    if (slider1.result.to <= slider2.result.from || slider2.result.to <= slider1.result.from){
+        return {usedPerformance: diff1110 + diff2120, toAdjust: diff1110 > diff2120 ? '#slider1': '#slider2'};
+    } else if (slider1.result.from <= slider2.result.from && slider2.result.to <= slider1.result.to){
+        return {usedPerformance: diff1110, toAdjust: '#slider1'};
+    } else if (slider2.result.from <= slider1.result.from && slider1.result.to <= slider2.result.to){
+        return {usedPerformance: diff2120, toAdjust: '#slider2'};
+    } else if (slider1.result.from <= slider2.result.from && slider2.result.from <= slider1.result.to && slider1.result.to <= slider2.result.to){
+        return {usedPerformance: diff2110, toAdjust: '#slider1'};
+    } else if (slider2.result.from <= slider1.result.from && slider1.result.from <= slider2.result.to && slider2.result.to <= slider1.result.to){
+        return {usedPerformance: diff2010 + diff1110, toAdjust: '#slider2'};
+    } else {
+        console.log(firstDateRange);
+        console.log(secondDateRange);
+        throw "Not defined case"
+    }
+}
+
+function resetSliderToAllowedRange(toAdjust) {
+    let sliderToAdjust = $(toAdjust).data("ionRangeSlider");
+    let sliderNotToAdjust = $(toAdjust === '#slider1' ? '#slider2':'#slider1').data("ionRangeSlider");
+    let rangeAlreadyOccupied = sliderNotToAdjust.result.to - sliderNotToAdjust.result.from + 1;
+    let rangeToMaxOccupy = getPerformance() - rangeAlreadyOccupied;
+    sliderToAdjust.update({from: sliderNotToAdjust.result.to-rangeToMaxOccupy})
+}
+
+function checkDateRange(){
+    let performanceBoundary = getPerformance();
+    let args = calculateTimeDiffs();
+    if (args.usedPerformance > performanceBoundary){
+        resetSliderToAllowedRange(args.toAdjust);
+    }
+}
+
 
 function setUpDateSlider(dates, sliderId){
     let slider = $(sliderId).ionRangeSlider({
@@ -88,9 +133,12 @@ function setUpDateSlider(dates, sliderId){
         to: dates.length-1,
         force_edges:true,
         values: dates,
-        onUpdate: d => {
+        onChange: () => {
+            parseSliderDates();
+            adjustDateRange(sliderId);
+            checkDateRange();
         },
-        onFinish: d => {
+        onFinish: () => {
             parseSliderDates();
             adjustDateRange(sliderId);
             changedInputDates();
@@ -126,8 +174,10 @@ function setUpPerformanceSwitch(){
     });
 }
 
-function getPerformanceSetting(){
-    let slider = $("#switch").data("ionRangeSlider");
+function getPerformance(){
+    let switchSlider = $("#switchPerformance").data("ionRangeSlider");
+    if (switchSlider.result.from === 0) return 10;
+    else return 26;
 }
 
 function changedDelayCutoff(){
