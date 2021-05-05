@@ -1,9 +1,9 @@
 function adjustUnits(category1, category2) {
-    document.getElementById('cutoff1-addon').innerHTML = getUnit(category1);
-    document.getElementById('cutoff2-addon').innerHTML = getUnit(category2);
+    document.getElementById('cutoff1-addon').innerHTML = getUnit(category1, false);
+    document.getElementById('cutoff2-addon').innerHTML = getUnit(category2, false);
 }
 
-function changedInput(doSplit){
+function changedInput(doSplit) {
     let category1 = $('#select1').val();
     let category2 = $('#select2').val();
     adjustUnits(category1, category2);
@@ -11,33 +11,40 @@ function changedInput(doSplit){
     let cutoff2 = parseInt(document.getElementById("cutoff2").value);
     let delayCutoff = parseInt(document.getElementById("cutoff3").value);
     let valid = checkInput(cutoff1, cutoff2)
-    let args = {category1:category1, cutoff1:cutoff1, category2:category2, cutoff2:cutoff2, delayCutoff:delayCutoff, dates:getDates()}
+    let args = {
+        category1: category1,
+        cutoff1: cutoff1,
+        category2: category2,
+        cutoff2: cutoff2,
+        delayCutoff: delayCutoff,
+        dates: getDates()
+    }
     if (valid) changeChart(doSplit, args);
 }
 
-function changedInputDates(){
+function changedInputDates() {
     changedInput(false);
 }
 
-function checkInput(value1, value2){
-    if (Number.isInteger(value1) && Number.isInteger(value2)){
+function checkInput(value1, value2) {
+    if (Number.isInteger(value1) && Number.isInteger(value2)) {
         validInput();
         return true;
-    } else{
+    } else {
         invalidInput();
         return false;
     }
 }
 
-function validInput(){
+function validInput() {
     drawValidity('is-invalid', 'is-valid')
 }
 
-function invalidInput(){
+function invalidInput() {
     drawValidity('is-valid', 'is-invalid')
 }
 
-function drawValidity(removeClass, addClass){
+function drawValidity(removeClass, addClass) {
     document.getElementById("cutoff1").classList.remove(removeClass);
     document.getElementById("cutoff2").classList.remove(removeClass);
     document.getElementById("cutoff1").classList.add(addClass);
@@ -47,8 +54,8 @@ function drawValidity(removeClass, addClass){
 let firstDateRange = [];
 let secondDateRange = [];
 
-function getDates(){
-    return {date1:firstDateRange[0], date2:firstDateRange[1], date3:secondDateRange[0], date4:secondDateRange[1]};
+function getDates() {
+    return {date1: firstDateRange[0], date2: firstDateRange[1], date3: secondDateRange[0], date4: secondDateRange[1]};
 }
 
 function parseSliderDates() {
@@ -58,9 +65,9 @@ function parseSliderDates() {
     secondDateRange = [parseSliderDate(sliderSecondRange.result.from_value), parseSliderDate(sliderSecondRange.result.to_value)]
 }
 
-function parseSliderDate(dateString){
+function parseSliderDate(dateString) {
     let dateArray = dateString.split("-");
-    return new Date(dateArray[2], parseInt(dateArray[1])-1, dateArray[0]);
+    return new Date(dateArray[2], parseInt(dateArray[1]) - 1, dateArray[0]);
 }
 
 function adjustDateRange(sliderId) {
@@ -68,20 +75,16 @@ function adjustDateRange(sliderId) {
     if (sliderId === "#slider1") tmpDateRange = firstDateRange;
     else tmpDateRange = secondDateRange;
 
-    if (tmpDateRange[0].getTime() === tmpDateRange[1].getTime()){
+    if (tmpDateRange[0].getTime() === tmpDateRange[1].getTime()) {
         let slider = $(sliderId).data("ionRangeSlider");
         let currentValue = slider.result.to;
-        if (currentValue + 1 <= slider.result.max){
-            slider.update({to: currentValue+1})
-        } else{
-            slider.update({from: currentValue-1})
+        if (currentValue + 1 <= slider.result.max) {
+            slider.update({to: currentValue + 1})
+        } else {
+            slider.update({from: currentValue - 1})
         }
         parseSliderDates();
     }
-}
-
-function convertMilliSecsToDays(milliseconds){
-    return milliseconds / (1000*60*60*24)
 }
 
 function calculateTimeDiffs() {
@@ -92,15 +95,15 @@ function calculateTimeDiffs() {
     let diff2110 = Math.abs(slider2.result.to - slider1.result.from) + 1;
     let diff2010 = Math.abs(slider2.result.from - slider1.result.from) + 1;
 
-    if (slider1.result.to <= slider2.result.from || slider2.result.to <= slider1.result.from){
-        return {usedPerformance: diff1110 + diff2120, toAdjust: diff1110 > diff2120 ? '#slider1': '#slider2'};
-    } else if (slider1.result.from <= slider2.result.from && slider2.result.to <= slider1.result.to){
+    if (slider1.result.to <= slider2.result.from || slider2.result.to <= slider1.result.from) {
+        return {usedPerformance: diff1110 + diff2120, toAdjust: diff1110 > diff2120 ? '#slider1' : '#slider2'};
+    } else if (slider1.result.from <= slider2.result.from && slider2.result.to <= slider1.result.to) {
         return {usedPerformance: diff1110, toAdjust: '#slider1'};
-    } else if (slider2.result.from <= slider1.result.from && slider1.result.to <= slider2.result.to){
+    } else if (slider2.result.from <= slider1.result.from && slider1.result.to <= slider2.result.to) {
         return {usedPerformance: diff2120, toAdjust: '#slider2'};
-    } else if (slider1.result.from <= slider2.result.from && slider2.result.from <= slider1.result.to && slider1.result.to <= slider2.result.to){
+    } else if (slider1.result.from <= slider2.result.from && slider2.result.from <= slider1.result.to && slider1.result.to <= slider2.result.to) {
         return {usedPerformance: diff2110, toAdjust: '#slider1'};
-    } else if (slider2.result.from <= slider1.result.from && slider1.result.from <= slider2.result.to && slider2.result.to <= slider1.result.to){
+    } else if (slider2.result.from <= slider1.result.from && slider1.result.from <= slider2.result.to && slider2.result.to <= slider1.result.to) {
         return {usedPerformance: diff2010 + diff1110, toAdjust: '#slider2'};
     } else {
         console.log(firstDateRange);
@@ -111,27 +114,27 @@ function calculateTimeDiffs() {
 
 function resetSliderToAllowedRange(toAdjust) {
     let sliderToAdjust = $(toAdjust).data("ionRangeSlider");
-    let sliderNotToAdjust = $(toAdjust === '#slider1' ? '#slider2':'#slider1').data("ionRangeSlider");
+    let sliderNotToAdjust = $(toAdjust === '#slider1' ? '#slider2' : '#slider1').data("ionRangeSlider");
     let rangeAlreadyOccupied = sliderNotToAdjust.result.to - sliderNotToAdjust.result.from + 1;
     let rangeToMaxOccupy = getPerformance() - rangeAlreadyOccupied;
-    sliderToAdjust.update({from: sliderNotToAdjust.result.to-rangeToMaxOccupy})
+    sliderToAdjust.update({from: sliderNotToAdjust.result.to - rangeToMaxOccupy})
 }
 
-function checkDateRange(){
+function checkDateRange() {
     let performanceBoundary = getPerformance();
     let args = calculateTimeDiffs();
-    if (args.usedPerformance > performanceBoundary){
+    if (args.usedPerformance > performanceBoundary) {
         resetSliderToAllowedRange(args.toAdjust);
     }
 }
 
 
-function setUpDateSlider(dates, sliderId){
-    let slider = $(sliderId).ionRangeSlider({
+function setUpDateSlider(dates, sliderId) {
+    $(sliderId).ionRangeSlider({
         type: "double",
-        from: dates.length-2,
-        to: dates.length-1,
-        force_edges:true,
+        from: dates.length - 2,
+        to: dates.length - 1,
+        force_edges: true,
         values: dates,
         onChange: () => {
             parseSliderDates();
@@ -146,11 +149,11 @@ function setUpDateSlider(dates, sliderId){
     });
 }
 
-function setUpColorSwitch(){
-    let switchSlider = $('#switch').ionRangeSlider({
+function setUpColorSwitch() {
+    $('#switch').ionRangeSlider({
         from: true,
         to: true,
-        force_edges:true,
+        force_edges: true,
         values: ['Line ID', 'Rolling Stock'],
         onFinish: d => {
             let isColorRollingStock = (d.from_value === "Rolling Stock");
@@ -159,28 +162,28 @@ function setUpColorSwitch(){
     });
 }
 
-function isRollingStockColor(){
+function isRollingStockColor() {
     let slider = $("#switch").data("ionRangeSlider");
     return "Rolling Stock" === slider.result.from_value;
 }
 
 
-function setUpPerformanceSwitch(){
-    let switchSlider = $('#switchPerformance').ionRangeSlider({
+function setUpPerformanceSwitch() {
+    $('#switchPerformance').ionRangeSlider({
         from: true,
         to: true,
-        force_edges:true,
+        force_edges: true,
         values: ['Fast', 'Slow'],
     });
 }
 
-function getPerformance(){
+function getPerformance() {
     let switchSlider = $("#switchPerformance").data("ionRangeSlider");
     if (switchSlider.result.from === 0) return 10;
     else return 26;
 }
 
-function changedDelayCutoff(){
+function changedDelayCutoff() {
     let delayCutoff = parseInt(document.getElementById("cutoff3").value);
     changeDelayCutoff(delayCutoff);
 }

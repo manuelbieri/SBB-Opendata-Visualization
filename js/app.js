@@ -15,16 +15,16 @@ function bubbleChart() {
 
     // Locations to move bubbles towards, depending
     // on which view mode is selected.
-    let center = { x: width / 2, y: height / 2 };
+    let center = {x: width / 2, y: height / 2};
 
     let xCenters = {
-        0: { x: width / 3 },
-        1: { x: 2 * width / 3 }
+        0: {x: width / 3},
+        1: {x: 2 * width / 3}
     };
 
     let yCenters = {
-        0: { y: height / 3 },
-        1: { y: height / 3 * 2 }
+        0: {y: height / 3},
+        1: {y: height / 3 * 2}
     };
 
     // custom variables
@@ -36,7 +36,7 @@ function bubbleChart() {
 
     // X locations of the titles.
     let titleX = {
-        0: width/9,
+        0: width / 9,
         1: xCenters["0"].x,
         2: xCenters["1"].x
     };
@@ -44,8 +44,8 @@ function bubbleChart() {
     // X locations of the titles.
     let titleY = {
         0: 20,
-        1: yCenters["0"].y,
-        2: yCenters["1"].y
+        1: yCenters["0"].y - 10,
+        2: yCenters["1"].y + 10
     }
 
     // @v4 strength to apply to the position forces
@@ -111,12 +111,12 @@ function bubbleChart() {
      * This function returns the new node array, with a node in that
      * array for each element in the rawData input.
      */
-    function calcDelay(e){
+    function calcDelay(e) {
         return e.ANKUNFTSZEIT - e.AN_PROGNOSE;
     }
 
-    function calcRadius(diff){
-        if (diff > - delayCutoff*60*1000) return 2
+    function calcRadius(diff) {
+        if (diff > -delayCutoff * 60 * 1000) return 2
         else return Math.log10(Math.abs(diff));
     }
 
@@ -135,7 +135,7 @@ function bubbleChart() {
             let inFirstRange = dateRange.date1.getTime() <= d.BETRIEBSTAG.getTime() && d.BETRIEBSTAG.getTime() <= dateRange.date2.getTime();
             if (dateRange.date3 != null && dateRange.date4 != null) {
                 return inFirstRange || dateRange.date3.getTime() <= d.BETRIEBSTAG.getTime() && d.BETRIEBSTAG.getTime() <= dateRange.date4.getTime();
-            } else{
+            } else {
                 return inFirstRange;
             }
         })
@@ -165,13 +165,15 @@ function bubbleChart() {
                 niederschlag: d.niederschlag,
                 schnee: d.schnee,
                 sonnenschein: d.sonnenschein,
-                x: width/2 + (Math.random() * 40 - 20),
-                y: height/2 + (Math.random() * 40 - 20)
+                x: width / 2 + (Math.random() * 40 - 20),
+                y: height / 2 + (Math.random() * 40 - 20)
             };
         });
 
         // sort them to prevent occlusion of smaller nodes.
-        myNodes.sort(function (a, b) { return b.diff - a.diff; });
+        myNodes.sort(function (a, b) {
+            return b.diff - a.diff;
+        });
 
         return myNodes;
     }
@@ -197,11 +199,14 @@ function bubbleChart() {
         svg = d3.select(selector)
             .append('svg')
             .attr('width', width)
-            .attr('height', height);
+            .attr('height', height)
+            .attr('xmlns', "http://www.w3.org/2000/svg");
 
         // Bind nodes data to what will become DOM elements to represent them.
         bubbles = svg.selectAll('.bubble')
-            .data(nodes, function (d) { return d.LINIEN_ID; });
+            .data(nodes, function (d) {
+                return d.LINIEN_ID;
+            });
 
         // Create new circle elements each with class `bubble`.
         // There will be one circle.bubble for each object in the nodes array.
@@ -211,19 +216,25 @@ function bubbleChart() {
         let bubblesE = bubbles.enter().append('circle')
             .classed('bubble', true)
             .attr('r', 0)
-            .attr('fill', d => {return getColor(d, isRollingStockColor())})
-            .attr('stroke', d => { return d3.rgb(getColor(d, isRollingStockColor())).darker(); })
+            .attr('fill', d => {
+                return getColor(d, isRollingStockColor())
+            })
+            .attr('stroke', d => {
+                return d3.rgb(getColor(d, isRollingStockColor())).darker();
+            })
             .attr('stroke-width', 2)
             .on('mouseover', showDetail);
 
         // @v4 Merge the original empty selection and the enter selection
         bubbles = bubbles.merge(bubblesE);
 
-         // Fancy transition to make bubbles appear, ending with the
+        // Fancy transition to make bubbles appear, ending with the
         // correct radius
         bubbles.transition()
             .duration(2000)
-            .attr('r', function (d) { return d.radius; });
+            .attr('r', function (d) {
+                return d.radius;
+            });
 
         // Set the simulation's to our newly created nodes array.
         // @v4 Once we set the nodes, the simulation will start running automatically!
@@ -242,8 +253,12 @@ function bubbleChart() {
      */
     function ticked() {
         bubbles
-            .attr('cx', function (d) { return d.x; })
-            .attr('cy', function (d) { return d.y; });
+            .attr('cx', function (d) {
+                return d.x;
+            })
+            .attr('cy', function (d) {
+                return d.y;
+            });
     }
 
     /*
@@ -258,7 +273,7 @@ function bubbleChart() {
         return yCenters[calcCategory(args.category2, args.cutoff2, d)].y;
     }
 
-    function calcCategory(criteria, cutoff, d){
+    function calcCategory(criteria, cutoff, d) {
         if (criteria === "Sonnenschein") return compare(d.sonnenschein, cutoff);
         else if (criteria === "Schnee") return compare(d.schnee, cutoff);
         else if (criteria === "Luftfeuchtigkeit") return compare(d.luftfeuchtigkeit, cutoff);
@@ -268,7 +283,7 @@ function bubbleChart() {
         else if (criteria === "Globalstrahlung") return compare(d.schnee, cutoff);
     }
 
-    function compare(diff, cutoff){
+    function compare(diff, cutoff) {
         if (diff > cutoff) return 1;
         else return 0;
     }
@@ -301,8 +316,12 @@ function bubbleChart() {
         showTitles(args);
 
         // @v4 Reset the 'x' force to draw the bubbles to their year xCenters
-        simulation.force('x', d3.forceX().strength(forceStrength).x(d => {return nodeXPos(d, args)}));
-        simulation.force('y', d3.forceY().strength(forceStrength).y(d => {return nodeYPos(d, args)}));
+        simulation.force('x', d3.forceX().strength(forceStrength).x(d => {
+            return nodeXPos(d, args)
+        }));
+        simulation.force('y', d3.forceY().strength(forceStrength).y(d => {
+            return nodeYPos(d, args)
+        }));
 
         // @v4 We can reset the alpha diff and restart the simulation
         simulation.alpha(1).restart();
@@ -324,25 +343,23 @@ function bubbleChart() {
         svg.selectAll('.title').remove();
         let years = svg.selectAll('text.title')
             .data([
-                {x:0, y:1, title:args.category2, cutoff:args.cutoff2, filler:' kleiner als '},
-                {x:0, y:2, title:args.category2, cutoff:args.cutoff2, filler:' grösser als '},
-                {x:1, y:0, title:args.category1, cutoff:args.cutoff1, filler:' kleiner als '},
-                {x:2, y:0, title:args.category1, cutoff:args.cutoff1, filler:' grösser als '}
+                {x: 0, y: 1, title: args.category2, cutoff: args.cutoff2, filler: ' kleiner als '},
+                {x: 0, y: 2, title: args.category2, cutoff: args.cutoff2, filler: ' grösser als '},
+                {x: 1, y: 0, title: args.category1, cutoff: args.cutoff1, filler: ' kleiner als '},
+                {x: 2, y: 0, title: args.category1, cutoff: args.cutoff1, filler: ' grösser als '}
             ]);
 
         years.enter().append('text')
             .attr('class', 'title')
-            .attr('x', d => {
-                return titleX[d.x];
+            .attr('text-anchor', d => {
+                return (d.x === 0 ? 'left' : 'middle')
             })
-            .attr('y', d => {
-                return titleY[d.y];
+            .attr('transform', d => {
+                return 'translate(' + titleX[d.x] + ',' + titleY[d.y] + ') rotate(' + (d.x === 0 ? '-90' : '0') + ')';
             })
-            .attr('text-anchor', d => {return (d.x === 0 ? 'left':'middle')})
-            .attr('transform', d =>{
-                return 'translate(0,0), rotate(' + (d.x === 0 ? '0':'0') + ')';
-            })
-            .text(function (d) { return d.title + d.filler + d.cutoff; });
+            .text(function (d) {
+                return d.title + d.filler + d.cutoff + getUnit(d.title, true);
+            });
     }
 
     /*
@@ -363,7 +380,7 @@ function bubbleChart() {
         updateCarousel(d.block);
     }
 
-    function getColor(d, colorRollingStock){
+    function getColor(d, colorRollingStock) {
         if (colorRollingStock) return fillColorRollingStock(getTrainType(d.block));
         else return fillColorLine(d.LINIEN_TEXT);
     }
@@ -385,13 +402,19 @@ function bubbleChart() {
 
     chart.changeColor = function (colorRollingStock) {
         bubbles
-        .attr('fill', d => {return getColor(d, colorRollingStock)})
-        .attr('stroke', d => {return d3.rgb(getColor(d, colorRollingStock)).darker()});
+            .attr('fill', d => {
+                return getColor(d, colorRollingStock)
+            })
+            .attr('stroke', d => {
+                return d3.rgb(getColor(d, colorRollingStock)).darker()
+            });
     }
 
     chart.changeDelayCutoff = function (newDelayCutoff) {
         delayCutoff = newDelayCutoff;
-        bubbles.attr('r', d => {return calcRadius(d)})
+        bubbles.attr('r', d => {
+            return calcRadius(d)
+        })
     }
 
     // return the chart function from closure.
@@ -414,21 +437,21 @@ function display(error, data, args) {
         console.log(error);
     }
     myBubbleChart('#canvas', data, args);
-    if (args.category1 !== undefined){
+    if (args.category1 !== undefined) {
         myBubbleChart.toggleDisplay(true, args);
     }
 }
 
-function changeChart(doSplit, args){
+function changeChart(doSplit, args) {
     if (doSplit) myBubbleChart.toggleDisplay(doSplit, args);
     else loadChart(args);
 }
 
-function changeColors(colorRollingStock){
+function changeColors(colorRollingStock) {
     myBubbleChart.changeColor(colorRollingStock);
 }
 
-function changeDelayCutoff(newDelayCutoff){
+function changeDelayCutoff(newDelayCutoff) {
     // TODO: Adjust to new requirements
     delayCutoff = newDelayCutoff;
     myBubbleChart.changeDelayCutoff(newDelayCutoff);
@@ -441,23 +464,24 @@ function loadChart(args) {
         display(e, d, args);
     });
 }
-loadChart({dates: {date1:new Date(2021,0,1), date2:new Date(2021,0,3), date3:null, date4:null}});
+
+loadChart({dates: {date1: new Date(2021, 0, 1), date2: new Date(2021, 0, 3), date3: null, date4: null}});
 
 // data related functions
-function getUnit(criteria, cutoff, d){
+function getUnit(criteria, forSVG) {
     let unit = null;
     if (criteria === "Sonnenschein") unit = "min";
     else if (criteria === "Schnee") unit = "cm";
     else if (criteria === "Luftfeuchtigkeit") unit = "%";
     else if (criteria === "Luftdruck") unit = "hPa";
-    else if (criteria === "Lufttemperatur") unit = "&deg;C";
+    else if (criteria === "Lufttemperatur") unit = "°C";
     else if (criteria === "Niederschlag") unit = "mm";
-    else if (criteria === "Globalstrahlung") unit = "W/m<sup>2</sup>";
+    else if (criteria === "Globalstrahlung") unit = forSVG ? "W/m2" : "W/m<sup>2</sup>";
     console.assert(unit != null);
     return unit;
 }
 
-function dateDiffToString(diff){
+function dateDiffToString(diff) {
     let min = Math.floor(diff / 60000);
     let sec = Math.floor((diff - min * 60000) / 1000);
     return min + ' Min ' + sec + ' Secs';
