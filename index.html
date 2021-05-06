@@ -45,26 +45,66 @@
     </div>
 </nav>
 
+<div class="container">
 
-<div id="hello">
-<div class="container-fluid p-3 my-3" style="margin-top:80px">
-    <div class="card">
+    <div class="card custom-card" id="hello">
         <div class="card-header">
-            <h1> Herzlich Willkommen auf unserer Website zur Open Data Visualisierung  </h1>
+            <h2> Herzlich Willkommen</h2>
         </div>
         <div class="card-body">
             <p>Diese Visualisierung entstand im Rahmen der Open Data Vorlesung am Institut für Wirtschaftsinformatik der Universität Bern. Mithilfe von Open Data der Schweizerischen Bundesbahnen SBB, haben wir die Pünktlichkeit in Abhängigkeit mit dem Wetter als Visualisierung realisiert.</p>
-            <h3>Zur Anwendung</h3>
-            <p>Jeder Punkt stellt eine Verbindung dar, dabei kann festgelegt werden, ob die Farbe das Rollmaterial oder die IC-Verbindung zeigen soll.  </p>
+            <h4>Zur Anwendung</h4>
+            <p>Die Visualisierung kann nach drei Parametern selektioniert werden.
+                <br>Klicke dazu auf den Link, für was Du dich interessierst und Du wirst mehr über die Möglichkeiten der Visualisierung erfahren.  </p>
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                            Rollmaterial
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            In unserem Datensatz sind x-verschiedene Zugkompositionen enthalten. Wenn Du nach Rollmaterial filterst, sortieren sich die Punkte nach ihrem Rollmaterial. Im Bilderkarussell siehst Du, wie die einzelnen Züge in echt aussehen.
+                            <br>Ist der FV-Dosto mehr Verspätungen als die alten Züge? Finde es heraus!
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                          Linien
+                        </a>
+                    </div>
+                    <div id="collapseThree" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            Wenn Du nach Linien sortierst, ordnen sich die Punkte nach den Linien ICX und... .
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+                            Wetter
+                        </a>
+                    </div>
+                    <div id="collapseFour" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            Beim Wetter hast Du die meisten Möglichkeiten, nach was du filtern willst.
+                            <br>Hast Du dich schon immer gefragt, ob dein Zug bei Schnee mehr Verspätung hat? Finde es heraus, indem du den Filter "Schnee" auswählst.
+                        </div>
+                    </div>
+                </div>
     </div>
-</div>
-</div>
-</div>
+        </div>
+    </div>
 
-<div class="container-fluid p-3 my-3">
-    <div class="card" id="visualisierung">
+
+
+
+    <div class="card custom-card" id="visualisierung">
         <div class="card-header">
-            <h1>Visualisierung</h1>
+            <h2>Visualisierung</h2>
         </div>
     <div class="row m-1">
         <div class="col-lg-2 col-6 p-1">
@@ -260,49 +300,39 @@
         </div>
     </div>
 </div>
-</div>
 
-    <div id="data">
-        <div class="container-fluid p-3 my-3">
-            <div class="card">
-                <div class="card-header">
-                    <h1> Datensatz  </h1></div>
-                    <div class="card-body">
-                        <p>Die Daten wurden aus drei Datensätzen zusammengesetzt, welche unter den nachfolgenden Links zu finden sind.</p>
-                        <li><a href="https://opentransportdata.swiss/en/dataset/istdaten">Datensatz zu der Pünktlichkeit</a></li>
-                        <li><a href="https://data.sbb.ch/explore/dataset/jahresformation/information/">Datensatz zum Rollmaterial</a></li>
-                        <li><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/">Wetterdaten</a></li>
-                    </div>
-            </div>
+    <div class="card custom-card" id="data">
+        <div class="card-header">
+            <h2> Datensatz  </h2></div>
+        <div class="card-body">
+            <p>Die Daten wurden aus drei Datensätzen zusammengesetzt, welche unter den nachfolgenden Links zu finden sind.</p>
+            <li><a href="https://opentransportdata.swiss/en/dataset/istdaten">Datensatz zu der Pünktlichkeit</a></li>
+            <li><a href="https://data.sbb.ch/explore/dataset/jahresformation/information/">Datensatz zum Rollmaterial</a></li>
+            <li><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/">Wetterdaten</a></li>
         </div>
     </div>
 
-    <div id="thx">
-        <div class="container-fluid p-3 my-3">
-            <div class="card">
-                <div class="card-header">
-                    <h1> Danksagung </h1></div>
-                        <div class="card-body"></div>
-            </div>
-        </div>
+    <div class="card custom-card" id="thx">
+        <div class="card-header">
+            <h2> Danksagung </h2></div>
+        <div class="card-body"></div>
+
     </div>
 
-<div id="about">
-    <div class="container-fluid p-3 my-3">
-        <div class="card">
+     <div class="card custom-card" id="about">
             <div class="card-header">
-                <h1> Über uns  </h1></div>
+                <h2> Über uns  </h2></div>
             <div class="card-deck">
-                <div class="card" style="width:25%">
-                    <img class="card-img-top" src="about/manuel.jfif" alt="Card image" style="width:40%">
+                <div class="card">
+                    <img class="card-img-top img-fluid img-width align-content-center justify-content-center" src="about/manuel.jfif" alt="Card image">
                     <div class="card-body">
                         <h4 class="card-title">Manuel Bieri</h4>
                         <p class="card-text">Bachelor of Science in Economics, Universität Bern</p>
                         <a href="mailto:manuel.bieri@students.unibe.ch" class="btn btn-primary">Kontakt</a>
                     </div>
                 </div>
-                <div class="card" style="width:25%">
-                    <img class="card-img-top" src="about/Joel2.JPG" alt="Card image" style="width:40%">
+                <div class="card">
+                    <img class="card-img-top" src="about/Joel2.JPG" alt="Card image" style="width:50%; height: 50%">
                     <div class="card-body">
                         <h4 class="card-title">Joël Allgaier</h4>
                         <p class="card-text">Bachelor of Science in Economics, Universität Bern</p>
@@ -311,12 +341,14 @@
                 </div>
             </div>
         </div>
-    </div>
+
 </div>
+    </div>
 
 <div class="jumbotron jumbotron-fluid text-center bg-dark text-white-50" style="margin-bottom:0">
     <p>Lizenziert unter der GNU General Public License v3</p>
 </div>
+
 
 </body>
 </html>

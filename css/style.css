@@ -55,22 +55,36 @@ th {
 
 }
 
-p{
+.custom-card{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.custom-header{
 
 }
-a{
 
+.container{
+ width: 80%;
+    margin: auto;
 }
+
+.img-width{
+    max-width: 300px !important;
+    margin: auto;
+    margin-top: 10px;
+}
+
 
 .irs--flat .irs-handle>i:first-child {
-    background-color: #7c7c7c !important;
+    background-color: #343a40 !important;
 }
 .irs--flat .irs-bar {
-    background-color: #7c7c7c !important;
+    background-color: #343a40 !important;
 }
 .irs--flat .irs-from, .irs--flat .irs-to, .irs--flat .irs-single {
-    background-color: #7c7c7c !important;
+    background-color: #343a40 !important;
 }
 .irs--flat .irs-from:before, .irs--flat .irs-to:before, .irs--flat .irs-single:before {
-    border-top-color: #7c7c7c !important;
+    border-top-color: #343a40 !important;
 }
