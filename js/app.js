@@ -223,7 +223,9 @@ function bubbleChart() {
                 return d3.rgb(getColor(d, isRollingStockColor())).darker();
             })
             .attr('stroke-width', 2)
-            .on('click', showDetail);
+            .on('click', showDetail)
+            .on('mouseenter', showDetail);
+
 
         // @v4 Merge the original empty selection and the enter selection
         bubbles = bubbles.merge(bubblesE);
