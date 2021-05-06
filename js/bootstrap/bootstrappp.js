@@ -1,12 +1,12 @@
-function adjustUnits(category1, category2) {
-    document.getElementById('cutoff1-addon').innerHTML = getUnit(category1, false);
-    document.getElementById('cutoff2-addon').innerHTML = getUnit(category2, false);
+function adjustUnits() {
+    document.getElementById('cutoff1-addon').innerHTML = getUnit($('#select1').val(), false);
+    document.getElementById('cutoff2-addon').innerHTML = getUnit($('#select2').val(), false);
 }
 
 function changedInput(doSplit) {
     let category1 = $('#select1').val();
     let category2 = $('#select2').val();
-    adjustUnits(category1, category2);
+    adjustUnits();
     let cutoff1 = parseInt(document.getElementById("cutoff1").value);
     let cutoff2 = parseInt(document.getElementById("cutoff2").value);
     let delayCutoff = parseInt(document.getElementById("cutoff3").value);
@@ -37,11 +37,11 @@ function checkInput(value1, value2) {
 }
 
 function validInput() {
-    drawValidity('is-invalid', 'is-valid')
+    drawValidity('is-invalid', 'was-validated')
 }
 
 function invalidInput() {
-    drawValidity('is-valid', 'is-invalid')
+    drawValidity('was-validated', 'is-invalid')
 }
 
 function drawValidity(removeClass, addClass) {

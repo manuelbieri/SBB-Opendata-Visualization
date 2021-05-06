@@ -26,6 +26,10 @@ th {
     color: #fff;
 }
 
+.custom-row {
+    line-height: 0.4;
+}
+
 #canvas {
     clear: both;
     margin: auto;
