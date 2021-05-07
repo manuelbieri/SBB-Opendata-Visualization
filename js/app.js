@@ -36,7 +36,7 @@ function bubbleChart() {
 
     // X locations of the titles.
     let titleX = {
-        0: width / 9,
+        0: 30,
         1: xCenters["0"].x,
         2: xCenters["1"].x
     };
@@ -44,8 +44,8 @@ function bubbleChart() {
     // X locations of the titles.
     let titleY = {
         0: 20,
-        1: yCenters["0"].y - 10,
-        2: yCenters["1"].y + 10
+        1: yCenters["0"].y - 30,
+        2: yCenters["1"].y + 30
     }
 
     // @v4 strength to apply to the position forces
@@ -224,7 +224,11 @@ function bubbleChart() {
             })
             .attr('stroke-width', 2)
             .on('click', showDetail)
-            .on('mouseenter', showDetail);
+            .on('mouseover', (e, d) => {
+                console.log(e.currentTarget);
+                console.log(this);
+                console.log(d)
+            });
 
 
         // @v4 Merge the original empty selection and the enter selection
@@ -297,7 +301,7 @@ function bubbleChart() {
      * center of the visualization.
      */
     function GroupBubbles() {
-        hideYearTitles();
+        hideTitles();
 
         // @v4 Reset the 'x' force to draw the bubbles to the center.
         simulation.force('x', d3.forceX().strength(forceStrength).x(center.x));
@@ -332,7 +336,7 @@ function bubbleChart() {
     /*
      * Hides Year title displays.
      */
-    function hideYearTitles() {
+    function hideTitles() {
         svg.selectAll('.title').remove();
     }
 
@@ -345,10 +349,10 @@ function bubbleChart() {
         svg.selectAll('.title').remove();
         let years = svg.selectAll('text.title')
             .data([
-                {x: 0, y: 1, title: args.category2, cutoff: args.cutoff2, filler: ' kleiner als '},
-                {x: 0, y: 2, title: args.category2, cutoff: args.cutoff2, filler: ' grösser als '},
-                {x: 1, y: 0, title: args.category1, cutoff: args.cutoff1, filler: ' kleiner als '},
-                {x: 2, y: 0, title: args.category1, cutoff: args.cutoff1, filler: ' grösser als '}
+                {x: 0, y: 1, title: args.category2, cutoff: args.cutoff2, filler: 'Weniger '},
+                {x: 0, y: 2, title: args.category2, cutoff: args.cutoff2, filler: 'Mehr '},
+                {x: 1, y: 0, title: args.category1, cutoff: args.cutoff1, filler: 'Weniger '},
+                {x: 2, y: 0, title: args.category1, cutoff: args.cutoff1, filler: 'Mehr '}
             ]);
 
         years.enter().append('text')
@@ -360,7 +364,7 @@ function bubbleChart() {
                 return 'translate(' + titleX[d.x] + ',' + titleY[d.y] + ') rotate(' + (d.x === 0 ? '-90' : '0') + ')';
             })
             .text(function (d) {
-                return d.title + d.filler + d.cutoff + getUnit(d.title, true);
+                return d.filler + d.title + ' als ' + d.cutoff + getUnit(d.title, true);
             });
     }
 
@@ -429,7 +433,6 @@ function bubbleChart() {
  */
 
 let myBubbleChart = bubbleChart();
-
 /*
  * Function called once data is loaded from CSV.
  * Calls bubble chart function to display inside #vis div.
@@ -453,10 +456,8 @@ function changeColors(colorRollingStock) {
     myBubbleChart.changeColor(colorRollingStock);
 }
 
-function changeDelayCutoff(newDelayCutoff) {
-    // TODO: Adjust to new requirements
+function changeDelayCutoff(newDelayCutoff, args) {
     delayCutoff = newDelayCutoff;
-    myBubbleChart.changeDelayCutoff(newDelayCutoff);
 }
 
 // Load the data.
@@ -468,6 +469,7 @@ function loadChart(args) {
 }
 
 loadChart({dates: {date1: new Date(2021, 0, 1), date2: new Date(2021, 0, 3), date3: null, date4: null}});
+changedInputDates();
 
 // data related functions
 function getUnit(criteria, forSVG) {
@@ -499,8 +501,8 @@ function getTrainType(block) {
 
 function updateCarousel(block) {
     let trainType = getTrainType(block);
-    document.getElementById("imageCarousel1").src = "Graphics/Images/" + trainType + "/1.webp"
-    document.getElementById("imageCarousel2").src = "Graphics/Images/" + trainType + "/2.webp"
-    document.getElementById("imageCarousel3").src = "Graphics/Images/" + trainType + "/3.webp"
-    document.getElementById("imageCarousel4").src = "Graphics/Images/" + trainType + "/4.webp"
+    document.getElementById("imageCarousel1").src = "Graphics/Images/Trains/" + trainType + "/1.webp"
+    document.getElementById("imageCarousel2").src = "Graphics/Images/Trains/" + trainType + "/2.webp"
+    document.getElementById("imageCarousel3").src = "Graphics/Images/Trains/" + trainType + "/3.webp"
+    document.getElementById("imageCarousel4").src = "Graphics/Images/Trains/" + trainType + "/4.webp"
 }

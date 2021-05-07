@@ -95,29 +95,24 @@
                         </div>
                     </div>
                 </div>
-    </div>
+            </div>
         </div>
     </div>
-
-
-
-
     <div class="card custom-card" id="visualisierung">
         <div class="card-header">
             <h2>Visualisierung</h2>
         </div>
-    <div class="row m-1">
-        <div class="col-lg-2 col-6 p-1">
-            <div class="input-group">
-                <label for="selectCriteria"></label>
-                <select class="custom-select" id="selectCriteria" onchange="changedInput()">
-                    <option selected>Wetter</option>
-                    <option>Rollmaterial</option>
-                    <option>Liniennummer</option>
-                </select>
+        <div class="row m-1">
+            <div class="col-lg-2 col-4 p-1">
+                <div class="input-group">
+                    <label for="selectColor"></label>
+                    <select class="custom-select" id="selectColor" onchange="changeColors(isRollingStockColor())">
+                        <option selected>Linie</option>
+                        <option>Rollmaterial</option>
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-2 col-6 p-1">
+        <div class="col-lg-2 col-4 p-1">
             <div class="input-group">
                 <label for="cutoff3"></label>
                 <select class="custom-select" id="cutoff3" onchange="changedDelayCutoff()">
@@ -125,6 +120,15 @@
                     <option>5 Min</option>
                     <option>10 Min</option>
                     <option>15 Min</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-2 col-4 p-1">
+            <div class="input-group">
+                <label for="selectPerformance"></label>
+                <select class="custom-select" id="selectPerformance">
+                    <option value="fast">Fast (small date range)</option>
+                    <option value="slow">Slow (big date range)</option>
                 </select>
             </div>
         </div>
@@ -142,7 +146,7 @@
                 </select>
             </div>
         </div>
-        <div class="col-lg-2 col-6 p-1">
+        <div class="col-lg-1 col-6 p-1">
             <div class="input-group">
                 <label for="cutoff1"></label>
                 <input type="text" class="form-control" id="cutoff1" value="6" aria-describedby="cutoff1-addon" onchange="changedInput(true)">
@@ -165,7 +169,7 @@
                 </select>
             </div>
         </div>
-        <div class="col-lg-2 col-6 p-1">
+        <div class="col-lg-1 col-6 p-1">
             <div class="input-group">
                 <label for="cutoff2"></label>
                 <input type="text" class="form-control" id="cutoff2" value="90" aria-describedby="cutoff2-addon" onchange="changedInput(true)">
@@ -176,26 +180,15 @@
         </div>
     </div>
     <div class="row mr-1 ml-1 custom-row">
-        <div class="col-lg-2 col-6">
-            <label for="switch"></label>
-            <input type="text" id="switch" class="js-range-slider" name="switch"/>
-            <script>setUpColorSwitch()</script>
-        </div>
-        <div class="col-lg-2 col-6">
-            <label for="switchPerformance"></label>
-            <input type="text" id="switchPerformance" class="js-range-slider" name="switch"/>
-            <script>setUpPerformanceSwitch()</script>
-        </div>
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <label for="slider1"></label>
             <input type="text" id="slider1" class="js-range-slider"/>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <label for="slider2"></label>
             <input type="text" id="slider2" class="js-range-slider"/>
         </div>
     </div>
-
     <div>
         <svg viewBox="0 0 940 600" preserveAspectRatio="xMinYMin meet" id="canvas"></svg>
         <script src="js/app.js"></script>
@@ -306,49 +299,44 @@
             <h2> Datensatz  </h2></div>
         <div class="card-body">
             <p>Die Daten wurden aus drei Datensätzen zusammengesetzt, welche unter den nachfolgenden Links zu finden sind.</p>
-            <li><a href="https://opentransportdata.swiss/en/dataset/istdaten">Datensatz zu der Pünktlichkeit</a></li>
-            <li><a href="https://data.sbb.ch/explore/dataset/jahresformation/information/">Datensatz zum Rollmaterial</a></li>
-            <li><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/">Wetterdaten</a></li>
+            <ul>
+                <li><a href="https://opentransportdata.swiss/en/dataset/istdaten">Datensatz zu der Pünktlichkeit</a></li>
+                <li><a href="https://data.sbb.ch/explore/dataset/jahresformation/information/">Datensatz zum Rollmaterial</a></li>
+                <li><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/">Wetterdaten</a></li>
+            </ul>
         </div>
     </div>
-
     <div class="card custom-card" id="thx">
         <div class="card-header">
             <h2> Danksagung </h2></div>
         <div class="card-body"></div>
-
     </div>
 
-     <div class="card custom-card" id="about">
-            <div class="card-header">
-                <h2> Über uns  </h2></div>
-            <div class="card-deck">
-                <div class="card">
-                    <img class="card-img-top img-fluid img-width align-content-center justify-content-center" src="about/manuel.jfif" alt="Card image">
-                    <div class="card-body">
-                        <h4 class="card-title">Manuel Bieri</h4>
-                        <p class="card-text">Bachelor of Science in Economics, Universität Bern</p>
-                        <a href="mailto:manuel.bieri@students.unibe.ch" class="btn btn-primary">Kontakt</a>
-                    </div>
+    <div class="card custom-card" id="about">
+        <div class="card-header">
+            <h2> Über uns  </h2></div>
+        <div class="card-deck">
+            <div class="card">
+                <img class="card-img-top img-fluid img-width align-content-center justify-content-center" src="Graphics/Images/about/manuel.jfif" alt="Card image">
+                <div class="card-body">
+                    <h4 class="card-title">Manuel Bieri</h4>
+                    <p class="card-text">Bachelor of Science in Economics, Universität Bern</p>
+                    <a href="mailto:manuel.bieri@students.unibe.ch" class="btn btn-primary">Kontakt</a>
                 </div>
-                <div class="card">
-                    <img class="card-img-top" src="about/Joel2.JPG" alt="Card image" style="width:50%; height: 50%">
-                    <div class="card-body">
-                        <h4 class="card-title">Joël Allgaier</h4>
-                        <p class="card-text">Bachelor of Science in Economics, Universität Bern</p>
-                        <a href="mailto:joel.allgaier@students.unibe.ch" class="btn btn-primary">Kontakt</a>
-                    </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="Graphics/Images/about/Joel2.JPG" alt="Card image" style="width:50%; height: 50%">
+                <div class="card-body">
+                    <h4 class="card-title">Joël Allgaier</h4>
+                    <p class="card-text">Bachelor of Science in Economics, Universität Bern</p>
+                    <a href="mailto:joel.allgaier@students.unibe.ch" class="btn btn-primary">Kontakt</a>
                 </div>
             </div>
         </div>
-
-</div>
     </div>
-
+</div>
 <div class="jumbotron jumbotron-fluid text-center bg-dark text-white-50" style="margin-bottom:0">
     <p>Lizenziert unter der GNU General Public License v3</p>
 </div>
-
-
 </body>
 </html>

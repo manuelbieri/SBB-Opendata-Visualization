@@ -149,41 +149,17 @@ function setUpDateSlider(dates, sliderId) {
     });
 }
 
-function setUpColorSwitch() {
-    $('#switch').ionRangeSlider({
-        from: true,
-        to: true,
-        force_edges: true,
-        values: ['Line ID', 'Rolling Stock'],
-        onFinish: d => {
-            let isColorRollingStock = (d.from_value === "Rolling Stock");
-            changeColors(isColorRollingStock);
-        }
-    });
-}
-
 function isRollingStockColor() {
-    let slider = $("#switch").data("ionRangeSlider");
-    return "Rolling Stock" === slider.result.from_value;
-}
-
-
-function setUpPerformanceSwitch() {
-    $('#switchPerformance').ionRangeSlider({
-        from: true,
-        to: true,
-        force_edges: true,
-        values: ['Fast', 'Slow'],
-    });
+    return "Rollmaterial" === $('#selectColor').val();
 }
 
 function getPerformance() {
-    let switchSlider = $("#switchPerformance").data("ionRangeSlider");
-    if (switchSlider.result.from === 0) return 10;
-    else return 26;
+    if ($('#selectPerformance').val() === 'fast') return 10;
+    else return 20;
 }
 
 function changedDelayCutoff() {
     let delayCutoff = parseInt(document.getElementById("cutoff3").value);
     changeDelayCutoff(delayCutoff);
+    changedInputDates();
 }
