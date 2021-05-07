@@ -81,7 +81,7 @@ function bubbleChart() {
         .velocityDecay(0.2)
         .force('x', d3.forceX().strength(forceStrength).x(center.x))
         .force('y', d3.forceY().strength(forceStrength).y(center.y))
-        .force('charge', d3.forceManyBody().strength(charge))
+        .force('charge', d3.forceManyBodyReuse().strength(charge))
         .on('tick', ticked);
 
     // @v4 Force starts up automatically,
@@ -200,7 +200,6 @@ function bubbleChart() {
             .append('svg')
             .attr('width', width)
             .attr('height', height)
-            .attr('xmlns', "http://www.w3.org/2000/svg");
 
         // Bind nodes data to what will become DOM elements to represent them.
         bubbles = svg.selectAll('.bubble')
@@ -463,7 +462,7 @@ function changeDelayCutoff(newDelayCutoff, args) {
 // Load the data.
 function loadChart(args) {
     $("#canvas").empty();
-    d3.json('data/sbb_data_v2.json', (e, d) => {
+    d3.json('data/sbb_data_merged_v1.json', (e, d) => {
         display(e, d, args);
     });
 }
