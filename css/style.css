@@ -55,6 +55,8 @@ th {
 
 }
 
+
+
 .custom-card{
     margin-top: 10px;
     margin-bottom: 10px;
@@ -69,12 +71,13 @@ th {
     margin: auto;
 }
 
-.img-width{
-    max-width: 300px !important;
-    margin: auto;
-    margin-top: 10px;
-}
 
+a:link{
+    color: #343a40;
+}
+a:visited{
+    color: #343a40;
+}
 
 .irs--flat .irs-handle>i:first-child {
     background-color: #343a40 !important;

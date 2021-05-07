@@ -49,13 +49,15 @@
 
     <div class="card custom-card" id="hello">
         <div class="card-header">
+            <br>
+            <br>
             <h2> Herzlich Willkommen</h2>
         </div>
         <div class="card-body">
             <p>Diese Visualisierung entstand im Rahmen der Open Data Vorlesung am Institut für Wirtschaftsinformatik der Universität Bern. Mithilfe von Open Data der Schweizerischen Bundesbahnen SBB, haben wir die Pünktlichkeit in Abhängigkeit mit dem Wetter als Visualisierung realisiert.</p>
             <h4>Zur Anwendung</h4>
-            <p>Die Visualisierung kann nach drei Parametern selektioniert werden.
-                <br>Klicke dazu auf den Link, für was Du dich interessierst und Du wirst mehr über die Möglichkeiten der Visualisierung erfahren.  </p>
+            <p>Du hast die Möglichkeit, entweder nach Linien oder nach dem Rollmaterial zu sortieren. Standardmässig sind 3 Minuten als Verspätung gewählt, du kannst aber auch 5min, 10min oder 15min wählen. Dabei wird der Kreis im Verhältnis grösser dargestellt, wenn die Verspätung des Zuges grösser war, als die gewählte Zeit. Wenn du dich für eines entschieden hast, musst du zwei Wettereinflüsse selektionieren. Viel Spass beim Zuschauen, wie sich die Punkte bewegen!
+                <br>Klicke nun auf die untenstehenden Links, um mehr über die Möglichkeiten der Visualisierung zu erfahren.  </p>
             <div id="accordion">
                 <div class="card">
                     <div class="card-header">
@@ -65,8 +67,17 @@
                     </div>
                     <div id="collapseTwo" class="collapse" data-parent="#accordion">
                         <div class="card-body">
-                            In unserem Datensatz sind x-verschiedene Zugkompositionen enthalten. Wenn Du nach Rollmaterial filterst, sortieren sich die Punkte nach ihrem Rollmaterial. Im Bilderkarussell siehst Du, wie die einzelnen Züge in echt aussehen.
-                            <br>Ist der FV-Dosto mehr Verspätungen als die alten Züge? Finde es heraus!
+                            In unserem Datensatz sind vier verschiedene Zugkompositionen enthalten. Wenn Du nach Rollmaterial filterst, sortieren sich die Punkte nach ihrem Rollmaterial. Im Bilderkarussell siehst Du, wie die einzelnen Züge in echt aussehen.
+                            Dabei unterscheiden wir zwischen folgenden Kompositionen, wobei die Farbe der Liste, gerade die entsprechende Punktfarbe zeigt.
+                           <br>
+                            <br>
+                            <ul class="list-group list-group">
+                                <li class="list-group-item list-group-item-success">IC2000</li>
+                                <li class="list-group-item list-group-item-secondary">FVDosto</li>
+                                <li class="list-group-item list-group-item-info">ICN</li>
+                                <li class="list-group-item list-group-item-warning">Eurocity</li>
+                            </ul>
+                            <br>Ist der neue FV-Dosto öfters verspätet als die alten Züge? Finde es heraus!
                         </div>
                     </div>
                 </div>
@@ -78,7 +89,15 @@
                     </div>
                     <div id="collapseThree" class="collapse" data-parent="#accordion">
                         <div class="card-body">
-                            Wenn Du nach Linien sortierst, ordnen sich die Punkte nach den Linien ICX und... .
+                            Wenn Du nach Linien sortierst, ordnen sich die Punkte nach folgenden InterCity-Linien, welche alle über den Bahnhof Bern gehen.
+                            <br>
+                            <br>
+                            <ul class="list-group list-group">
+                                <li class="list-group-item list-group-item-success">IC1 Genève-Aéroport - Bern - Zürich HB - St.Gallen</li>
+                                <li class="list-group-item list-group-item-secondary">IC6 Basel SBB - Bern - Brig</li>
+                                <li class="list-group-item list-group-item-info">IC8 Brig - Bern - Zürich HB - Romanshorn</li>
+                                <li class="list-group-item list-group-item-warning">IC61 Basel SBB - Bern - Interlaken Ost</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -100,6 +119,8 @@
     </div>
     <div class="card custom-card" id="visualisierung">
         <div class="card-header">
+            <br>
+            <br>
             <h2>Visualisierung</h2>
         </div>
         <div class="row m-1">
@@ -296,47 +317,142 @@
 
     <div class="card custom-card" id="data">
         <div class="card-header">
-            <h2> Datensatz  </h2></div>
+            <br>
+            <br>
+            <h2> Datensatz und Links </h2></div>
         <div class="card-body">
-            <p>Die Daten wurden aus drei Datensätzen zusammengesetzt, welche unter den nachfolgenden Links zu finden sind.</p>
-            <ul>
-                <li><a href="https://opentransportdata.swiss/en/dataset/istdaten">Datensatz zu der Pünktlichkeit</a></li>
-                <li><a href="https://data.sbb.ch/explore/dataset/jahresformation/information/">Datensatz zum Rollmaterial</a></li>
-                <li><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/">Wetterdaten</a></li>
-            </ul>
+            <h5>Zusammengesetzter Datensatz</h5>
+            <p>Der Datensatz, welcher die Grundlage für die Visualisierung darstellt, ist zusammengesetzt aus Daten zur Pünkltichkeit, Rollmaterial und Wetter.
+            <br>Ein Element des zusammengesetzten Datensatzes enthält die Informationen zur Pünktlichkeit (Betriebstag, AN_Prognose, Ankunftszeit), zur Linie und dem Rollmaterial (LINIEN_IC, LINIEN_TEXT, block) und dem Wetter (globalstrahlung, schnee, luftdruck, niederschlag, sonnenschein, lufttemperatur, luftfeuchtigkeit).
+           </p>
+            <h5>Daten und Quellen</h5>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Daten</th>
+                    <th scope="col">Quellen</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Eigener Datensatz (.json)</td>
+                    <td><a href="https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/7c31a08bee5c661f9e71a003ea4b56deb33432aa/sbb_data_v2.json">Datensatz .json-file</a> </td>
+                </tr>
+                <tr>
+                    <td>Pünktlichkeitsdaten</td>
+                    <td><a href="https://opentransportdata.swiss/en/dataset/istdaten">opentransportdata.swiss</a></td>
+                </tr>
+                <tr>
+                    <td>Rollmaterial</td>
+                    <td><a href="https://data.sbb.ch/explore/dataset/jahresformation/information/">data.sbb.ch</a></td>
+                </tr>
+                <tr>
+                    <td>Wetterdaten</td>
+                    <td><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/">data.geo.admin.ch</a></td>
+                </tr>
+                <tr>
+                    <td>Bilder der Zugkompositionen</td>
+                    <td><a href="https://www.sbb.ch/de/bahnhof-services/waehrend-der-reise/unsere-zuege.html">sbb.ch</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+            <h5>Lizenzen und Quellen</h5>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Lizenzen</th>
+                    <th scope="col">Quellen</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Creating Bubble Charts with D3v4 - Jim Vallandingham</td>
+                    <td><a href="https://vallandingham.me/bubble_charts_with_d3v4.html">Jim Vallandingham</a>
+                    <br><a href="https://github.com/vlandham/bubble_chart_v4/blob/master/LICENSE">github-Lizenz</a></td>
+                </tr>
+                <tr>
+                    <td>D3 BSD 3-Clause "New" or "Revised" License</td>
+                    <td><a href="https://github.com/d3/d3">BSD 3-Clause</a></td>
+                </tr>
+                <tr>
+                    <td>D3-force-reuse BSD 3-Clause "New" or "Revised" License</td>
+                    <td><a href="https://github.com/twosixlabs/d3-force-reuse">BSD 3-Clause: force reuse</a></td>
+                </tr>
+                <tr>
+                    <td>Zeitslider MIT-Lizenz</td>
+                    <td><a href="https://github.com/IonDen/ion.rangeSlider">ion.rangeSlider</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <h5>Lizenz</h5>
+            <p>Unsere Visualisierung wird unter der MIT Lizenz veröffentlicht. Alle zuvor genannten Lizenzen sind mit dieser kompatibel.</p>
+            <div id="accordionTwo">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseSix">MIT-Lizenz</a>
+                    </div>
+                    <div id="collapseSix" class="collapse" data-parent="#accordionTwo">
+                        <div class="card-body">
+                            Copyright 2021 Allgaier Joël & Bieri Manuel
+                            <br>
+                            <br>
+                            Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+                            <br>
+                            <br>
+                            The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+                            <br>
+                            <br>
+                            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="card custom-card" id="thx">
         <div class="card-header">
+            <br>
+            <br>
             <h2> Danksagung </h2></div>
-        <div class="card-body"></div>
+        <div class="card-body">
+        <p>Wir möchten uns herzlich bei unserem Data-Coach Christian Trachsel bedanken, welcher uns die Open Data der SBB geliefert hat und uns mit guten Tipps weiterhelfen konnte. Es hat uns Spass gemacht, an der Visualisierung zu arbeiten!
+       <br>
+            <br>Weiter sind wir dem Open Data Team der Universität Bern dankbar. Besonders den Programming-Coaches Simon Kafader & Maurizio Piu, welche ihr breites Wissen mit uns teilten und stets die richtige Lösung zur Stelle hatten.</p>
+        </div>
     </div>
 
     <div class="card custom-card" id="about">
         <div class="card-header">
+            <br>
+            <br>
             <h2> Über uns  </h2></div>
-        <div class="card-deck">
-            <div class="card">
-                <img class="card-img-top img-fluid img-width align-content-center justify-content-center" src="Graphics/Images/about/manuel.jfif" alt="Card image">
-                <div class="card-body">
-                    <h4 class="card-title">Manuel Bieri</h4>
-                    <p class="card-text">Bachelor of Science in Economics, Universität Bern</p>
-                    <a href="mailto:manuel.bieri@students.unibe.ch" class="btn btn-primary">Kontakt</a>
+        <div class="row">
+            <div class="col-md-6">
+             <div class="card mx-auto my-3" style="width: 300px;">
+                 <img class="card-img-top img-fluid img-width align-content-center justify-content-center" src="Graphics/Images/about/manuel.jfif" alt="Card image">
+                 <div class="card-body">
+                     <h4 class="card-title">Manuel Bieri</h4>
+                     <p class="card-text">Bachelor of Science in Economics, Universität Bern</p>
+                         <a href="mailto:manuel.bieri@students.unibe.ch" class="btn btn-primary">Kontakt</a>
+                     </div>
+                 </div>
+             </div>
+            <div class="col-md-6">
+                <div class="card mx-auto my-3" style="width: 300px;">
+                    <img class="card-img-top" src="Graphics/Images/about/joel.JPG" alt="Card image">
+                    <div class="card-body">
+                        <h4 class="card-title">Joël Allgaier</h4>
+                        <p class="card-text">Bachelor of Science in Economics, Universität Bern</p>
+                        <a href="mailto:joel.allgaier@students.unibe.ch" class="btn btn-primary">Kontakt</a>
+                    </div>
                 </div>
             </div>
-            <div class="card">
-                <img class="card-img-top" src="Graphics/Images/about/Joel2.JPG" alt="Card image" style="width:50%; height: 50%">
-                <div class="card-body">
-                    <h4 class="card-title">Joël Allgaier</h4>
-                    <p class="card-text">Bachelor of Science in Economics, Universität Bern</p>
-                    <a href="mailto:joel.allgaier@students.unibe.ch" class="btn btn-primary">Kontakt</a>
-                </div>
             </div>
         </div>
-    </div>
 </div>
 <div class="jumbotron jumbotron-fluid text-center bg-dark text-white-50" style="margin-bottom:0">
-    <p>Lizenziert unter der GNU General Public License v3</p>
+    <p>Lizenziert unter der MIT-license</p>
 </div>
 </body>
 </html>
