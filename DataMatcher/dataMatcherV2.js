@@ -79,7 +79,6 @@ function bitmapMatcher(bitmap, date){
 
 data.then(d => {
     let tbl  = document.getElementById('myTable');
-    console.log(d);
     for(let i = 0; i < d.length; i++){
         let tr = tbl.insertRow();
         tr.insertCell().appendChild(document.createTextNode(d[i].BETRIEBSTAG.getDate() + '/' + (d[i].BETRIEBSTAG.getMonth()+1)));
@@ -87,5 +86,19 @@ data.then(d => {
         tr.insertCell().appendChild(document.createTextNode(d[i].AN_PROGNOSE.getDate() + '/' + (d[i].AN_PROGNOSE.getMonth()+1) + ' (' + d[i].AN_PROGNOSE.getHours() + ':' + d[i].AN_PROGNOSE.getMinutes() + ':' + d[i].AN_PROGNOSE.getSeconds() + ')'));
         tr.insertCell().appendChild(document.createTextNode(d[i].LINIEN_ID));
         tr.insertCell().appendChild(document.createTextNode(d[i].LINIEN_TEXT));
+        tr.insertCell().appendChild(document.createTextNode(d[i].globalstrahlung));
+        tr.insertCell().appendChild(document.createTextNode(d[i].luftdruck));
+        tr.insertCell().appendChild(document.createTextNode(d[i].luftfeuchtigkeit));
+        tr.insertCell().appendChild(document.createTextNode(d[i].lufttemperatur));
+        tr.insertCell().appendChild(document.createTextNode(d[i].niederschlag));
+        tr.insertCell().appendChild(document.createTextNode(d[i].schnee));
+        tr.insertCell().appendChild(document.createTextNode(d[i].sonnenschein));
     }
+    let elements = tbl.getElementsByTagName("td");
+    for (let j = 0 ; j < elements.length ; j++){
+        if (elements[j].innerHTML.includes('NaN/NaN (NaN:NaN:NaN)')) {
+            elements[j].style.color = "red";
+        }
+    }
+    console.log(d);
 });
