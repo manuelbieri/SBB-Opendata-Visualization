@@ -72,12 +72,12 @@
                            <br>
                             <br>
                             <ul class="list-group list-group">
-                                <li class="list-group-item list-group-item-success">IC2000</li>
-                                <li class="list-group-item list-group-item-secondary">FVDosto</li>
-                                <li class="list-group-item list-group-item-info">ICN</li>
-                                <li class="list-group-item list-group-item-warning">Eurocity</li>
+                                <li class="list-group-item rot">IC2000</li>
+                                <li class="list-group-item orange">FVDosto</li>
+                                <li class="list-group-item blau">ICN</li>
+                                <li class="list-group-item gruen">Eurocity</li>
                             </ul>
-                            <br>Ist der neue FV-Dosto öfters verspätet als die alten Züge? Finde es heraus!
+                            <br>Ist der neue FV-Dosto öfters verspätet als die älteren Züge? Finde es heraus!
                         </div>
                     </div>
                 </div>
@@ -92,11 +92,11 @@
                             Wenn Du nach Linien sortierst, ordnen sich die Punkte nach folgenden InterCity-Linien, welche alle über den Bahnhof Bern gehen.
                             <br>
                             <br>
-                            <ul class="list-group list-group">
-                                <li class="list-group-item list-group-item-success">IC1 Genève-Aéroport - Bern - Zürich HB - St.Gallen</li>
-                                <li class="list-group-item list-group-item-secondary">IC6 Basel SBB - Bern - Brig</li>
-                                <li class="list-group-item list-group-item-info">IC8 Brig - Bern - Zürich HB - Romanshorn</li>
-                                <li class="list-group-item list-group-item-warning">IC61 Basel SBB - Bern - Interlaken Ost</li>
+                            <ul class="list-group">
+                                <li class="list-group-item blau">IC1 Genève-Aéroport - Bern - Zürich HB - St.Gallen</li>
+                                <li class="list-group-item rot">IC6 Basel SBB - Bern - Brig</li>
+                                <li class="list-group-item gruen">IC8 Brig - Bern - Zürich HB - Romanshorn</li>
+                                <li class="list-group-item orange">IC61 Basel SBB - Bern - Interlaken Ost</li>
                             </ul>
                         </div>
                     </div>
@@ -109,8 +109,30 @@
                     </div>
                     <div id="collapseFour" class="collapse" data-parent="#accordion">
                         <div class="card-body">
-                            Beim Wetter hast Du die meisten Möglichkeiten, nach was du filtern willst.
-                            <br>Hast Du dich schon immer gefragt, ob dein Zug bei Schnee mehr Verspätung hat? Finde es heraus, indem du den Filter "Schnee" auswählst.
+                            <h5>Luftdruck</h5>
+                            <p>Bern liegt tiefer als 600m.ü.M., daher gilt für Bern der Standardluftdruck von 1'013,25hPa. Tieferer Luftdruck kann schlechtes Wetter bedeuten, höherer Luftdruck gutes Wetter.
+                            <br>Vorschlag: Setze die Grenze bei 1'013hPa</p>
+                            <h5>Luftfeuchtigkeit</h5>
+                            <p>Die relative Luftfeuchtigkeit misst den prozentualen Anteil am maximal möglichen Wert von gasförmigem Wasser in der Atmosphäre.
+                            <br>Vorschlag: Setze die Grenze bei 60%</p>
+                            <h5>Lufttemperatur</h5>
+                            <p>Ab etwa 20 Grad Celcius nehmen wir die Temperatur als warm wahr. Die Temperatur ist allerdings stark von der Tages- und Jahreszeit abhängig.
+                            <br>Vorschlag: Setze die Grenze bei 15 Grad Celsius</p>
+                            <h5>Niederschlag</h5>
+                            <p>In Milimeter wird die Summe in 24h angegeben. Dabei entpricht 1mm Niederschlag 1 Liter pro Quadratmeter. Bis zu 10mm ist es schwacher bis mässiger Regen, darüber starker Regen.
+                            <br>Vorschlag: Setze die Grenze bei 10mm</p>
+                            <h5>Schnee</h5>
+                            <p>Schnee wird in cm angegeben. 1cm Schnee verhält sich wie 1mm Niederschlag. Bis 10cm sprechen wir von schwach bis mässigem Schneefall, danach starker Schneefall.
+                            <br>Vorschlag: Setze die Grenze bei 10cm</p>
+                            <h5>Sonnenschein</h5>
+                            <p>Die Sonnscheindauer ist in Minuten angegeben. Wenn an einem Tag 6h die Sonne scheint, sind dies 360min.
+                            <br>Vorschlag: Setze die Grenze bei 360min</p>
+                            <h5>Globalstrahlung</h5>
+                            <p>Globalstrahlung beschreibt die direkt auf die Erdoberfläche eintreffenden Sonnenstrahlen. Die Werte werden in Watt pro Quadratmeter angegeben. An Tagen mit schlechtem Wetter liegen die Werte unter 100W/m^2.
+                            <br>Vorschlag: Setze die Grenze bei 100W/m^2</p>
+                            Hast Du dich schon immer gefragt, ob dein Zug bei Schnee mehr Verspätung hat? Finde es heraus, indem du den Filter "Schnee" auswählst.
+                            <br><br>Genauere Angaben zu den einzelnen Parametern findest du beispielsweise unter <a href="https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe.html">meteoschweiz.admin.ch</a>
+                            <br>Alle Wetterwerte sind Tagesdurchschnitte.
                         </div>
                     </div>
                 </div>
@@ -336,11 +358,12 @@
                 <tbody>
                 <tr>
                     <td>Eigener Datensatz (.json)</td>
-                    <td><a href="https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/7c31a08bee5c661f9e71a003ea4b56deb33432aa/sbb_data_v2.json">Datensatz .json-file</a> </td>
+                    <td><a href="https://gist.github.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5">Datensatz .json-file</a>
+                    <br><a href="https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/7c31a08bee5c661f9e71a003ea4b56deb33432aa/sbb_data_preview.json">Preview .json-file</a></td>
                 </tr>
                 <tr>
                     <td>Pünktlichkeitsdaten</td>
-                    <td><a href="https://opentransportdata.swiss/en/dataset/istdaten">opentransportdata.swiss</a></td>
+                    <td><a href="https://opentransportdata.swiss/en/dataset/istdaten">opentransportdata .swiss</a></td>
                 </tr>
                 <tr>
                     <td>Rollmaterial</td>
@@ -348,7 +371,7 @@
                 </tr>
                 <tr>
                     <td>Wetterdaten</td>
-                    <td><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/">data.geo.admin.ch</a></td>
+                    <td><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/">data.geo .admin.ch</a></td>
                 </tr>
                 <tr>
                     <td>Bilder der Zugkompositionen</td>

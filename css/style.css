@@ -66,6 +66,26 @@ th {
 
 }
 
+.blau{
+    background-color: blue !important;
+    border-color: black !important;
+    color: white;
+}
+.rot{
+    background-color: red !important;
+    border-color: black !important;
+}
+.gruen{
+    background-color: green !important;
+    border-color: black !important;
+}
+.orange{
+    background-color: orange !important;
+    border-color: black !important;
+}
+
+
+
 .container{
  width: 80%;
     margin: auto;
