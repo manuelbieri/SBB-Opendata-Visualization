@@ -79,8 +79,20 @@ function bitmapMatcher(bitmap, date){
 
 data.then(d => {
     let tbl  = document.getElementById('myTable');
+    drawTable(d, tbl);
+    let elements = tbl.getElementsByTagName("td");
+    for (let j = 0 ; j < elements.length ; j++){
+        if (elements[j].innerHTML.includes('NaN')) {
+            elements[j].style.color = "red";
+        }
+    }
+    console.log(d);
+    drawTable(d, tbl);
+});
+
+function drawTable(d, table){
     for(let i = 0; i < d.length; i++){
-        let tr = tbl.insertRow();
+        let tr = table.insertRow();
         tr.insertCell().appendChild(document.createTextNode(d[i].BETRIEBSTAG.getDate() + '/' + (d[i].BETRIEBSTAG.getMonth()+1)));
         tr.insertCell().appendChild(document.createTextNode(d[i].ANKUNFTSZEIT.getDate() + '/' + (d[i].ANKUNFTSZEIT.getMonth()+1) + ' (' + d[i].ANKUNFTSZEIT.getHours() + ':' + d[i].ANKUNFTSZEIT.getMinutes() + ':' + d[i].ANKUNFTSZEIT.getSeconds() + ')'));
         tr.insertCell().appendChild(document.createTextNode(d[i].AN_PROGNOSE.getDate() + '/' + (d[i].AN_PROGNOSE.getMonth()+1) + ' (' + d[i].AN_PROGNOSE.getHours() + ':' + d[i].AN_PROGNOSE.getMinutes() + ':' + d[i].AN_PROGNOSE.getSeconds() + ')'));
@@ -94,11 +106,4 @@ data.then(d => {
         tr.insertCell().appendChild(document.createTextNode(d[i].schnee));
         tr.insertCell().appendChild(document.createTextNode(d[i].sonnenschein));
     }
-    let elements = tbl.getElementsByTagName("td");
-    for (let j = 0 ; j < elements.length ; j++){
-        if (elements[j].innerHTML.includes('NaN/NaN (NaN:NaN:NaN)')) {
-            elements[j].style.color = "red";
-        }
-    }
-    console.log(d);
-});
+}

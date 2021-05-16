@@ -84,13 +84,18 @@ th {
     border-color: black !important;
 }
 
-
-
-.container{
- width: 80%;
-    margin: auto;
+@media screen and (max-width: 800px) {
+    .main {
+        width: 100%;
+        margin: auto;
+    }
 }
-
+@media screen and (min-width: 800px) {
+    .main {
+        width: 80%;
+        margin: auto;
+    }
+}
 
 a:link{
     color: #343a40;

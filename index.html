@@ -45,7 +45,7 @@
     </div>
 </nav>
 
-<div class="container">
+<div class="main">
 
     <div class="card custom-card" id="hello">
         <div class="card-header">
@@ -127,9 +127,9 @@
                             <h5>Sonnenschein</h5>
                             <p>Die Sonnscheindauer ist in Minuten angegeben. Wenn an einem Tag 6h die Sonne scheint, sind dies 360min.
                             <br>Vorschlag: Setze die Grenze bei 360min</p>
-                            <h5>Globalstrahlung</h5>
+                            <!--<h5>Globalstrahlung</h5>
                             <p>Globalstrahlung beschreibt die direkt auf die Erdoberfläche eintreffenden Sonnenstrahlen. Die Werte werden in Watt pro Quadratmeter angegeben. An Tagen mit schlechtem Wetter liegen die Werte unter 100W/m^2.
-                            <br>Vorschlag: Setze die Grenze bei 100W/m^2</p>
+                            <br>Vorschlag: Setze die Grenze bei 100W/m^2</p>-->
                             Hast Du dich schon immer gefragt, ob dein Zug bei Schnee mehr Verspätung hat? Finde es heraus, indem du den Filter "Schnee" auswählst.
                             <br><br>Genauere Angaben zu den einzelnen Parametern findest du beispielsweise unter <a href="https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe.html">meteoschweiz.admin.ch</a>
                             <br>Alle Wetterwerte sind Tagesdurchschnitte.
@@ -145,6 +145,7 @@
             <br>
             <h2>Visualisierung</h2>
         </div>
+        <div class="card-body">
         <div class="row m-1">
             <div class="col-lg-2 col-4 p-1">
                 <div class="input-group">
@@ -155,7 +156,7 @@
                     </select>
                 </div>
             </div>
-        <div class="col-lg-2 col-4 p-1">
+        <div class="col-lg-1 col-4 p-1">
             <div class="input-group">
                 <label for="cutoff3"></label>
                 <select class="custom-select" id="cutoff3" onchange="changedDelayCutoff()">
@@ -166,7 +167,7 @@
                 </select>
             </div>
         </div>
-        <div class="col-lg-2 col-4 p-1">
+        <div class="col-lg-1 col-4 p-1">
             <div class="input-group">
                 <label for="selectPerformance"></label>
                 <select class="custom-select" id="selectPerformance">
@@ -185,11 +186,11 @@
                     <option>Niederschlag</option>
                     <option selected>Schnee</option>
                     <option>Sonnenschein</option>
-                    <option>Globalstrahlung</option>
+                    <!--<option>Globalstrahlung</option>-->
                 </select>
             </div>
         </div>
-        <div class="col-lg-1 col-6 p-1">
+        <div class="col-lg-2 col-6 p-1">
             <div class="input-group">
                 <label for="cutoff1"></label>
                 <input type="text" class="form-control" id="cutoff1" value="6" aria-describedby="cutoff1-addon" onchange="changedInput(true)">
@@ -208,11 +209,11 @@
                     <option>Niederschlag</option>
                     <option>Schnee</option>
                     <option>Sonnenschein</option>
-                    <option>Globalstrahlung</option>
+                    <!--<option>Globalstrahlung</option>-->
                 </select>
             </div>
         </div>
-        <div class="col-lg-1 col-6 p-1">
+        <div class="col-lg-2 col-6 p-1">
             <div class="input-group">
                 <label for="cutoff2"></label>
                 <input type="text" class="form-control" id="cutoff2" value="90" aria-describedby="cutoff2-addon" onchange="changedInput(true)">
@@ -240,69 +241,73 @@
         </script>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-lg-4 col-sm-6 col-12">
             <table class="table table-hover">
                 <thead>
-                <tr>
-                    <th colspan="2">Zug Information</th>
-                </tr>
+                    <tr>
+                        <th colspan="2">Zug Information</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">Linie</th>
-                    <td id="line"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Linien Nummer</th>
-                    <td id="lineNumber"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Betriebstag</th>
-                    <td id="dayOfService"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Ankunftszeit</th>
-                    <td id="arrival"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Verspätung</th>
-                    <td id="delay"></td>
-                </tr>
+                    <tr>
+                        <th scope="row">Linie</th>
+                        <td id="line"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Zug</th>
+                        <td id="lineNumber"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Betriebstag</th>
+                        <td id="dayOfService"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Fahrplan</th>
+                        <td id="arrival"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Ankunftszeit (Verspätung)</th>
+                        <td id="delay"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-4 col-sm-6 col-12">
             <table class="table table-hover">
                 <thead>
-                <tr>
-                    <th colspan="2">Wetter</th>
-                </tr>
+                    <tr>
+                        <th colspan="2">Wetter</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">Sonnenschein</th>
-                    <td id="sunshine"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Niederschlag</th>
-                    <td id="rainfall"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Schnee</th>
-                    <td id="snow"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Lufttemperatur</th>
-                    <td id="temperature"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Luftfeuchtigkeit</th>
-                    <td id="humidity"></td>
-                </tr>
+                    <tr>
+                        <th scope="row">Sonnenschein</th>
+                        <td id="sunshine"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Niederschlag</th>
+                        <td id="rainfall"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Schnee</th>
+                        <td id="snow"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Lufttemperatur</th>
+                        <td id="temperature"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Luftfeuchtigkeit</th>
+                        <td id="humidity"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Luftdruck</th>
+                        <td id="air_pressure"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-        <div class="col-md-5">
+        <div class="col-lg-4 col-sm-12 col-12">
             <div id="imageCarousel" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target="#imageCarousel" data-slide-to="0" class="active"></li>
@@ -335,6 +340,7 @@
             </div>
         </div>
     </div>
+    </div>
 </div>
 
     <div class="card custom-card" id="data">
@@ -347,8 +353,8 @@
             <p>Der Datensatz, welcher die Grundlage für die Visualisierung darstellt, ist zusammengesetzt aus Daten zur Pünkltichkeit, Rollmaterial und Wetter.
             <br>Ein Element des zusammengesetzten Datensatzes enthält die Informationen zur Pünktlichkeit (Betriebstag, AN_Prognose, Ankunftszeit), zur Linie und dem Rollmaterial (LINIEN_IC, LINIEN_TEXT, block) und dem Wetter (globalstrahlung, schnee, luftdruck, niederschlag, sonnenschein, lufttemperatur, luftfeuchtigkeit).
            </p>
-            <h5>Daten und Quellen</h5>
-            <table class="table table-striped">
+            <!--<h5>Daten und Quellen</h5>-->
+            <table class="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Daten</th>
@@ -380,36 +386,38 @@
                 </tbody>
             </table>
             <br>
-            <h5>Lizenzen und Quellen</h5>
-            <table class="table table-striped">
+            <!--<h5>Lizenzen und Quellen</h5>-->
+            <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">Lizenzen</th>
-                    <th scope="col">Quellen</th>
+                    <th scope="col">Quelle</th>
+                    <th scope="col">Lizenz</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Creating Bubble Charts with D3v4 - Jim Vallandingham</td>
-                    <td><a href="https://vallandingham.me/bubble_charts_with_d3v4.html">Jim Vallandingham</a>
-                    <br><a href="https://github.com/vlandham/bubble_chart_v4/blob/master/LICENSE">github-Lizenz</a></td>
+                    <td><a href="https://vallandingham.me/bubble_charts_with_d3v4.html">Creating Bubble Charts - Jim Vallandingham</a>></td>
+                    <td><a href="https://github.com/vlandham/bubble_chart_v4/blob/master/LICENSE">Lizenz auf Github</a></td>
                 </tr>
                 <tr>
-                    <td>D3 BSD 3-Clause "New" or "Revised" License</td>
+                    <td>D3.js</td>
                     <td><a href="https://github.com/d3/d3">BSD 3-Clause</a></td>
                 </tr>
                 <tr>
-                    <td>D3-force-reuse BSD 3-Clause "New" or "Revised" License</td>
-                    <td><a href="https://github.com/twosixlabs/d3-force-reuse">BSD 3-Clause: force reuse</a></td>
+                    <td>D3-force-reuse.js</td>
+                    <td><a href="https://github.com/twosixlabs/d3-force-reuse">BSD 3-Clause</a></td>
                 </tr>
                 <tr>
-                    <td>Zeitslider MIT-Lizenz</td>
-                    <td><a href="https://github.com/IonDen/ion.rangeSlider">ion.rangeSlider</a></td>
+                    <td>Ion.RangeSlider</td>
+                    <td><a href="https://github.com/IonDen/ion.rangeSlider">MIT - Lizenz</a></td>
                 </tr>
                 </tbody>
             </table>
-            <h5>Lizenz</h5>
-            <p>Unsere Visualisierung wird unter der MIT Lizenz veröffentlicht. Alle zuvor genannten Lizenzen sind mit dieser kompatibel.</p>
+            <h5>Quellcode</h5>
+            <p>
+                Unsere Visualisierung wird unter der MIT Lizenz veröffentlicht. Alle zuvor genannten Lizenzen sind mit dieser kompatibel.
+                Der Quellcode ist in diesem <a href="https://github.com/manuelbieri/SBB-Opendata-Visualization">Github - Repository</a> ersichtlich und erhältlich (feel free to fork).
+            </p>
             <div id="accordionTwo">
                 <div class="card">
                     <div class="card-header">
@@ -417,16 +425,27 @@
                     </div>
                     <div id="collapseSix" class="collapse" data-parent="#accordionTwo">
                         <div class="card-body">
-                            Copyright 2021 Allgaier Joël & Bieri Manuel
-                            <br>
-                            <br>
-                            Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-                            <br>
-                            <br>
-                            The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-                            <br>
-                            <br>
-                            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+                            MIT License
+                            <br><br>
+                            Copyright (c) 2021 Joël Allgaier & Manuel Bieri
+                            <br><br>
+                            Permission is hereby granted, free of charge, to any person obtaining a copy
+                            of this software and associated documentation files (the "Software"), to deal
+                            in the Software without restriction, including without limitation the rights
+                            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                            copies of the Software, and to permit persons to whom the Software is
+                            furnished to do so, subject to the following conditions:
+                            <br><br>
+                            The above copyright notice and this permission notice shall be included in all
+                            copies or substantial portions of the Software.
+                            <br><br>
+                            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+                            SOFTWARE.
                         </div>
                     </div>
                 </div>

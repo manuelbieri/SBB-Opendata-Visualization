@@ -375,13 +375,14 @@ function bubbleChart() {
         document.getElementById("line").innerHTML = d.LINIEN_TEXT;
         document.getElementById("lineNumber").innerHTML = d.LINIEN_ID;
         document.getElementById("arrival").innerHTML = d.ANKUNFTSZEIT.getHours().toString().padStart(2, '0') + ':' + d.ANKUNFTSZEIT.getMinutes().toString().padStart(2, '0');
-        document.getElementById("dayOfService").innerHTML = d.BETRIEBSTAG.getDate() + "-" + (d.BETRIEBSTAG.getMonth() + 1) + "-" + d.BETRIEBSTAG.getFullYear();
-        document.getElementById("delay").innerHTML = (d.diff >= -delayCutoff ? "Keine Verspätung" : dateDiffToString(Math.abs(d.diff)));
+        document.getElementById("dayOfService").innerHTML = d.ANKUNFTSZEIT.getDate() + "-" + (d.ANKUNFTSZEIT.getMonth() + 1) + "-" + d.ANKUNFTSZEIT.getFullYear();
+        document.getElementById("delay").innerHTML = d.AN_PROGNOSE.getHours().toString().padStart(2, '0') + ':' + d.AN_PROGNOSE.getMinutes().toString().padStart(2, '0') + "<br>(" + (d.diff >= -delayCutoff ? "Keine Verspätung" : dateDiffToString(Math.abs(d.diff))) + ")";
         document.getElementById("sunshine").innerHTML = d.sonnenschein;
         document.getElementById("rainfall").innerHTML = d.niederschlag;
         document.getElementById("snow").innerHTML = d.schnee;
         document.getElementById("temperature").innerHTML = d.lufttemperatur;
         document.getElementById("humidity").innerHTML = d.luftfeuchtigkeit;
+        document.getElementById("air_pressure").innerHTML = d.luftdruck;
         updateCarousel(d.block);
     }
 
