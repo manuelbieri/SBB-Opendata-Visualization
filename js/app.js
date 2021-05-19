@@ -27,10 +27,8 @@ function bubbleChart() {
         1: {y: height / 3 * 2}
     };
 
-    // custom variables
     /**
      * Collects all valid dates.
-     * @type {Set<any>}
      */
     const dates = new Set();
 
@@ -131,7 +129,6 @@ function bubbleChart() {
         }
 
         rawData = rawData.filter(d => {
-            console.assert(dateRange.date1 != null && dateRange.date2 != null)
             let inFirstRange = dateRange.date1.getTime() <= d.BETRIEBSTAG.getTime() && d.BETRIEBSTAG.getTime() <= dateRange.date2.getTime();
             if (dateRange.date3 != null && dateRange.date4 != null) {
                 return inFirstRange || dateRange.date3.getTime() <= d.BETRIEBSTAG.getTime() && d.BETRIEBSTAG.getTime() <= dateRange.date4.getTime();
@@ -140,9 +137,11 @@ function bubbleChart() {
             }
         })
 
-        setUpDateSlider(Array.from(dates), '#slider1');
-        setUpDateSlider(Array.from(dates), '#slider2');
-        parseSliderDates();
+        let datesArray = Array.from(dates);
+        setUpDateRange("#firstDateRange", datesArray, 0, 1);
+        parseSliderDates(datesArray[0], datesArray[1], "#firstDateRange");
+        setUpDateRange("#secondDateRange", datesArray, datesArray.length-2, datesArray.length-1 );
+        parseSliderDates(datesArray[datesArray.length-2], datesArray[datesArray.length-1], "#secondDateRange");
 
         // Use map() to convert raw data into node data.
         // Checkout http://learnjsdata.com/ for more on
@@ -456,7 +455,7 @@ function changeColors(colorRollingStock) {
     myBubbleChart.changeColor(colorRollingStock);
 }
 
-function changeDelayCutoff(newDelayCutoff, args) {
+function changeDelayCutoff(newDelayCutoff) {
     delayCutoff = newDelayCutoff;
 }
 
@@ -468,7 +467,7 @@ function loadChart(args) {
     });
 }
 
-loadChart({dates: {date1: new Date(2021, 0, 1), date2: new Date(2021, 0, 3), date3: null, date4: null}});
+loadChart({dates: {date1: new Date(2021, 0, 1), date2: new Date(2021, 0, 2), date3: new Date(2021, 3, 29), date4: new Date(2021, 3, 30)}});
 changedInputDates();
 
 // data related functions

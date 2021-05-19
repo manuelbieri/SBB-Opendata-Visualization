@@ -15,7 +15,8 @@ The merged [production](https://gist.githubusercontent.com/manuelbieri/5a20c8840
 ## Dependencies
 - [D3.js - v4](https://github.com/d3/d3) (BSD 3-Clause "New" or "Revised" License)
 - [d3-force-reuse](https://github.com/twosixlabs/d3-force-reuse) (BSD 3-Clause "New" or "Revised" License)
-- [ion.rangeSlider](https://github.com/IonDen/ion.rangeSlider) (MIT License)
+- [Date Range Picker](https://github.com/dangrossman/daterangepicker) (MIT License)
+- [Moment](https://github.com/moment/moment) (MIT License)
 
 ### Visualization build upon
 - [Creating Bubble Charts with D3v4 - Jim Vallandingham](https://vallandingham.me/bubble_charts_with_d3v4.html) - [License](https://github.com/vlandham/bubble_chart_v4/blob/master/LICENSE)

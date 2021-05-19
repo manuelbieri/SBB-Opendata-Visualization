@@ -26,36 +26,10 @@ th {
     color: #fff;
 }
 
-.custom-row {
-    line-height: 0.4;
-}
-
 #canvas {
     clear: both;
     margin: auto;
 }
-
-#hello {
-    width: 100%;
-}
-
-#about{
-    width: 100%;
-}
-
-#data{
-
-}
-
-#thx{
-
-}
-
-#visualisierung{
-
-}
-
-
 
 .custom-card{
     margin-top: 10px;
@@ -84,15 +58,15 @@ th {
     border-color: black !important;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1100px) {
     .main {
         width: 100%;
         margin: auto;
     }
 }
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 1100px) {
     .main {
-        width: 80%;
+        width: 60%;
         margin: auto;
     }
 }
@@ -102,17 +76,4 @@ a:link{
 }
 a:visited{
     color: #343a40;
-}
-
-.irs--flat .irs-handle>i:first-child {
-    background-color: #343a40 !important;
-}
-.irs--flat .irs-bar {
-    background-color: #343a40 !important;
-}
-.irs--flat .irs-from, .irs--flat .irs-to, .irs--flat .irs-single {
-    background-color: #343a40 !important;
-}
-.irs--flat .irs-from:before, .irs--flat .irs-to:before, .irs--flat .irs-single:before {
-    border-top-color: #343a40 !important;
 }
