@@ -139,9 +139,8 @@ function bubbleChart() {
 
         let datesArray = Array.from(dates);
         setUpDateRange("#firstDateRange", datesArray, 0, 1);
-        parseSliderDates(datesArray[0], datesArray[1], "#firstDateRange");
         setUpDateRange("#secondDateRange", datesArray, datesArray.length-2, datesArray.length-1 );
-        parseSliderDates(datesArray[datesArray.length-2], datesArray[datesArray.length-1], "#secondDateRange");
+        parseSliderDates();
 
         // Use map() to convert raw data into node data.
         // Checkout http://learnjsdata.com/ for more on

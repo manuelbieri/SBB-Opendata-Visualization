@@ -65,9 +65,11 @@ function parseSliderDate(dateString) {
     return new Date(dateArray[0], parseInt(dateArray[1]) - 1, dateArray[2]);
 }
 
-function parseSliderDates(start, end, dateRangeId) {
-    if (dateRangeId === '#firstDateRange') firstDateRange = [parseSliderDate(start), parseSliderDate(end)];
-    else secondDateRange = [parseSliderDate(start), parseSliderDate(end)];
+function parseSliderDates() {
+    let firstRange = $('#firstDateRange').data('daterangepicker');
+    firstDateRange = [firstRange.startDate.toDate(), firstRange.endDate.toDate()];
+    let secondRange = $('#secondDateRange').data('daterangepicker');
+    secondDateRange = [secondRange.startDate.toDate(), secondRange.endDate.toDate()]
 }
 
 function changedInput(doSplit) {
@@ -123,15 +125,6 @@ function getDates() {
 
 function isRollingStockColor() {
     return "Rollmaterial" === $('#selectColor').val();
-}
-
-function getPerformance() {
-    if ($('#selectPerformance').val() === 'fast') {
-        $('#firstDateRange').data('daterangepicker').set({"maxSpan":5})
-    }
-    else {
-        $('#firstDateRange').data('daterangepicker')
-    }
 }
 
 function changedDelayCutoff() {

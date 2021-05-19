@@ -1,3 +1,0 @@
-## ToDo
-- Rangeslider range
-

@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap/ion.rangeSlider.min.css">
+    <link rel="stylesheet" type="text/css" href="css/daterangepicker/daterangepicker.css" />
     <script src="js/d3/d3.min.js"></script>
     <script src="js/d3/d3-force-reuse.min.js"></script>
     <script src="js/bootstrap/jquery.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
-    <script src="js/bootstrap/ion.rangeSlider.min.js"></script>
-    <script src="js/bootstrap/bootstrappp.js"></script>
+    <script type="text/javascript" src="js/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="js/daterangepicker/daterangepicker.min.js"></script>
+    <script src="js/bootstrapAddin.js"></script>
 </head>
 <body>
 <div class="jumbotron jumbotron-fluid text-center bg-dark text-white-50" style="margin-bottom:0">
@@ -147,36 +148,7 @@
         </div>
         <div class="card-body">
         <div class="row m-1">
-            <div class="col-lg-2 col-4 p-1">
-                <div class="input-group">
-                    <label for="selectColor"></label>
-                    <select class="custom-select" id="selectColor" onchange="changeColors(isRollingStockColor())">
-                        <option selected>Linie</option>
-                        <option>Rollmaterial</option>
-                    </select>
-                </div>
-            </div>
-        <div class="col-lg-1 col-4 p-1">
-            <div class="input-group">
-                <label for="cutoff3"></label>
-                <select class="custom-select" id="cutoff3" onchange="changedDelayCutoff()">
-                    <option>3 Min</option>
-                    <option>5 Min</option>
-                    <option>10 Min</option>
-                    <option>15 Min</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-lg-1 col-4 p-1">
-            <div class="input-group">
-                <label for="selectPerformance"></label>
-                <select class="custom-select" id="selectPerformance">
-                    <option value="fast">Fast (small date range)</option>
-                    <option value="slow">Slow (big date range)</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-lg-2 col-6 p-1">
+        <div class="col-lg-3 col-6 p-1">
             <div class="input-group">
                 <label for="select1"></label>
                 <select class="custom-select" id="select1" onchange="changedInput(true)">
@@ -190,7 +162,7 @@
                 </select>
             </div>
         </div>
-        <div class="col-lg-2 col-6 p-1">
+        <div class="col-lg-3 col-6 p-1">
             <div class="input-group">
                 <label for="cutoff1"></label>
                 <input type="text" class="form-control" id="cutoff1" value="6" aria-describedby="cutoff1-addon" onchange="changedInput(true)">
@@ -199,7 +171,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-6 p-1">
+        <div class="col-lg-3 col-6 p-1">
             <div class="input-group">
                 <label for="select2"></label>
                 <select class="custom-select" id="select2" onchange="changedInput(true)">
@@ -213,7 +185,7 @@
                 </select>
             </div>
         </div>
-        <div class="col-lg-2 col-6 p-1">
+        <div class="col-lg-3 col-6 p-1">
             <div class="input-group">
                 <label for="cutoff2"></label>
                 <input type="text" class="form-control" id="cutoff2" value="90" aria-describedby="cutoff2-addon" onchange="changedInput(true)">
@@ -222,15 +194,37 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mr-1 ml-1 custom-row">
-        <div class="col-lg-6">
-            <label for="slider1"></label>
-            <input type="text" id="slider1" class="js-range-slider"/>
+            <div class="col-lg-3 col-6 p-1">
+                <div class="input-group">
+                    <label for="selectColor"></label>
+                    <select class="custom-select" id="selectColor" onchange="changeColors(isRollingStockColor())">
+                        <option selected>Linie</option>
+                        <option>Rollmaterial</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6 p-1">
+                <div class="input-group">
+                    <label for="cutoff3"></label>
+                    <select class="custom-select" id="cutoff3" onchange="changedDelayCutoff()">
+                        <option>3 Min</option>
+                        <option>5 Min</option>
+                        <option>10 Min</option>
+                        <option>15 Min</option>
+                    </select>
+                </div>
+            </div>
+        <div class="col-6 col-lg-3 p-1">
+            <div class="input-group">
+                <label for="firstDateRange"></label>
+                <input class="form-control" type="text" id="firstDateRange" value="01-01-2021 - 03-01-2021" />
+            </div>
         </div>
-        <div class="col-lg-6">
-            <label for="slider2"></label>
-            <input type="text" id="slider2" class="js-range-slider"/>
+        <div class="col-6 col-lg-3 p-1">
+            <div class="input-group">
+                <label for="secondDateRange"></label>
+                <input class="form-control" type="text" id="secondDateRange" value="29-04-2021 - 30-04-2021" />
+            </div>
         </div>
     </div>
     <div>
@@ -400,16 +394,20 @@
                     <td><a href="https://github.com/vlandham/bubble_chart_v4/blob/master/LICENSE">Lizenz auf Github</a></td>
                 </tr>
                 <tr>
-                    <td>D3.js</td>
-                    <td><a href="https://github.com/d3/d3">BSD 3-Clause</a></td>
+                    <td><a href="https://github.com/d3/d3">D3.js</a></td>
+                    <td>BSD 3-Clause</td>
                 </tr>
                 <tr>
-                    <td>D3-force-reuse.js</td>
-                    <td><a href="https://github.com/twosixlabs/d3-force-reuse">BSD 3-Clause</a></td>
+                    <td><a href="https://github.com/twosixlabs/d3-force-reuse">D3-force-reuse.js</a></td>
+                    <td>BSD 3-Clause</td>
                 </tr>
                 <tr>
-                    <td>Ion.RangeSlider</td>
-                    <td><a href="https://github.com/IonDen/ion.rangeSlider">MIT - Lizenz</a></td>
+                    <td><a href="https://github.com/dangrossman/daterangepicker">Date Range Picker</a></td>
+                    <td>MIT - Lizenz</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/moment/moment">Moment</a></td>
+                    <td>MIT - Lizenz</td>
                 </tr>
                 </tbody>
             </table>
