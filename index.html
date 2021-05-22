@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/daterangepicker/daterangepicker.css" />
-    <link rel="stylesheet" href="bootstrap-icons-1.5.0/bootstrap-icons.css">
+    <link rel="stylesheet" href="Graphics/bootstrap-icons/bootstrap-icons.css">
     <script src="js/d3/d3.min.js"></script>
     <script src="js/d3/d3-force-reuse.min.js"></script>
     <script src="js/bootstrap/jquery.min.js"></script>
@@ -382,78 +382,110 @@
             <p>Der Datensatz, welcher die Grundlage für die Visualisierung darstellt, ist zusammengesetzt aus Daten zur Pünkltichkeit, Rollmaterial und Wetter.
             <br>Ein Element des zusammengesetzten Datensatzes enthält die Informationen zur Pünktlichkeit (Betriebstag, AN_Prognose, Ankunftszeit), zur Linie und dem Rollmaterial (LINIEN_IC, LINIEN_TEXT, block) und dem Wetter (<!--globalstrahlung, -->schnee, luftdruck, niederschlag, sonnenschein, lufttemperatur, luftfeuchtigkeit).
            </p>
-            <!--<h5>Daten und Quellen</h5>-->
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">Daten</th>
-                    <th scope="col">Quellen</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Eigener Datensatz (.json)</td>
-                    <td><a href="https://gist.github.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5">Datensatz .json-file</a>
-                    <br><a href="https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/7c31a08bee5c661f9e71a003ea4b56deb33432aa/sbb_data_preview.json">Preview .json-file</a></td>
-                </tr>
-                <tr>
-                    <td>Pünktlichkeitsdaten</td>
-                    <td><a href="https://opentransportdata.swiss/en/dataset/istdaten">opentransportdata .swiss</a></td>
-                </tr>
-                <tr>
-                    <td>Rollmaterial</td>
-                    <td><a href="https://data.sbb.ch/explore/dataset/jahresformation/information/">data.sbb.ch</a></td>
-                </tr>
-                <tr>
-                    <td>Wetterdaten</td>
-                    <td><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/">data.geo .admin.ch</a></td>
-                </tr>
-                <tr>
-                    <td>Bilder der Zugkompositionen</td>
-                    <td><a href="https://www.sbb.ch/de/bahnhof-services/waehrend-der-reise/unsere-zuege.html">sbb.ch</a></td>
-                </tr>
-                <tr>
-                    <td>Icons</td>
-                    <td><a href="https://icons.getbootstrap.com/">icons. getbootstrap.com</a></td>
-                </tr>
-                </tbody>
-            </table>
+            <div id="accordionSrc">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseSrc">Daten und Bilder</a>
+                    </div>
+                    <div id="collapseSrc" class="collapse" data-parent="#accordionSrc">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Daten</th>
+                                <th scope="col">Quellen</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Eigener Datensatz (.json)</td>
+                                <td><a href="https://gist.github.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5">Datensatz .json-file</a>
+                                <br><a href="https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/7c31a08bee5c661f9e71a003ea4b56deb33432aa/sbb_data_preview.json">Preview .json-file</a></td>
+                            </tr>
+                            <tr>
+                                <td>Pünktlichkeitsdaten</td>
+                                <td><a href="https://opentransportdata.swiss/en/dataset/istdaten">opentransportdata .swiss</a></td>
+                            </tr>
+                            <tr>
+                                <td>Rollmaterial</td>
+                                <td><a href="https://data.sbb.ch/explore/dataset/jahresformation/information/">data.sbb.ch</a></td>
+                            </tr>
+                            <tr>
+                                <td>Wetterdaten</td>
+                                <td><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/">data.geo .admin.ch</a></td>
+                            </tr>
+                            <tr>
+                                <td>Bilder der Zugkompositionen</td>
+                                <td><a href="https://www.sbb.ch/de/bahnhof-services/waehrend-der-reise/unsere-zuege.html">sbb.ch</a></td>
+                            </tr>
+                            <tr>
+                                <td>Icons</td>
+                                <td><a href="https://icons.getbootstrap.com/">icons. getbootstrap.com</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <br>
-            <!--<h5>Lizenzen und Quellen</h5>-->
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">Quelle</th>
-                    <th scope="col">Lizenz</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><a href="https://vallandingham.me/bubble_charts_with_d3v4.html">Creating Bubble Charts - Jim Vallandingham</a>></td>
-                    <td><a href="https://github.com/vlandham/bubble_chart_v4/blob/master/LICENSE">Lizenz auf Github</a></td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/d3/d3">D3.js</a></td>
-                    <td>BSD 3-Clause</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/twosixlabs/d3-force-reuse">D3-force-reuse.js</a></td>
-                    <td>BSD 3-Clause</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/dangrossman/daterangepicker">Date Range Picker</a></td>
-                    <td>MIT - Lizenz</td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/moment/moment">Moment</a></td>
-                    <td>MIT - Lizenz</td>
-                </tr>
-                </tbody>
-            </table>
             <h5>Quellcode</h5>
             <p>
-                Unsere Visualisierung wird unter der MIT Lizenz veröffentlicht. Alle zuvor genannten Lizenzen sind mit dieser kompatibel.
                 Der Quellcode ist in diesem <a href="https://github.com/manuelbieri/SBB-Opendata-Visualization">Github - Repository</a> ersichtlich und erhältlich (feel free to fork).
+                Für die Erstellung unserer Visualisierung habe wir die folgenden Libraries und Quellen verwendet.
+            </p>
+            <div id="accordionLibs">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseLibs">Libraries und Quellen</a>
+                    </div>
+                    <div id="collapseLibs" class="collapse" data-parent="#accordionLibs">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Quelle</th>
+                                    <th scope="col">Lizenz</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://vallandingham.me/bubble_charts_with_d3v4.html">Creating Bubble Charts - Jim Vallandingham</a>></td>
+                                    <td><a href="https://github.com/vlandham/bubble_chart_v4/blob/master/LICENSE">Lizenz auf Github</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">Bootstrap</a></td>
+                                    <td>MIT - Lizenz</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://github.com/d3/d3">D3.js</a></td>
+                                    <td>BSD 3-Clause</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://github.com/twosixlabs/d3-force-reuse">D3-force-reuse.js</a></td>
+                                    <td>BSD 3-Clause</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://github.com/dangrossman/daterangepicker">Date Range Picker</a></td>
+                                    <td>MIT - Lizenz</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://github.com/moment/moment">Moment</a></td>
+                                    <td>MIT - Lizenz</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://github.com/popperjs/popper-core">Popper.js</a></td>
+                                    <td>MIT - Lizenz</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://github.com/jquery/jquery/blob/main/LICENSE.txt">JQuery</a></td>
+                                    <td>MIT - Lizenz</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <p>
+                Unsere Visualisierung wird unter der MIT Lizenz veröffentlicht. Alle zuvor genannten Lizenzen sind mit dieser kompatibel.
             </p>
             <div id="accordionTwo">
                 <div class="card">

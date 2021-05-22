@@ -129,9 +129,9 @@ function bubbleChart() {
         }
 
         rawData = rawData.filter(d => {
-            let inFirstRange = dateRange.date1.getTime() <= d.BETRIEBSTAG.getTime() && d.BETRIEBSTAG.getTime() <= dateRange.date2.getTime();
+            let inFirstRange = dateRange.date1.getTime() <= d.ANKUNFTSZEIT.getTime() && d.ANKUNFTSZEIT.getTime() <= dateRange.date2.getTime();
             if (dateRange.date3 != null && dateRange.date4 != null) {
-                return inFirstRange || dateRange.date3.getTime() <= d.BETRIEBSTAG.getTime() && d.BETRIEBSTAG.getTime() <= dateRange.date4.getTime();
+                return inFirstRange || dateRange.date3.getTime() <= d.ANKUNFTSZEIT.getTime() && d.ANKUNFTSZEIT.getTime() <= dateRange.date4.getTime();
             } else {
                 return inFirstRange;
             }

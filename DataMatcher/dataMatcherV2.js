@@ -87,7 +87,6 @@ data.then(d => {
         }
     }
     console.log(d);
-    drawTable(d, tbl);
 });
 
 function drawTable(d, table){
