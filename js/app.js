@@ -69,7 +69,7 @@ function bubbleChart() {
     // @v4 Before the charge was a stand-alone attribute
     //  of the force layout. Now we can use it as a separate force!
     function charge(d) {
-        return -Math.pow(d.radius, 2.0) * forceStrength;
+        return -Math.pow(d.radius, 2.45) * forceStrength;
     }
 
     // Here we create a force layout and
@@ -114,7 +114,7 @@ function bubbleChart() {
     }
 
     function calcRadius(diff) {
-        if (diff > -delayCutoff * 60 * 1000) return 2
+        if (diff > -delayCutoff * 60 * 1000) return 3;
         else return Math.log10(Math.abs(diff));
     }
 
@@ -346,10 +346,10 @@ function bubbleChart() {
         svg.selectAll('.title').remove();
         let years = svg.selectAll('text.title')
             .data([
-                {x: 0, y: 1, title: args.category2, cutoff: args.cutoff2, filler: 'Weniger '},
-                {x: 0, y: 2, title: args.category2, cutoff: args.cutoff2, filler: 'Mehr '},
-                {x: 1, y: 0, title: args.category1, cutoff: args.cutoff1, filler: 'Weniger '},
-                {x: 2, y: 0, title: args.category1, cutoff: args.cutoff1, filler: 'Mehr '}
+                {x: 0, y: 1, title: args.category2, cutoff: args.cutoff2, lower: true},
+                {x: 0, y: 2, title: args.category2, cutoff: args.cutoff2, lower: false},
+                {x: 1, y: 0, title: args.category1, cutoff: args.cutoff1, lower: true},
+                {x: 2, y: 0, title: args.category1, cutoff: args.cutoff1, lower: false}
             ]);
 
         years.enter().append('text')
@@ -361,7 +361,7 @@ function bubbleChart() {
                 return 'translate(' + titleX[d.x] + ',' + titleY[d.y] + ') rotate(' + (d.x === 0 ? '-90' : '0') + ')';
             })
             .text(function (d) {
-                return d.filler + d.title + ' als ' + d.cutoff + getUnit(d.title, true);
+                return getInfoFiller(d.title, d.lower) + ' ' + d.title + ' als ' + d.cutoff + getUnit(d.title, true);
             });
     }
 
@@ -461,7 +461,7 @@ function changeDelayCutoff(newDelayCutoff) {
 // Load the data.
 function loadChart(args) {
     $("#canvas").empty();
-    d3.json('data/sbb_data_merged_v1.json', (e, d) => {
+    d3.json('data/sbb_data_merged_v1.min.json', (e, d) => {
         display(e, d, args);
     });
 }
@@ -481,6 +481,16 @@ function getUnit(criteria, forSVG) {
     else if (criteria === "Globalstrahlung") unit = forSVG ? "W/m2" : "W/m<sup>2</sup>";
     console.assert(unit != null);
     return unit;
+}
+
+function getInfoFiller(criteria, lower){
+    if (criteria === 'Luftfeuchtigkeit' || criteria === 'Lufttemperatur') {
+        return lower ? 'Tiefere': 'Höhere';
+    } else if (criteria === 'Luftdruck') {
+        return lower ? 'Tieferer': 'Höherer';
+    } else {
+        return lower ? 'Weniger': 'Mehr';
+    }
 }
 
 function dateDiffToString(diff) {

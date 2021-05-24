@@ -14,7 +14,7 @@
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/daterangepicker/moment.min.js"></script>
     <script type="text/javascript" src="js/daterangepicker/daterangepicker.min.js"></script>
-    <script src="js/bootstrapAddin.js"></script>
+    <script src="js/bootstrapAddin.min.js"></script>
 </head>
 <body>
 
@@ -242,10 +242,10 @@
                 <div class="input-group">
                     <label for="cutoff3"></label>
                     <select class="custom-select" id="cutoff3" onchange="changedDelayCutoff()">
-                        <option>3 Min</option>
-                        <option>5 Min</option>
-                        <option>10 Min</option>
-                        <option>15 Min</option>
+                        <option value="3 Min">3 Min Verspätung</option>
+                        <option value="5 Min">5 Min Verspätung</option>
+                        <option value="10 Min">10 Min Verspätung</option>
+                        <option value="15 Min">15 Min Verspätung</option>
                     </select>
                 </div>
             </div>
@@ -264,7 +264,7 @@
     </div>
     <div>
         <svg viewBox="0 0 940 600" preserveAspectRatio="xMinYMin meet" id="canvas"></svg>
-        <script src="js/app.js"></script>
+        <script src="js/app.min.js"></script>
         <script>
             adjustUnits();
         </script>

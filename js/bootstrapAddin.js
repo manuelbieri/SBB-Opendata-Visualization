@@ -14,7 +14,7 @@ function setUpDateRange(dateRangeId, dates, startIndex, endIndex) {
         "showISOWeekNumbers": true,
         "autoApply": true,
         "maxSpan": {
-            "days": 5
+            "days": 4
         },
         "locale": {
             "format": "DD/MM/YYYY",
