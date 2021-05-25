@@ -77,3 +77,9 @@ a:link{
 a:visited{
     color: #343a40;
 }
+
+.btn-primary{
+    background-color: #343a40 !important;
+    border-color: #343a40 !important;
+    color: #ffffff !important;
+}

@@ -1,0 +1,11 @@
+{
+"title": "Pünktlichkeit der IC-Verbindungen am Bahnhof Bern",
+"description": "Die Visualisiserung stellt die Pünktichkeit der IC-Verbindungen am Bahnhof Bern im Zeitraum vom 01. Januar 2021 bis zum 30. April 2021 dar. Dabei kann nach Linien (IC1, IC6, IC8 und IC61), oder nach dem Rollmaterial (IC2000, FVDosto, ICN oder Eurocity) sortiert werden. Die Dauer der Verspätung kann zwischen 3min, 5min, 10min oder 15min gewählt werden (dabei werden jeweils die Verbindungen, mit einer grösseren Verspätung als die gewählten Minuten als grössere Punkte dargestellt). Anschliessend stehen folgende Wettereinflüsse zur Auswahl: Sonnenschein, Niederschlag, Schnee, Lufttemperatur, Luftfeuchtigkeit und Luftdruck",
+"authors": [
+    {"name": "Joël Allgaier", "email": "joel.allgaier@students.unibe.ch"},
+    {"name": "Manuel Bieri", "email": "manuel.bieri@students.unibe.ch"}
+],
+"date": "2021-05-25",
+"category": "traffic",
+"software_license": "MIT-license"
+}
