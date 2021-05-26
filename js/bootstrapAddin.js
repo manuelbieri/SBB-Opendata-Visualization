@@ -6,7 +6,7 @@ function adjustUnits() {
 let firstDateRange = [];
 let secondDateRange = [];
 
-function setUpDateRange(dateRangeId, dates, startIndex, endIndex) {
+function setUpDateRange(dateRangeId, dates) {
     $(dateRangeId).daterangepicker({
         "minYear": 2021,
         "maxYear": 2021,
@@ -53,16 +53,11 @@ function setUpDateRange(dateRangeId, dates, startIndex, endIndex) {
         "minDate": dates[0],
         "maxDate": dates[dates.length-1],
         "opens": "center"
-    }, (start, end, label) => {
-        console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+    }, (start, end) => {
+        //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
         parseSliderDates(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'), dateRangeId);
         changedInputDates();
     });
-}
-
-function parseSliderDate(dateString) {
-    let dateArray = dateString.split("-");
-    return new Date(dateArray[0], parseInt(dateArray[1]) - 1, dateArray[2]);
 }
 
 function parseSliderDates() {
@@ -130,5 +125,5 @@ function isRollingStockColor() {
 function changedDelayCutoff() {
     let delayCutoff = parseInt(document.getElementById("cutoff3").value);
     changeDelayCutoff(delayCutoff);
-    changedInputDates();
+    //changedInputDates();
 }

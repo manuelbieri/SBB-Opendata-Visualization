@@ -16,7 +16,7 @@
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/daterangepicker/moment.min.js"></script>
     <script type="text/javascript" src="js/daterangepicker/daterangepicker.min.js"></script>
-    <script src="js/bootstrapAddin.min.js"></script>
+    <script src="js/bootstrapAddin.js"></script>
 </head>
 <body>
 
@@ -92,7 +92,7 @@
             <h4>Zur Anwendung </h4>
             <p>Die Visualisierung bietet dir mehrere Möglichkeiten, die Punkte zu selektionieren. Zuerst musst du dich entscheiden, ob du nach den Linien oder nach dem Rollmaterial sortieren möchtest. Anschliessend kannst du die Wettereinflüsse und die Verspätung auswählen. Als letztes kannst du die Zeitreihe festlegen.
             <br>
-            <h5><i class="bi bi-clock"></i> Verspätung </h5>Standardmässig sind 3 Minuten als Verspätung gewählt, du kannst aber auch 5min, 10min oder 15min wählen. Dabei wird der Kreis im Verhältnis grösser dargestellt, wenn die Verspätung des Zuges grösser war, als die gewählte Zeit. Wenn du dich für eines entschieden hast, musst du zwei Wettereinflüsse selektionieren.
+            <h5><i class="bi bi-clock"></i> Verspätung </h5>Standardmässig sind 3 Minuten als Verspätung gewählt, du kannst aber auch 5min, 10min oder 15min wählen. Dabei wird der Punkt im Verhältnis grösser dargestellt, wenn die Verspätung des Zuges grösser war, als die gewählte Zeit. Wenn du dich für eine Verspätung entschieden hast, musst du zwei Wettereinflüsse selektionieren.
             <br>
             <br><h5><i class="bi bi-calendar-range"></i> Kalender </h5>Der Kalender gibt dir die Möglichkeit, zwei Datenreihen miteinander zu vergleichen. Du kannst zum Beispiel bis zu 5 Tage im Januar mit 5 Tagen im April vergleichen. Wenn du nur ein Zeitraum sehen willst, wähle bei beiden Kalendern die gleiche Zeitspanne. Beachte! Damit die Performance gewährleistet bleibt, ist die Zeitspanne auf jeweils maximal 5 Tage limitiert.
                 <br>
@@ -189,6 +189,12 @@
         </div>
         <div class="card-body">
         <div class="row m-1">
+            <p>
+                Wenn eine Verbindung kleiner als die gewählte Schranke für die Verspätung ist, wird sie klein dargestellt. Wenn sie grösser ist, wird der Punkt proportional zu
+                der tatsächichen Verspätung grösser angezeigt.
+            </p>
+        </div>
+        <div class="row m-0">
         <div class="col-lg-3 col-6 p-1">
             <div class="input-group">
                 <label for="select1"></label>
@@ -258,7 +264,7 @@
         <div class="col-6 col-lg-3 p-1">
             <div class="input-group">
                 <label for="firstDateRange"></label>
-                <input class="form-control" type="text" id="firstDateRange" value="01-01-2021 - 03-01-2021" />
+                <input class="form-control" type="text" id="firstDateRange" value="01-01-2021 - 02-01-2021" />
             </div>
         </div>
         <div class="col-6 col-lg-3 p-1">
@@ -270,7 +276,7 @@
     </div>
     <div>
         <svg viewBox="0 0 940 600" preserveAspectRatio="xMinYMin meet" id="canvas"></svg>
-        <script src="js/app.min.js"></script>
+        <script src="js/app.js"></script>
         <script>
             adjustUnits();
         </script>

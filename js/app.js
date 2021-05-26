@@ -222,6 +222,7 @@ function bubbleChart() {
             .attr('stroke-width', 2)
             .on('click', showDetail)
             .on('mouseover', (e, d) => {
+                // TODO: change stroke color to black, when mouseover.
                 console.log(e.currentTarget);
                 console.log(this);
                 console.log(d)
@@ -416,8 +417,10 @@ function bubbleChart() {
 
     chart.changeDelayCutoff = function (newDelayCutoff) {
         delayCutoff = newDelayCutoff;
+        // TODO: dynamically adjust chart to new radius.
         bubbles.attr('r', d => {
-            return calcRadius(d)
+            console.log(d);
+            return calcRadius(d.diff)
         })
     }
 
@@ -455,7 +458,8 @@ function changeColors(colorRollingStock) {
 }
 
 function changeDelayCutoff(newDelayCutoff) {
-    delayCutoff = newDelayCutoff;
+    //delayCutoff = newDelayCutoff;
+    myBubbleChart.changeDelayCutoff(newDelayCutoff)
 }
 
 // Load the data.
