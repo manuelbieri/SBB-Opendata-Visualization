@@ -16,7 +16,7 @@
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/daterangepicker/moment.min.js"></script>
     <script type="text/javascript" src="js/daterangepicker/daterangepicker.min.js"></script>
-    <script src="js/bootstrapAddin.js"></script>
+    <script src="js/bootstrapAddin.min.js"></script>
 </head>
 <body>
 
@@ -56,12 +56,14 @@
 </div>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
-    <a class="navbar-brand" href="#hello">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav mx-auto">
+            <li>
+                <a class="navbar-brand" href="#hello">Home</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="#visualisierung">Visualisierung</a>
             </li>
@@ -191,7 +193,7 @@
         <div class="row m-1">
             <p>
                 Wenn eine Verbindung kleiner als die gewählte Schranke für die Verspätung ist, wird sie klein dargestellt. Wenn sie grösser ist, wird der Punkt proportional zu
-                der tatsächichen Verspätung grösser angezeigt.
+                der tatsächichen Verspätung grösser angezeigt. Klicke auf einen Punkt, um mehr über diese Verbidnung zu erfahren.
             </p>
         </div>
         <div class="row m-0">
@@ -276,7 +278,7 @@
     </div>
     <div>
         <svg viewBox="0 0 940 600" preserveAspectRatio="xMinYMin meet" id="canvas"></svg>
-        <script src="js/app.js"></script>
+        <script src="js/app.min.js"></script>
         <script>
             adjustUnits();
         </script>

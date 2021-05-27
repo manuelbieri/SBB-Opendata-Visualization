@@ -221,16 +221,19 @@ function bubbleChart() {
             })
             .attr('stroke-width', 2)
             .on('click', showDetail)
-            .on('mouseover', (e, d) => {
-                // TODO: change stroke color to black, when mouseover.
-                console.log(e.currentTarget);
-                console.log(this);
-                console.log(d)
-            });
-
+            .on('mouseover', (e, d, circles) => {
+                d3.select(circles[d]).attr('stroke', 'black');
+            })
+            .on('mouseout', (e, d, circles) => {
+                d3.select(circles[d]).attr('stroke', d => {
+                    return d3.rgb(getColor(d, isRollingStockColor())).darker();
+                });
+            }
+            );
 
         // @v4 Merge the original empty selection and the enter selection
         bubbles = bubbles.merge(bubblesE);
+        //addListener();
 
         // Fancy transition to make bubbles appear, ending with the
         // correct radius
@@ -247,6 +250,16 @@ function bubbleChart() {
         // Set initial layout to single BETRIEBSTAG.
         GroupBubbles();
     };
+
+    function addListener() {
+        d3.selectAll('.bubble').on('mouseover', (e, d) => {
+            // TODO: change stroke color to black, when mouseover.
+            console.log(bubbles[d]);
+            console.log(e);
+            console.log(d)
+            d3.select(this).style('stroke', 'black');
+        })
+    }
 
     /*
      * Callback function that is called after every tick of the
@@ -417,9 +430,9 @@ function bubbleChart() {
 
     chart.changeDelayCutoff = function (newDelayCutoff) {
         delayCutoff = newDelayCutoff;
-        // TODO: dynamically adjust chart to new radius.
-        bubbles.attr('r', d => {
-            console.log(d);
+        bubbles.transition()
+            .duration(1000)
+            .attr('r', d => {
             return calcRadius(d.diff)
         })
     }
