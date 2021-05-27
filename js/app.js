@@ -233,7 +233,6 @@ function bubbleChart() {
 
         // @v4 Merge the original empty selection and the enter selection
         bubbles = bubbles.merge(bubblesE);
-        //addListener();
 
         // Fancy transition to make bubbles appear, ending with the
         // correct radius
@@ -250,16 +249,6 @@ function bubbleChart() {
         // Set initial layout to single BETRIEBSTAG.
         GroupBubbles();
     };
-
-    function addListener() {
-        d3.selectAll('.bubble').on('mouseover', (e, d) => {
-            // TODO: change stroke color to black, when mouseover.
-            console.log(bubbles[d]);
-            console.log(e);
-            console.log(d)
-            d3.select(this).style('stroke', 'black');
-        })
-    }
 
     /*
      * Callback function that is called after every tick of the
