@@ -394,7 +394,7 @@
         <div class="card-body">
             <h5><i class="bi bi-file-earmark-binary"></i> Datensatz und Bilder</h5>
             <p>Der Datensatz, welcher die Grundlage für die Visualisierung darstellt, ist zusammengesetzt aus Daten zur Pünkltichkeit, Rollmaterial und Wetter.
-            <br>Ein Element des zusammengesetzten Datensatzes enthält die Informationen zur Pünktlichkeit (Betriebstag, AN_Prognose, Ankunftszeit), zur Linie und dem Rollmaterial (LINIEN_IC, LINIEN_TEXT, block) und dem Wetter (<!--globalstrahlung, -->schnee, luftdruck, niederschlag, sonnenschein, lufttemperatur, luftfeuchtigkeit).
+            <br>Ein Element des zusammengesetzten Datensatzes enthält die Informationen zur Pünktlichkeit (Betriebstag, Prognose der Ankunftszeit, Geplante Ankunftszeit), zur Linie und dem Rollmaterial (IC-Linie, Linien-Text, Blockbezeichnung des Rollmaterials) und dem Wetter (<!--globalstrahlung, -->Schneefall, Luftdruck, Niederschlag, Sonnenschein, Lufttemperatur, Luftfeuchtigkeit).
            </p>
             <div id="accordionSrc">
                 <div class="card">
@@ -402,7 +402,7 @@
                         <a class="collapsed card-link" data-toggle="collapse" href="#collapseSrc">Daten und Bilder</a>
                     </div>
                     <div id="collapseSrc" class="collapse" data-parent="#accordionSrc">
-                        <table class="table table-hover">
+                        <table class="table table-hover word-wrap">
                             <thead>
                             <tr>
                                 <th scope="col">Daten</th>
@@ -411,13 +411,13 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>Eigener Datensatz (.json)</td>
-                                <td><a href="https://gist.github.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5">Datensatz .json-file</a>
-                                <br><a href="https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/7c31a08bee5c661f9e71a003ea4b56deb33432aa/sbb_data_preview.json">Preview .json-file</a></td>
+                                <td>Zusammengesetzter Datensatz (.json)</td>
+                                <td><a href="https://gist.github.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5">Vollständiger <wbr>Datensatz</a>
+                                <br><a href="https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/7c31a08bee5c661f9e71a003ea4b56deb33432aa/sbb_data_preview.json">Preview <wbr>Datensatz</a></td>
                             </tr>
                             <tr>
                                 <td>Pünktlichkeitsdaten</td>
-                                <td><a href="https://opentransportdata.swiss/en/dataset/istdaten">opentransportdata .swiss</a></td>
+                                <td><a href="https://opentransportdata.swiss/en/dataset/istdaten">opentransportdata<wbr>.swiss</a></td>
                             </tr>
                             <tr>
                                 <td>Rollmaterial</td>
@@ -425,7 +425,7 @@
                             </tr>
                             <tr>
                                 <td>Wetterdaten</td>
-                                <td><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/">data.geo .admin.ch</a></td>
+                                <td><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/">data.geo<wbr>.admin.ch</a></td>
                             </tr>
                             <tr>
                                 <td>Bilder der Zugkompositionen</td>
@@ -433,11 +433,11 @@
                             </tr>
                             <tr>
                                 <td>Icons</td>
-                                <td><a href="https://icons.getbootstrap.com/">icons .getbootstrap.com</a></td>
+                                <td><a href="https://icons.getbootstrap.com/">icons.<wbr>getbootstrap<wbr>.com</a></td>
                             </tr>
                             <tr>
                                 <td>Informationen zum Wetter</td>
-                                <td><a href="https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe.html">meteoschweiz .admin.ch</a></td>
+                                <td><a href="https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe.html">meteoschweiz<wbr>.admin.ch</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -503,7 +503,7 @@
             </div>
             <br>
             <p>
-                Unsere Visualisierung wird unter der MIT Lizenz veröffentlicht. Alle zuvor genannten Lizenzen sind mit dieser kompatibel.
+                Unsere Visualisierung wird unter der MIT Lizenz veröffentlicht.
             </p>
             <div id="accordionTwo">
                 <div class="card">
