@@ -92,13 +92,13 @@
             <h3>Open Data Visualisierung</h3>
             <p>Diese Visualisierung entstand im Rahmen der Open Data Vorlesung am Institut für Wirtschaftsinformatik der Universität Bern. Mithilfe von Open Data der Schweizerischen Bundesbahnen SBB, haben wir die Pünktlichkeit in Abhängigkeit mit dem Wetter als Visualisierung realisiert.</p>
             <h4>Zur Anwendung </h4>
-            <p>Die Visualisierung bietet dir mehrere Möglichkeiten, die Punkte zu selektionieren. Zuerst musst du dich entscheiden, ob du nach den Linien oder nach dem Rollmaterial sortieren möchtest. Anschliessend kannst du die Wettereinflüsse und die Verspätung auswählen. Als letztes kannst du die Zeitreihe festlegen.
+            <p>Die Visualisierung bietet Dir mehrere Möglichkeiten, die Punkte zu selektionieren. Zuerst musst Du Dich entscheiden, ob Du nach der Linie (Fahrstrecke) oder nach dem Rollmaterial sortieren möchtest. Anschliessend kannst Du die Wettereinflüsse, die Verspätung und die Zeitreihe festlegen.
             <br>
-            <h5><i class="bi bi-clock"></i> Verspätung </h5>Standardmässig sind 3 Minuten als Verspätung gewählt, du kannst aber auch 5min, 10min oder 15min wählen. Dabei wird der Punkt im Verhältnis grösser dargestellt, wenn die Verspätung des Zuges grösser war, als die gewählte Zeit. Wenn du dich für eine Verspätung entschieden hast, musst du zwei Wettereinflüsse selektionieren.
+            <h5><i class="bi bi-clock"></i> Verspätung </h5>Standardmässig sind 3 Minuten als Verspätung gewählt, Du kannst aber auch 5 Min, 10 Min oder 15 Min wählen. Dabei wird der Punkt im Verhältnis grösser dargestellt, wenn die Verspätung des Zuges grösser war, als die gewählte Zeit. Wenn Du Dich für einen Wert entschieden hast, musst Du zwei Wettereinflüsse selektionieren.
             <br>
-            <br><h5><i class="bi bi-calendar-range"></i> Kalender </h5>Der Kalender gibt dir die Möglichkeit, zwei Datenreihen miteinander zu vergleichen. Du kannst zum Beispiel bis zu 5 Tage im Januar mit 5 Tagen im April vergleichen. Wenn du nur ein Zeitraum sehen willst, wähle bei beiden Kalendern die gleiche Zeitspanne. Beachte! Damit die Performance gewährleistet bleibt, ist die Zeitspanne auf jeweils maximal 5 Tage limitiert.
+            <br><h5><i class="bi bi-calendar-range"></i> Kalender </h5>Der Kalender gibt Dir die Möglichkeit, zwei Datenreihen miteinander zu vergleichen. Du kannst zum Beispiel bis zu 5 Tage im Januar mit 5 Tagen im April vergleichen. Wenn Du nur einen Zeitraum sehen willst, wähle bei beiden Kalendern die gleiche Zeitspanne. Beachte: Damit die Performance gewährleistet bleibt, ist die Zeitspanne auf jeweils maximal 5 Tage limitiert.
                 <br>
-                <br><i class="bi bi-arrow-90deg-down"></i> Klicke nun auf die untenstehenden Felder, um mehr über die Möglichkeiten der Visualisierung zu erfahren. Viel Spass beim Ausprobieren!
+                <br><i class="bi bi-arrow-90deg-down"></i> Klicke nun auf die untenstehenden Felder, um mehr über die Möglichkeiten der Visualisierung zu erfahren. Viel Spass beim Ausprobieren.
             <div id="accordion">
                 <div class="card">
                     <div class="card-header">
@@ -108,8 +108,8 @@
                     </div>
                     <div id="collapseTwo" class="collapse" data-parent="#accordion">
                         <div class="card-body">
-                            In unserem Datensatz sind vier verschiedene Zugkompositionen enthalten. Wenn Du nach Rollmaterial filterst, sortieren sich die Punkte nach ihrem Rollmaterial. Im Bilderkarussell siehst Du, wie die einzelnen Züge in echt aussehen.
-                            Dabei unterscheiden wir zwischen folgenden Kompositionen, wobei die Farbe der Liste, gerade die entsprechende Punktfarbe zeigt.
+                            In unserem Datensatz sind vier verschiedene Zugkompositionen enthalten. Wenn Du nach Rollmaterial filterst, sortieren sich die Punkte nach ihrem Rollmaterial. Im Bilderkarussell siehst Du Beispiele, wie die einzelnen Züge in echt aussehen könnten.
+                            Dabei unterscheiden wir zwischen folgenden Kompositionen, wobei die Farbe der Liste gerade die entsprechende Punktfarbe zeigt.
                            <br>
                             <br>
                             <ul class="list-group list-group">
@@ -125,7 +125,7 @@
                 <div class="card">
                     <div class="card-header">
                         <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
-                          Linien
+                          Linie
                         </a>
                     </div>
                     <div id="collapseThree" class="collapse" data-parent="#accordion">
@@ -140,7 +140,7 @@
                                 <li class="list-group-item orange">IC61 Basel SBB - Bern - Interlaken Ost</li>
                             </ul>
 
-                            <br><i class="bi bi-question-circle"></i> Welche IC-Verbindung trifft am meisten Verspätet in Bern ein? Finde es heraus!
+                            <br><i class="bi bi-question-circle"></i> Welche IC-Verbindung trifft am häufigsten verspätet in Bern ein? Finde es heraus!
                         </div>
                     </div>
                 </div>
@@ -152,10 +152,10 @@
                     </div>
                     <div id="collapseFour" class="collapse" data-parent="#accordion">
                         <div class="card-body">
-                            <p>Hier findest du einige Vorschläge, welche Werte du bei den einzelnen Wetterparametern setzen kannst. Halte dich nicht zurück und probiere einfach aus.</p>
+                            <p>Hier findest Du einige Vorschläge, welche Werte Du bei den einzelnen Wetterparametern setzen kannst. Halte Dich nicht zurück und probiere einfach aus.</p>
                             <h5><i class="bi bi-speedometer2"></i> Luftdruck </h5>
-                            <p>Bern liegt tiefer als 600m.ü.M., daher gilt für Bern der Standardluftdruck von 1'013,25hPa. Tieferer Luftdruck kann schlechtes Wetter bedeuten, höherer Luftdruck gutes Wetter.
-                            <br>Vorschlag: Setze die Grenze bei 1'013hPa (Hinweis: In den Wintermonaten liegt der Luftdruck oft tiefer, ein anderer Vorschlag ist daher 960hPa.)</p>
+                            <p>Bern liegt tiefer als 600 m.ü.M., daher gilt für Bern der Standardluftdruck von 1'013,25 hPa. Tieferer Luftdruck kann schlechtes Wetter bedeuten, höherer Luftdruck gutes Wetter.
+                            <br>Vorschlag: Setze die Grenze bei 1'013 hPa (Hinweis: In den Wintermonaten liegt der Luftdruck oft tiefer, ein anderer Vorschlag ist daher 960 hPa.)</p>
                             <h5><i class="bi bi-moisture"></i> Luftfeuchtigkeit </h5>
                             <p>Die relative Luftfeuchtigkeit misst den prozentualen Anteil am maximal möglichen Wert von gasförmigem Wasser in der Atmosphäre.
                             <br>Vorschlag: Setze die Grenze bei 60%</p>
@@ -163,19 +163,19 @@
                             <p>Ab etwa 20 Grad Celcius nehmen wir die Temperatur als warm wahr. Die Temperatur ist allerdings stark von der Tages- und Jahreszeit abhängig.
                             <br>Vorschlag: Setze die Grenze bei 15 Grad Celsius (Hinweis: In den Wintermonaten, darfst du die Temperatur auch tiefer ansetzen, bspw. 5 Grad Celcius.)</p>
                             <h5><i class="bi bi-cloud-rain"></i> Niederschlag </h5>
-                            <p>In Milimeter wird die Summe in 24h angegeben. Dabei entpricht 1mm Niederschlag 1 Liter pro Quadratmeter. Bis zu 10mm ist es schwacher bis mässiger Regen, darüber starker Regen.
-                            <br>Vorschlag: Setze die Grenze bei 10mm</p>
+                            <p>In Milimeter wird die Summe in 24 Stunden angegeben. Dabei entpricht 1 mm Niederschlag 1 Liter pro Quadratmeter. Bis zu 10mm ist es schwacher bis mässiger Regen, darüber starker Regen.
+                            <br>Vorschlag: Setze die Grenze bei 10 mm</p>
                             <h5><i class="bi bi-snow"></i> Schnee </h5>
-                            <p>Schnee wird in cm angegeben. 1cm Schnee verhält sich wie 1mm Niederschlag. Bis 10cm sprechen wir von schwach bis mässigem Schneefall, danach starker Schneefall.
-                            <br>Vorschlag: Setze die Grenze bei 10cm (Hinweis: In Bern schneit es gewöhnlich nicht so stark, eine gute Grenze ist hier 5cm.)</p>
+                            <p>Schnee wird in cm angegeben. 1 cm Schnee verhält sich wie 1 mm Niederschlag. Bis 10 cm sprechen wir von schwach bis mässigem Schneefall, danach starker Schneefall.
+                            <br>Vorschlag: Setze die Grenze bei 10 cm (Hinweis: In Bern schneit es gewöhnlich nicht so stark, eine gute Grenze ist hier 5 cm.)</p>
                             <h5><i class="bi bi-sun"></i> Sonnenschein </h5>
-                            <p>Die Sonnscheindauer ist in Minuten angegeben. Wenn an einem Tag 6h die Sonne scheint, sind dies 360min.
-                            <br>Vorschlag: Setze die Grenze bei 360min</p>
+                            <p>Die Sonnscheindauer ist in Minuten angegeben. Wenn an einem Tag während 6 Stunden die Sonne scheint, sind dies 360 Minuten.
+                            <br>Vorschlag: Setze die Grenze bei 360 Min</p>
                             <!--<h5>Globalstrahlung</h5>
                             <p>Globalstrahlung beschreibt die direkt auf die Erdoberfläche eintreffenden Sonnenstrahlen. Die Werte werden in Watt pro Quadratmeter angegeben. An Tagen mit schlechtem Wetter liegen die Werte unter 100W/m^2.
                             <br>Vorschlag: Setze die Grenze bei 100W/m^2</p>-->
-                            <i class="bi bi-question-circle"></i> Hast Du dich schon immer gefragt, ob dein Zug bei Schnee mehr Verspätung hat? Finde es heraus, indem du den Filter "Schnee" auswählst.
-                            <br><br>Genauere Angaben zu den einzelnen Parametern findest du beispielsweise unter <a href="https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe.html"><i class="bi bi-arrow-right"></i> meteoschweiz.admin.ch</a>
+                            <i class="bi bi-question-circle"></i> Hast Du Dich schon immer gefragt, ob Dein Zug bei Schnee mehr Verspätung hat? Finde es heraus, indem Du den Filter "Schnee" auswählst.
+                            <br><br>Genauere Angaben zu den einzelnen Parametern findest Du beispielsweise unter <a href="https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe.html"><i class="bi bi-arrow-right"></i> meteoschweiz.admin.ch</a>
                             <br>Alle Wetterwerte sind Tagesdurchschnitte.
                         </div>
                     </div>
@@ -192,8 +192,8 @@
         <div class="card-body">
         <div class="row m-1">
             <p>
-                Wenn eine Verbindung kleiner als die gewählte Schranke für die Verspätung ist, wird sie klein dargestellt. Wenn sie grösser ist, wird der Punkt proportional zu
-                der tatsächichen Verspätung grösser angezeigt. Klicke auf einen Punkt, um mehr über diese Verbidnung zu erfahren.
+                Wenn die Verspätung einer Verbindung kleiner als die gewählte Schranke (z.B. 3 Min) ist, wird der Punkt klein dargestellt. Wenn die Verspätung grösser ist, wird der Punkt proportional zu
+                der tatsächlichen Verspätung grösser angezeigt. Klicke auf einen Punkt, um mehr über diese Verbidnung zu erfahren.
             </p>
         </div>
         <div class="row m-0">
