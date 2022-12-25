@@ -18,13 +18,13 @@ function bubbleChart() {
     let center = {x: width / 2, y: height / 2};
 
     let xCenters = {
-        0: {x: width / 3},
-        1: {x: 2 * width / 3}
+        0: {x: width / 4},
+        1: {x: 3 * width / 4}
     };
 
     let yCenters = {
-        0: {y: height / 3},
-        1: {y: height / 3 * 2}
+        0: {y: height / 4},
+        1: {y: 3 * height / 4}
     };
 
     /**
@@ -42,8 +42,8 @@ function bubbleChart() {
     // X locations of the titles.
     let titleY = {
         0: 20,
-        1: yCenters["0"].y - 30,
-        2: yCenters["1"].y + 30
+        1: yCenters["0"].y,
+        2: yCenters["1"].y
     }
 
     // @v4 strength to apply to the position forces
@@ -88,13 +88,18 @@ function bubbleChart() {
 
     // Nice looking colors - no reason to buck the trend
     // @v4 scales now have a flattened naming scheme
+    let color1 = "#CCF1FF"
+    let color2 = "#E0D7FF"
+    let color3 = "#FFCCE1"
+    let color4 = "#FAFFC7"
+    
     let fillColorLine = d3.scaleOrdinal()
-        .domain(['IC6', 'IC61', 'IC1', 'IC8'])
-        .range(['red', 'orange', 'blue', 'green']);
+        .domain(['IC1', 'IC6', 'IC8', 'IC61'])
+        .range([color1, color2, color3, color4]);
 
     let fillColorRollingStock = d3.scaleOrdinal()
-        .domain(['IC2000', 'FVDosto', 'ICN', 'Eurocity'])
-        .range(['red', 'orange', 'blue', 'green']);
+        .domain(['Eurocity', 'FVDosto', 'IC2000', 'ICN'])
+        .range([color1, color2, color3, color4]);
 
 
     /*
@@ -125,7 +130,8 @@ function bubbleChart() {
             rawData[i].ANKUNFTSZEIT = new Date(rawData[i].ANKUNFTSZEIT);
             rawData[i].AN_PROGNOSE = new Date(rawData[i].AN_PROGNOSE);
             rawData[i].BETRIEBSTAG = new Date(rawData[i].BETRIEBSTAG);
-            dates.add(rawData[i].BETRIEBSTAG.getDate() + "-" + (rawData[i].BETRIEBSTAG.getMonth() + 1) + "-" + rawData[i].BETRIEBSTAG.getFullYear());
+            // dates.add(rawData[i].BETRIEBSTAG.getDate() + "-" + (rawData[i].BETRIEBSTAG.getMonth() + 1) + "-" + rawData[i].BETRIEBSTAG.getFullYear());
+            dates.add(rawData[i].BETRIEBSTAG)        
         }
 
         rawData = rawData.filter(d => {
@@ -209,7 +215,7 @@ function bubbleChart() {
         // There will be one circle.bubble for each object in the nodes array.
         // Initially, their radius (r attribute) will be 0.
         // @v4 Selections are immutable, so lets capture the
-        //  enter selection to apply our transtition to below.
+        // enter selection to apply our transtition to below.
         let bubblesE = bubbles.enter().append('circle')
             .classed('bubble', true)
             .attr('r', 0)
@@ -319,6 +325,7 @@ function bubbleChart() {
      * yearCenter of their data's year.
      */
     function splitBubbles(args) {
+        removeSplit()
         showTitles(args);
 
         // @v4 Reset the 'x' force to draw the bubbles to their year xCenters
@@ -331,6 +338,37 @@ function bubbleChart() {
 
         // @v4 We can reset the alpha diff and restart the simulation
         simulation.alpha(1).restart();
+        
+        drawSplit()
+    }
+    
+    function removeSplit() {
+        svg.selectAll('line').remove();
+
+    }
+    
+    function drawSplit() {
+        removeSplit()
+        let yWidth = (yCenters[0].y + yCenters[1].y) / 2;
+        let x1 = titleX[0]
+        let x2 = width - titleX[0]
+        let xWidth = (x1 + x2) / 2;
+        
+        svg.append('line')
+            .style("stroke", "black")
+            .style("stroke-width", 0.1)
+            .attr("x1", x1)
+            .attr("y1", yWidth)
+            .attr("x2", x2)
+            .attr("y2", yWidth);
+        
+        svg.append('line')
+            .style("stroke", "black")
+            .style("stroke-width", 0.1)
+            .attr("x1", xWidth)
+            .attr("y1", titleY[0])
+            .attr("x2", xWidth)
+            .attr("y2", height - titleY[0]);
     }
 
     /*
@@ -347,7 +385,7 @@ function bubbleChart() {
         // Another way to do this would be to create
         // the year texts once and then just hide them.
         svg.selectAll('.title').remove();
-        let years = svg.selectAll('text.title')
+        let titles = svg.selectAll('text.title')
             .data([
                 {x: 0, y: 1, title: args.category2, cutoff: args.cutoff2, lower: true},
                 {x: 0, y: 2, title: args.category2, cutoff: args.cutoff2, lower: false},
@@ -355,7 +393,7 @@ function bubbleChart() {
                 {x: 2, y: 0, title: args.category1, cutoff: args.cutoff1, lower: false}
             ]);
 
-        years.enter().append('text')
+        titles.enter().append('text')
             .attr('class', 'title')
             .attr('text-anchor', d => {
                 return (d.x === 0 ? 'left' : 'middle')
@@ -365,7 +403,8 @@ function bubbleChart() {
             })
             .text(function (d) {
                 return getInfoFiller(d.title, d.lower) + ' ' + d.title + ' als ' + d.cutoff + getUnit(d.title, true);
-            });
+            })
+            .style("font-weight", 100);
     }
 
     /*
@@ -377,7 +416,8 @@ function bubbleChart() {
         document.getElementById("lineNumber").innerHTML = d.LINIEN_ID;
         document.getElementById("arrival").innerHTML = d.ANKUNFTSZEIT.getHours().toString().padStart(2, '0') + ':' + d.ANKUNFTSZEIT.getMinutes().toString().padStart(2, '0');
         document.getElementById("dayOfService").innerHTML = d.ANKUNFTSZEIT.getDate() + "-" + (d.ANKUNFTSZEIT.getMonth() + 1) + "-" + d.ANKUNFTSZEIT.getFullYear();
-        document.getElementById("delay").innerHTML = d.AN_PROGNOSE.getHours().toString().padStart(2, '0') + ':' + d.AN_PROGNOSE.getMinutes().toString().padStart(2, '0') + "<br>(" + (d.diff >= -delayCutoff ? "Keine Verspätung" : dateDiffToString(Math.abs(d.diff))) + ")";
+        document.getElementById("effective_arrival").innerHTML = d.AN_PROGNOSE.getHours().toString().padStart(2, '0') + ':' + d.AN_PROGNOSE.getMinutes().toString().padStart(2, '0');
+        document.getElementById("delay").innerHTML =  d.diff >= -delayCutoff ? "Keine Verspätung" : dateDiffToString(Math.abs(d.diff));
         document.getElementById("sunshine").innerHTML = (d.sonnenschein + ' ' + getUnit('Sonnenschein', false));
         document.getElementById("rainfall").innerHTML = (d.niederschlag + ' ' + getUnit('Niederschlag', false));
         document.getElementById("snow").innerHTML = (d.schnee + ' ' + getUnit('Schnee', false));
@@ -467,12 +507,12 @@ function changeDelayCutoff(newDelayCutoff) {
 // Load the data.
 function loadChart(args) {
     $("#canvas").empty();
-    d3.json('data/sbb_data_merged_v1.min.json', (e, d) => {
+    d3.json('data/sbb_data_merged_v2.json', (e, d) => {
         display(e, d, args);
     });
 }
 
-loadChart({dates: {date1: new Date(2021, 0, 1), date2: new Date(2021, 0, 2), date3: new Date(2021, 3, 29), date4: new Date(2021, 3, 30)}});
+loadChart({dates: {date1: new Date(2022, 0, 1), date2: new Date(2022, 0, 2), date3: new Date(2022, 3, 29), date4: new Date(2022, 3, 30)}});
 changedInputDates();
 
 // data related functions

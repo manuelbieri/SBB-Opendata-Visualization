@@ -16,17 +16,11 @@
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/daterangepicker/moment.min.js"></script>
     <script type="text/javascript" src="js/daterangepicker/daterangepicker.min.js"></script>
-    <script src="js/bootstrapAddin.min.js"></script>
+    <script src="js/bootstrapAddin.js"></script>
 </head>
 <body>
 
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <!--  <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-    </ol> -->
+<div id="carouselIndicators" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img class="d-block w-100" src="Graphics/Images/Trains_Jumbotron/fv-dosto-2_crop.jpg" alt="First slide">
@@ -44,15 +38,6 @@
             <img class="d-block w-100" src="Graphics/Images/Trains_Jumbotron/IC2000-modernisiert-Landschaft_crop.jpg" alt="Fourth slide">
         </div>
     </div>
-    <!--
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a> -->
 </div>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
@@ -69,9 +54,6 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#data">Daten</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#thx">Danksagung</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#about">Über uns</a>
@@ -91,14 +73,17 @@
         <div class="card-body">
             <h3>Open Data Visualisierung</h3>
             <p>Diese Visualisierung entstand im Rahmen der Open Data Vorlesung am Institut für Wirtschaftsinformatik der Universität Bern. Mithilfe von Open Data der Schweizerischen Bundesbahnen SBB, haben wir die Pünktlichkeit in Abhängigkeit mit dem Wetter als Visualisierung realisiert.</p>
-            <h4>Zur Anwendung </h4>
+
+            <h4>Anwendung </h4>
             <p>Die Visualisierung bietet Dir mehrere Möglichkeiten, die Punkte zu selektionieren. Zuerst musst Du Dich entscheiden, ob Du nach der Linie (Fahrstrecke) oder nach dem Rollmaterial sortieren möchtest. Anschliessend kannst Du die Wettereinflüsse, die Verspätung und die Zeitreihe festlegen.
-            <br>
-            <h5><i class="bi bi-clock"></i> Verspätung </h5>Standardmässig sind 3 Minuten als Verspätung gewählt, Du kannst aber auch 5 Min, 10 Min oder 15 Min wählen. Dabei wird der Punkt im Verhältnis grösser dargestellt, wenn die Verspätung des Zuges grösser war, als die gewählte Zeit. Wenn Du Dich für einen Wert entschieden hast, musst Du zwei Wettereinflüsse selektionieren.
-            <br>
-            <br><h5><i class="bi bi-calendar-range"></i> Kalender </h5>Der Kalender gibt Dir die Möglichkeit, zwei Datenreihen miteinander zu vergleichen. Du kannst zum Beispiel bis zu 5 Tage im Januar mit 5 Tagen im April vergleichen. Wenn Du nur einen Zeitraum sehen willst, wähle bei beiden Kalendern die gleiche Zeitspanne. Beachte: Damit die Performance gewährleistet bleibt, ist die Zeitspanne auf jeweils maximal 5 Tage limitiert.
-                <br>
-                <br><i class="bi bi-arrow-90deg-down"></i> Klicke nun auf die untenstehenden Felder, um mehr über die Möglichkeiten der Visualisierung zu erfahren. Viel Spass beim Ausprobieren.
+
+            <h5><i class="bi bi-clock"></i> Verspätung </h5>
+            <p>Standardmässig sind 3 Minuten als Verspätung gewählt, Du kannst aber auch 5 Min, 10 Min oder 15 Min wählen. Dabei wird der Punkt im Verhältnis grösser dargestellt, wenn die Verspätung des Zuges grösser war, als die gewählte Zeit. Wenn Du Dich für einen Wert entschieden hast, musst Du zwei Wettereinflüsse selektionieren.</p>
+
+            <h5><i class="bi bi-calendar-range"></i> Kalender </h5>
+            <p>Der Kalender gibt Dir die Möglichkeit, zwei Datenreihen miteinander zu vergleichen. Du kannst zum Beispiel 2 Tage im Januar mit 3 Tagen im April vergleichen. Wenn Du nur einen Zeitraum sehen willst, wähle bei beiden Kalendern die gleiche Zeitspanne. Beachte: Damit die Performance gewährleistet bleibt, ist die Zeitspanne auf jeweils maximal 3 Tage limitiert.</p>
+
+            <p><i class="bi bi-arrow-90deg-down"></i> Klicke nun auf die untenstehenden Felder, um mehr über die Möglichkeiten der Visualisierung zu erfahren. Viel Spass beim Ausprobieren.</p>
             <div id="accordion">
                 <div class="card">
                     <div class="card-header">
@@ -108,17 +93,16 @@
                     </div>
                     <div id="collapseTwo" class="collapse" data-parent="#accordion">
                         <div class="card-body">
-                            In unserem Datensatz sind vier verschiedene Zugkompositionen enthalten. Wenn Du nach Rollmaterial filterst, sortieren sich die Punkte nach ihrem Rollmaterial. Im Bilderkarussell siehst Du Beispiele, wie die einzelnen Züge in echt aussehen könnten.
-                            Dabei unterscheiden wir zwischen folgenden Kompositionen, wobei die Farbe der Liste gerade die entsprechende Punktfarbe zeigt.
-                           <br>
-                            <br>
+                            <p>In unserem Datensatz sind vier verschiedene Zugkompositionen enthalten. Wenn Du nach Rollmaterial filterst, sortieren sich die Punkte nach ihrem Rollmaterial. Im Bilderkarussell siehst Du Beispiele, wie die einzelnen Züge in echt aussehen könnten.
+                            Dabei unterscheiden wir zwischen folgenden Kompositionen, wobei die Farbe der Liste gerade die entsprechende Punktfarbe zeigt.</p>
                             <ul class="list-group list-group">
-                                <li class="list-group-item rot">IC2000</li>
-                                <li class="list-group-item orange">FVDosto</li>
-                                <li class="list-group-item blau">ICN</li>
-                                <li class="list-group-item gruen">Eurocity</li>
+                                <li class="list-group-item color1">Eurocity</li>
+                                <li class="list-group-item color2">FVDosto</li>
+                                <li class="list-group-item color3">IC2000</li>
+                                <li class="list-group-item color4">ICN</li>
                             </ul>
-                            <br><i class="bi bi-question-circle"></i> Ist der neue FV-Dosto öfters verspätet als die älteren Züge? Finde es heraus!
+                            <br>
+                            <p><i class="bi bi-question-circle"></i> Ist der neue FV-Dosto öfters verspätet als die älteren Züge? Finde es heraus!</p>
                         </div>
                     </div>
                 </div>
@@ -130,17 +114,15 @@
                     </div>
                     <div id="collapseThree" class="collapse" data-parent="#accordion">
                         <div class="card-body">
-                            Wenn Du nach Linien sortierst, ordnen sich die Punkte nach folgenden InterCity-Linien, welche alle über den Bahnhof Bern gehen. Die jeweilige Hintergrundfarbe der Liste entspricht der entsprechenden Punktfarbe.
-                            <br>
-                            <br>
+                            <p>Wenn Du nach Linien sortierst, ordnen sich die Punkte nach folgenden InterCity-Linien, welche alle über den Bahnhof Bern gehen. Die jeweilige Hintergrundfarbe der Liste entspricht der entsprechenden Punktfarbe.</p>
                             <ul class="list-group">
-                                <li class="list-group-item blau">IC1 Genève-Aéroport - Bern - Zürich HB - St.Gallen</li>
-                                <li class="list-group-item rot">IC6 Basel SBB - Bern - Brig</li>
-                                <li class="list-group-item gruen">IC8 Brig - Bern - Zürich HB - Romanshorn</li>
-                                <li class="list-group-item orange">IC61 Basel SBB - Bern - Interlaken Ost</li>
+                                <li class="list-group-item color1">IC1 Genève-Aéroport - Bern - Zürich HB - St.Gallen</li>
+                                <li class="list-group-item color2">IC6 Basel SBB - Bern - Brig</li>
+                                <li class="list-group-item color3">IC8 Brig - Bern - Zürich HB - Romanshorn</li>
+                                <li class="list-group-item color4">IC61 Basel SBB - Bern - Interlaken Ost</li>
                             </ul>
-
-                            <br><i class="bi bi-question-circle"></i> Welche IC-Verbindung trifft am häufigsten verspätet in Bern ein? Finde es heraus!
+                            <br>
+                            <p><i class="bi bi-question-circle"></i> Welche IC-Verbindung trifft am häufigsten verspätet in Bern ein? Finde es heraus!</p>
                         </div>
                     </div>
                 </div>
@@ -154,29 +136,36 @@
                         <div class="card-body">
                             <p>Hier findest Du einige Vorschläge, welche Werte Du bei den einzelnen Wetterparametern setzen kannst. Halte Dich nicht zurück und probiere einfach aus.</p>
                             <h5><i class="bi bi-speedometer2"></i> Luftdruck </h5>
-                            <p>Bern liegt tiefer als 600 m.ü.M., daher gilt für Bern der Standardluftdruck von 1'013,25 hPa. Tieferer Luftdruck kann schlechtes Wetter bedeuten, höherer Luftdruck gutes Wetter.
-                            <br>Vorschlag: Setze die Grenze bei 1'013 hPa (Hinweis: In den Wintermonaten liegt der Luftdruck oft tiefer, ein anderer Vorschlag ist daher 960 hPa.)</p>
+                            <p>
+                                Bern liegt tiefer als 600 m.ü.M., daher gilt für Bern der Standardluftdruck von 1'013,25 hPa. Tieferer Luftdruck kann schlechtes Wetter bedeuten, höherer Luftdruck gutes Wetter.
+                                <br><br><i>Vorschlag</i>: Setze die Grenze bei 1'013 hPa (Hinweis: In den Wintermonaten liegt der Luftdruck oft tiefer, ein anderer Vorschlag ist daher 960 hPa.)
+                            </p>
                             <h5><i class="bi bi-moisture"></i> Luftfeuchtigkeit </h5>
-                            <p>Die relative Luftfeuchtigkeit misst den prozentualen Anteil am maximal möglichen Wert von gasförmigem Wasser in der Atmosphäre.
-                            <br>Vorschlag: Setze die Grenze bei 60%</p>
+                            <p>
+                                Die relative Luftfeuchtigkeit misst den prozentualen Anteil am maximal möglichen Wert von gasförmigem Wasser in der Atmosphäre.<br><br><i>Vorschlag</i>: Setze die Grenze bei 60%
+                            </p>
                             <h5><i class="bi bi-thermometer-half"></i> Lufttemperatur </h5>
-                            <p>Ab etwa 20 Grad Celcius nehmen wir die Temperatur als warm wahr. Die Temperatur ist allerdings stark von der Tages- und Jahreszeit abhängig.
-                            <br>Vorschlag: Setze die Grenze bei 15 Grad Celsius (Hinweis: In den Wintermonaten, darfst du die Temperatur auch tiefer ansetzen, bspw. 5 Grad Celcius.)</p>
+                            <p>
+                                Ab etwa 20 Grad Celcius nehmen wir die Temperatur als warm wahr. Die Temperatur ist allerdings stark von der Tages- und Jahreszeit abhängig.
+                                <br><br><i>Vorschlag</i>: Setze die Grenze bei 15 Grad Celsius (Hinweis: In den Wintermonaten, darfst du die Temperatur auch tiefer ansetzen, bspw. 5 Grad Celcius.)</p>
                             <h5><i class="bi bi-cloud-rain"></i> Niederschlag </h5>
-                            <p>In Milimeter wird die Summe in 24 Stunden angegeben. Dabei entpricht 1 mm Niederschlag 1 Liter pro Quadratmeter. Bis zu 10mm ist es schwacher bis mässiger Regen, darüber starker Regen.
-                            <br>Vorschlag: Setze die Grenze bei 10 mm</p>
+                            <p>
+                                In Milimeter wird die Summe in 24 Stunden angegeben. Dabei entpricht 1 mm Niederschlag 1 Liter pro Quadratmeter. Bis zu 10mm ist es schwacher bis mässiger Regen, darüber starker Regen.<br><br><i>Vorschlag</i>: Setze die Grenze bei 10 mm
+                            </p>
                             <h5><i class="bi bi-snow"></i> Schnee </h5>
-                            <p>Schnee wird in cm angegeben. 1 cm Schnee verhält sich wie 1 mm Niederschlag. Bis 10 cm sprechen wir von schwach bis mässigem Schneefall, danach starker Schneefall.
-                            <br>Vorschlag: Setze die Grenze bei 10 cm (Hinweis: In Bern schneit es gewöhnlich nicht so stark, eine gute Grenze ist hier 5 cm.)</p>
+                            <p>
+                                Schnee wird in cm angegeben. 1 cm Schnee verhält sich wie 1 mm Niederschlag. Bis 10 cm sprechen wir von schwach bis mässigem Schneefall, danach starker Schneefall.<br><br><i>Vorschlag</i>: Setze die Grenze bei 10 cm (Hinweis: In Bern schneit es gewöhnlich nicht so stark, eine gute Grenze ist hier 5 cm.)
+                            </p>
                             <h5><i class="bi bi-sun"></i> Sonnenschein </h5>
-                            <p>Die Sonnscheindauer ist in Minuten angegeben. Wenn an einem Tag während 6 Stunden die Sonne scheint, sind dies 360 Minuten.
-                            <br>Vorschlag: Setze die Grenze bei 360 Min</p>
-                            <!--<h5>Globalstrahlung</h5>
-                            <p>Globalstrahlung beschreibt die direkt auf die Erdoberfläche eintreffenden Sonnenstrahlen. Die Werte werden in Watt pro Quadratmeter angegeben. An Tagen mit schlechtem Wetter liegen die Werte unter 100W/m^2.
-                            <br>Vorschlag: Setze die Grenze bei 100W/m^2</p>-->
-                            <i class="bi bi-question-circle"></i> Hast Du Dich schon immer gefragt, ob Dein Zug bei Schnee mehr Verspätung hat? Finde es heraus, indem Du den Filter "Schnee" auswählst.
-                            <br><br>Genauere Angaben zu den einzelnen Parametern findest Du beispielsweise unter <a href="https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe.html"><i class="bi bi-arrow-right"></i> meteoschweiz.admin.ch</a>
-                            <br>Alle Wetterwerte sind Tagesdurchschnitte.
+                            <p>
+                                Die Sonnscheindauer ist in Minuten angegeben. Wenn an einem Tag während 6 Stunden die Sonne scheint, sind dies 360 Minuten.<br><br><i>Vorschlag</i>: Setze die Grenze bei 360 Min
+                            </p>
+                            <br>
+                            <p>
+                                <i class="bi bi-question-circle"></i> Hast Du Dich schon immer gefragt, ob Dein Zug bei Schnee mehr Verspätung hat? Finde es heraus, indem Du den Filter "Schnee" auswählst.
+                                <br><br>Genauere Angaben zu den einzelnen Parametern findest Du unter <a href="https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe.html" target="_blank"><i class="bi bi-arrow-right"></i> meteoschweiz.admin.ch</a>.
+                                <br>Alle Wetterwerte sind Tagesdurchschnitte.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -207,7 +196,6 @@
                     <option>Niederschlag</option>
                     <option selected>Schnee</option>
                     <option>Sonnenschein</option>
-                    <!--<option>Globalstrahlung</option>-->
                 </select>
             </div>
         </div>
@@ -230,7 +218,6 @@
                     <option>Niederschlag</option>
                     <option>Schnee</option>
                     <option>Sonnenschein</option>
-                    <!--<option>Globalstrahlung</option>-->
                 </select>
             </div>
         </div>
@@ -266,123 +253,92 @@
         <div class="col-6 col-lg-3 p-1">
             <div class="input-group">
                 <label for="firstDateRange"></label>
-                <input class="form-control" type="text" id="firstDateRange" value="01-01-2021 - 02-01-2021" />
+                <input class="form-control" type="text" id="firstDateRange" value="01-01-2022 - 01-01-2022" />
             </div>
         </div>
         <div class="col-6 col-lg-3 p-1">
             <div class="input-group">
                 <label for="secondDateRange"></label>
-                <input class="form-control" type="text" id="secondDateRange" value="29-04-2021 - 30-04-2021" />
+                <input class="form-control" type="text" id="secondDateRange" value="29-04-2022 - 30-04-2022" />
             </div>
         </div>
     </div>
     <div>
         <svg viewBox="0 0 940 600" preserveAspectRatio="xMinYMin meet" id="canvas"></svg>
-        <script src="js/app.min.js"></script>
+        <script src="js/app.js"></script>
         <script>
             adjustUnits();
         </script>
     </div>
-    <div class="row">
-        <div class="col-lg-4 col-sm-6 col-12">
-            <table class="table table-hover">
+    <div class="row m-1 mb-2">
+            <table class="info">
                 <thead>
                     <tr>
-                        <th colspan="2">Zug Information</th>
+                        <th scope="col" class="info-title"></th>
+                        <th scope="col">Linie</th>
+                        <th scope="col">Zug</th>
+                        <th scope="col">Betriebstag</th>
+                        <th scope="col">Fahrplan</th>
+                        <th scope="col">Ankunftszeit</th>
+                        <th scope="col">Verspätung</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Linie</th>
-                        <td id="line"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Zug</th>
-                        <td id="lineNumber"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Betriebstag</th>
-                        <td id="dayOfService"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Fahrplan</th>
-                        <td id="arrival"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Ankunftszeit (Verspätung)</th>
-                        <td id="delay"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-12">
-            <table class="table table-hover">
+                <tr>
+                    <td data-label="Zug Information" class="info-title">&nbsp;</td>
+                    <td data-label="Linie" id="line">&nbsp;</td>
+                    <td data-label="Zug" id="lineNumber">&nbsp;</td>
+                    <td data-label="Betriebstag" id="dayOfService">&nbsp;</td>
+                    <td data-label="Fahrplan" id="arrival">&nbsp;</td>
+                    <td data-label="Ankunftszeit" id="effective_arrival">&nbsp;</td>
+                    <td data-label="Verspätung" id="delay">&nbsp;</td>
+                </tr>
                 <thead>
-                    <tr>
-                        <th colspan="2">Wetter</th>
-                    </tr>
+                <tr>
+                    <th scope="col" class="info-title"></th>
+                    <th scope="col">Sonnenschein</th>
+                    <th scope="col">Niederschlag</th>
+                    <th scope="col">Lufttemperatur</th>
+                    <th scope="col">Luftfeuchtigkeit</th>
+                    <th scope="col">Luftdruck</th>
+                    <th scope="col">Schnee</th>
+                </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Sonnenschein</th>
-                        <td id="sunshine"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Niederschlag</th>
-                        <td id="rainfall"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Schnee</th>
-                        <td id="snow"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Lufttemperatur</th>
-                        <td id="temperature"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Luftfeuchtigkeit</th>
-                        <td id="humidity"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Luftdruck</th>
-                        <td id="air_pressure"></td>
-                    </tr>
-                </tbody>
+                <tr>
+                    <td data-label="Wetter" class="info-title">&nbsp;</td>
+                    <td data-label="Sonnenschein" id="sunshine">&nbsp;</td>
+                    <td data-label="Niederschlag" id="rainfall">&nbsp;</td>
+                    <td data-label="Lufttemperatur" id="temperature">&nbsp;</td>
+                    <td data-label="Luftfeuchtigkeit" id="humidity">&nbsp;</td>
+                    <td data-label="Luftdruck" id="air_pressure">&nbsp;</td>
+                    <td data-label="Schnee" id="snow">&nbsp;</td>
+                </tr>
             </table>
-        </div>
-        <div class="col-lg-4 col-sm-12 col-12">
-            <div id="imageCarousel" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#imageCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#imageCarousel" data-slide-to="1"></li>
-                    <li data-target="#imageCarousel" data-slide-to="2"></li>
-                    <li data-target="#imageCarousel" data-slide-to="3"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img class="d-block w-100" src="" alt="" id="imageCarousel1">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100" src="" alt="" id="imageCarousel2">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100" src="" alt="" id="imageCarousel3">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100" src="" alt="" id="imageCarousel4">
+
+    </div>
+    <div class="row m-1">
+                <div id="imageCarousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#imageCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#imageCarousel" data-slide-to="1"></li>
+                        <li data-target="#imageCarousel" data-slide-to="2"></li>
+                        <li data-target="#imageCarousel" data-slide-to="3"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="" alt="" id="imageCarousel1">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="" alt="" id="imageCarousel2">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="" alt="" id="imageCarousel3">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="" alt="" id="imageCarousel4">
+                        </div>
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
             </div>
-        </div>
-    </div>
     </div>
 </div>
 
@@ -393,9 +349,9 @@
             <h2> Datensatz und Quellen </h2></div>
         <div class="card-body">
             <h5><i class="bi bi-file-earmark-binary"></i> Datensatz und Bilder</h5>
-            <p>Der Datensatz, welcher die Grundlage für die Visualisierung darstellt, ist zusammengesetzt aus Daten zur Pünkltichkeit, Rollmaterial und Wetter.
-            <br>Ein Element des zusammengesetzten Datensatzes enthält die Informationen zur Pünktlichkeit (Betriebstag, Prognose der Ankunftszeit, Geplante Ankunftszeit), zur Linie und dem Rollmaterial (IC-Linie, Linien-Text, Blockbezeichnung des Rollmaterials) und dem Wetter (<!--globalstrahlung, -->Schneefall, Luftdruck, Niederschlag, Sonnenschein, Lufttemperatur, Luftfeuchtigkeit).
-           </p>
+            <p>
+                Der Datensatz, welcher die Grundlage für die Visualisierung darstellt, ist zusammengesetzt aus Daten zur Pünkltichkeit, Rollmaterial und Wetter.<br><br>Ein Element des zusammengesetzten Datensatzes enthält die Informationen zur Pünktlichkeit (Betriebstag, Prognose der Ankunftszeit, Geplante Ankunftszeit), zur Linie und dem Rollmaterial (IC-Linie, Linien-Text, Blockbezeichnung des Rollmaterials) und dem Wetter (<!--globalstrahlung, -->Schneefall, Luftdruck, Niederschlag, Sonnenschein, Lufttemperatur, Luftfeuchtigkeit).
+            </p>
             <div id="accordionSrc">
                 <div class="card">
                     <div class="card-header">
@@ -412,32 +368,31 @@
                             <tbody>
                             <tr>
                                 <td>Zusammengesetzter Datensatz (.json)</td>
-                                <td><a href="https://gist.github.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5">Vollständiger <wbr>Datensatz</a>
-                                <br><a href="https://gist.githubusercontent.com/manuelbieri/5a20c884020ed05e89b3426e78ae97c5/raw/7c31a08bee5c661f9e71a003ea4b56deb33432aa/sbb_data_preview.json">Preview <wbr>Datensatz</a></td>
+                                <td><a href="https://github.com/manuelbieri/SBB-Opendata-Visualization/tree/main/data" target="_blank">Vollständiger <wbr>Datensatz</a>
                             </tr>
                             <tr>
                                 <td>Pünktlichkeitsdaten</td>
-                                <td><a href="https://opentransportdata.swiss/en/dataset/istdaten">opentransportdata<wbr>.swiss</a></td>
+                                <td><a href="https://opentransportdata.swiss/en/dataset/istdaten" target="_blank">opentransportdata<wbr>.swiss</a></td>
                             </tr>
                             <tr>
                                 <td>Rollmaterial</td>
-                                <td><a href="https://data.sbb.ch/explore/dataset/jahresformation/information/">data.sbb.ch</a></td>
+                                <td><a href="https://data.sbb.ch/explore/dataset/jahresformation/information/" target="_blank">data.sbb.ch</a></td>
                             </tr>
                             <tr>
                                 <td>Wetterdaten</td>
-                                <td><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/">data.geo<wbr>.admin.ch</a></td>
+                                <td><a href="https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/" target="_blank">data.geo<wbr>.admin.ch</a></td>
                             </tr>
                             <tr>
                                 <td>Bilder der Zugkompositionen</td>
-                                <td><a href="https://www.sbb.ch/de/bahnhof-services/waehrend-der-reise/unsere-zuege.html">sbb.ch</a></td>
+                                <td><a href="https://www.sbb.ch/de/bahnhof-services/waehrend-der-reise/unsere-zuege.html" target="_blank">sbb.ch</a></td>
                             </tr>
                             <tr>
                                 <td>Icons</td>
-                                <td><a href="https://icons.getbootstrap.com/">icons.<wbr>getbootstrap<wbr>.com</a></td>
+                                <td><a href="https://icons.getbootstrap.com/" target="_blank">icons.<wbr>getbootstrap<wbr>.com</a></td>
                             </tr>
                             <tr>
                                 <td>Informationen zum Wetter</td>
-                                <td><a href="https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe.html">meteoschweiz<wbr>.admin.ch</a></td>
+                                <td><a href="https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe.html" target="_blank">meteoschweiz<wbr>.admin.ch</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -447,7 +402,7 @@
             <br>
             <h5><i class="bi bi-file-earmark-code"></i> Quellcode</h5>
             <p>
-                Der Quellcode ist in diesem <a href="https://github.com/manuelbieri/SBB-Opendata-Visualization"><i class="bi bi-arrow-right"></i> Github - Repository</a> ersichtlich und erhältlich (feel free to fork).
+                Der Quellcode ist in diesem <a href="https://github.com/manuelbieri/SBB-Opendata-Visualization" target="_blank"><i class="bi bi-arrow-right"></i> Github - Repository</a> ersichtlich und erhältlich (feel free to fork).
                 Für die Erstellung unserer Visualisierung habe wir die folgenden Libraries und Quellen verwendet.
             </p>
             <div id="accordionLibs">
@@ -465,36 +420,36 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><a href="https://vallandingham.me/bubble_charts_with_d3v4.html">Creating Bubble Charts - Jim Vallandingham</a></td>
-                                    <td><a href="https://github.com/vlandham/bubble_chart_v4/blob/master/LICENSE">Lizenz auf Github</a></td>
+                                    <td><a href="https://vallandingham.me/bubble_charts_with_d3v4.html" target="_blank">Creating Bubble Charts - Jim Vallandingham</a></td>
+                                    <td><a href="https://github.com/vlandham/bubble_chart_v4/blob/master/LICENSE" target="_blank">Lizenz auf Github</a></td>
                                 </tr>
                                 <tr>
-                                    <td><a href="https://github.com/twbs/bootstrap/blob/main/LICENSE">Bootstrap</a></td>
-                                    <td>MIT - Lizenz</td>
+                                    <td><a href="https://github.com/twbs/bootstrap/blob/main/LICENSE" target="_blank">Bootstrap</a></td>
+                                    <td>MIT-Lizenz</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="https://github.com/d3/d3">D3.js</a></td>
+                                    <td><a href="https://github.com/d3/d3/blob/main/LICENSE" target="_blank">D3.js</a></td>
                                     <td>BSD 3-Clause</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="https://github.com/twosixlabs/d3-force-reuse">D3-force-reuse.js</a></td>
+                                    <td><a href="https://github.com/twosixlabs/d3-force-reuse/blob/master/LICENSE" target="_blank">D3-force-reuse.js</a></td>
                                     <td>BSD 3-Clause</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="https://github.com/dangrossman/daterangepicker">Date Range Picker</a></td>
-                                    <td>MIT - Lizenz</td>
+                                    <td><a href="https://github.com/dangrossman/daterangepicker#license" target="_blank">Date Range Picker</a></td>
+                                    <td>MIT-Lizenz</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="https://github.com/moment/moment">Moment</a></td>
-                                    <td>MIT - Lizenz</td>
+                                    <td><a href="https://github.com/moment/moment/blob/develop/LICENSE" target="_blank">Moment</a></td>
+                                    <td>MIT-Lizenz</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="https://github.com/popperjs/popper-core">Popper.js</a></td>
-                                    <td>MIT - Lizenz</td>
+                                    <td><a href="https://github.com/floating-ui/floating-ui/blob/master/LICENSE" target="_blank">Popper.js</a></td>
+                                    <td>MIT-Lizenz</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="https://github.com/jquery/jquery/blob/main/LICENSE.txt">JQuery</a></td>
-                                    <td>MIT - Lizenz</td>
+                                    <td><a href="https://github.com/jquery/jquery/blob/main/LICENSE.txt" target="_blank">JQuery</a></td>
+                                    <td>MIT-Lizenz</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -503,18 +458,19 @@
             </div>
             <br>
             <p>
-                Unsere Visualisierung wird unter der MIT Lizenz veröffentlicht.
+                Unsere Visualisierung wird unter der MIT-Lizenz veröffentlicht.
             </p>
             <div id="accordionTwo">
                 <div class="card">
                     <div class="card-header">
-                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseSix">MIT - Lizenz</a>
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseSix">MIT-Lizenz</a>
                     </div>
                     <div id="collapseSix" class="collapse" data-parent="#accordionTwo">
                         <div class="card-body">
+                            <p>
                             MIT License
                             <br><br>
-                            Copyright (c) 2021 Joël Allgaier & Manuel Bieri
+                            Copyright (c) 2021 - 2023 Joël Allgaier & Manuel Bieri
                             <br><br>
                             Permission is hereby granted, free of charge, to any person obtaining a copy
                             of this software and associated documentation files (the "Software"), to deal
@@ -533,6 +489,7 @@
                             LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
                             OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
                             SOFTWARE.
+                            </p>
                         </div>
                     </div>
                 </div>

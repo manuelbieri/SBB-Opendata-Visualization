@@ -5,6 +5,10 @@
     font-size: 15px;
 }
 
+p {
+    text-align: justify !important;
+}
+
 svg {
     width: 100%;
     height: 100%;
@@ -36,29 +40,25 @@ th {
     margin-bottom: 10px;
 }
 
-.custom-header{
 
+.color1{
+    background-color: #CCF1FF !important;
+    border-color: white !important;
 }
 
-.blau{
-    background-color: blue !important;
-    border-color: black !important;
-    color: white;
+.color2{
+    background-color: #E0D7FF !important;
+    border-color: white !important;
 }
-.rot{
-    background-color: red !important;
-    border-color: black !important;
-    color: white;
+
+.color3{
+    background-color: #FFCCE1 !important;
+    border-color: white !important;
 }
-.gruen{
-    background-color: green !important;
-    border-color: black !important;
-    color: white;
-}
-.orange{
-    background-color: orange !important;
-    border-color: black !important;
-    color: white;
+
+.color4{
+    background-color: #FAFFC7 !important;
+    border-color: white !important;
 }
 
 @media screen and (max-width: 1100px) {
@@ -67,10 +67,14 @@ th {
         margin: auto;
     }
 }
-@media screen and (min-width: 1100px) {
+@media screen and (min-width: 1200px) {
     .main {
-        width: 60%;
+        width: 65%;
         margin: auto;
+    }
+
+    .info th{
+        font-size: 0.72em !important;
     }
 }
 
@@ -91,3 +95,89 @@ a:visited{
     border-color: #343a40 !important;
     color: #ffffff !important;
 }
+
+.carousel{
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.info {
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.info tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.info td:hover{
+    background: rgb(243, 243, 243);
+}
+
+.info th,
+.info td {
+    padding: .625em;
+}
+
+.info th {
+    font-size: 0.67em;
+}
+
+.info th {
+    text-transform: uppercase;
+    text-align: left;
+}
+
+.info-title {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .info {
+        border: 0;
+    }
+
+    .info thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    .info tr,
+    .info td{
+        border-bottom: 1px solid #ddd;
+        display: block;
+    }
+
+    .info td {
+        text-align: right;
+    }
+
+    .info td::before {
+        content: attr(data-label);
+        float: left;
+        text-transform: uppercase;
+        font-size: 0.9em;
+    }
+
+    .info-title {
+        display: block;
+        font-size: 1.1em !important;
+        font-weight: bold;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .info th{
+        font-size: 0.8em;
+    }
+}
+

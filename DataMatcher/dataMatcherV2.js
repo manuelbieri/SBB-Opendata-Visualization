@@ -1,5 +1,5 @@
-const requestTrains = new Request('https://data.sbb.ch/api/records/1.0/search/?dataset=jahresformation&q=&rows=4000&facet=zug&facet=debicode&facet=zugart&facet=bhf_von&facet=bhf_bis&facet=umlauf&facet=block_bezeichnung&facet=beginnfahrplanperiode&refine.zugart=IC&refine.beginnfahrplanperiode=Fpl-2021');
-const requestTimes = new Request('data/sbb_data_v1.csv');
+const requestTrains = new Request('https://data.sbb.ch/api/records/1.0/search/?dataset=jahresformation&q=&rows=4000&facet=zug&facet=debicode&facet=zugart&facet=bhf_von&facet=bhf_bis&facet=umlauf&facet=block_bezeichnung&facet=beginnfahrplanperiode&refine.zugart=IC&refine.beginnfahrplanperiode=Fpl-2022');
+const requestTimes = new Request('data/sbb_data_v2.csv');
 const requestWeather = new Request('https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-tageswerte/nbcn-daily_BER_current.csv');
 
 let times = [];

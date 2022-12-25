@@ -8,32 +8,14 @@ let secondDateRange = [];
 
 function setUpDateRange(dateRangeId, dates) {
     $(dateRangeId).daterangepicker({
-        "minYear": 2021,
-        "maxYear": 2021,
-        "showWeekNumbers": true,
-        "showISOWeekNumbers": true,
+        minYear: 2022,
+        maxYear: 2022,
         "autoApply": true,
         "maxSpan": {
-            "days": 4
+            "days": 2
         },
         "locale": {
-            "format": "DD/MM/YYYY",
-            "separator": " - ",
-            "applyLabel": "Apply",
-            "cancelLabel": "Cancel",
-            "fromLabel": "From",
-            "toLabel": "To",
-            "customRangeLabel": "Custom",
-            "weekLabel": "W",
-            "daysOfWeek": [
-                "So",
-                "Mo",
-                "Di",
-                "Mi",
-                "Do",
-                "Fr",
-                "Sa"
-            ],
+            "format": "DD.MM.YYYY",
             "monthNames": [
                 "Januar",
                 "Februar",
@@ -50,12 +32,8 @@ function setUpDateRange(dateRangeId, dates) {
             ],
             "firstDay": 1
         },
-        "minDate": dates[0],
-        "maxDate": dates[dates.length-1],
-        "opens": "center"
     }, (start, end) => {
-        //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-        parseSliderDates(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'), dateRangeId);
+        parseSliderDates();
         changedInputDates();
     });
 }
