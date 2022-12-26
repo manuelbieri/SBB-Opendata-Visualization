@@ -500,7 +500,6 @@ function changeColors(colorRollingStock) {
 }
 
 function changeDelayCutoff(newDelayCutoff) {
-    //delayCutoff = newDelayCutoff;
     myBubbleChart.changeDelayCutoff(newDelayCutoff)
 }
 

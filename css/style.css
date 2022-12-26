@@ -6,7 +6,7 @@
 }
 
 p {
-    text-align: justify !important;
+    text-align: justify;
 }
 
 svg {
@@ -180,4 +180,3 @@ a:visited{
         font-size: 0.8em;
     }
 }
-
