@@ -415,7 +415,7 @@ function bubbleChart() {
         document.getElementById("line").innerHTML = d.LINIEN_TEXT;
         document.getElementById("lineNumber").innerHTML = d.LINIEN_ID;
         document.getElementById("arrival").innerHTML = d.ANKUNFTSZEIT.getHours().toString().padStart(2, '0') + ':' + d.ANKUNFTSZEIT.getMinutes().toString().padStart(2, '0');
-        document.getElementById("dayOfService").innerHTML = d.ANKUNFTSZEIT.getDate() + "-" + (d.ANKUNFTSZEIT.getMonth() + 1) + "-" + d.ANKUNFTSZEIT.getFullYear();
+        document.getElementById("dayOfService").innerHTML = String(d.ANKUNFTSZEIT.getDate()).padStart(2, '0') + "." + String((d.ANKUNFTSZEIT.getMonth() + 1)).padStart(2, '0') + "." + d.ANKUNFTSZEIT.getFullYear();
         document.getElementById("effective_arrival").innerHTML = d.AN_PROGNOSE.getHours().toString().padStart(2, '0') + ':' + d.AN_PROGNOSE.getMinutes().toString().padStart(2, '0');
         document.getElementById("delay").innerHTML =  d.diff >= -delayCutoff ? "Keine Verspätung" : dateDiffToString(Math.abs(d.diff));
         document.getElementById("sunshine").innerHTML = (d.sonnenschein + ' ' + getUnit('Sonnenschein', false));
@@ -541,7 +541,7 @@ function getInfoFiller(criteria, lower){
 function dateDiffToString(diff) {
     let min = Math.floor(diff / 60000);
     let sec = Math.floor((diff - min * 60000) / 1000);
-    return min + ' Min ' + sec + ' Secs';
+    return min + ' min ' + sec + ' sek';
 }
 
 function getTrainType(block) {

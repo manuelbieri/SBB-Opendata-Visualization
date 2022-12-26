@@ -7,6 +7,9 @@
 
 p {
     text-align: justify;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
 }
 
 svg {
@@ -96,13 +99,12 @@ a:visited{
     color: #ffffff !important;
 }
 
-.carousel{
+#imageCarousel.carousel {
     border-radius: 5px;
     overflow: hidden;
 }
 
 .info {
-    border-collapse: collapse;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -123,11 +125,10 @@ a:visited{
 }
 
 .info th {
-    font-size: 0.67em;
+    font-size: 0.86em;
 }
 
 .info th {
-    text-transform: uppercase;
     text-align: left;
 }
 
@@ -164,19 +165,16 @@ a:visited{
     .info td::before {
         content: attr(data-label);
         float: left;
-        text-transform: uppercase;
-        font-size: 0.9em;
     }
 
     .info-title {
         display: block;
-        font-size: 1.1em !important;
         font-weight: bold;
     }
 }
 
 @media screen and (min-width: 900px) {
     .info th{
-        font-size: 0.8em;
+        font-size: 1em;
     }
 }
